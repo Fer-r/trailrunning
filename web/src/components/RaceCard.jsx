@@ -4,8 +4,8 @@ import { FiCalendar } from "react-icons/fi";
 
 const RaceCard = ({ race }) => {
   return (
-    <Link to={`/race/${race?.id}`} className="group">
-      <article className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden my-4 max-w-4xl mx-auto">
+    <Link to={`/trailrunning/${race?.id}`} className="group">
+      <article className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden my-4 max-w-4xl mx-auto hover:scale-[1.02] transform">
         <div className="flex flex-row h-36">
           <div className="w-1/4">
             <img
@@ -38,10 +38,13 @@ const RaceCard = ({ race }) => {
                 {race?.location}
               </span>
 
-              <span className="text-sky-600 font-medium flex items-center gap-1 hover:text-sky-700 transition-colors duration-300">
+              {/* <Link
+                to={`/trailrunning/${race.id}`}
+                className="text-sky-600 font-medium flex items-center gap-1 hover:text-sky-700 transition-colors duration-300"
+              >
                 Ver detalles
                 <span className="text-lg">→</span>
-              </span>
+              </Link> */}
             </div>
           </div>
         </div>

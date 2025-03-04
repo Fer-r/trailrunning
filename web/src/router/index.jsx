@@ -5,9 +5,7 @@ import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import LoginPage from "../pages/Login";
 import ProtectedRoute from "../components/ProtectedRoute";
-
-
-
+import RaceDetail from "../pages/RaceDetail";
 
 export const router = createBrowserRouter([
   {
@@ -22,7 +20,6 @@ export const router = createBrowserRouter([
         path: "login",
         element: <LoginPage />,
       },
-      
       {
         path: "profile",
         element: (
@@ -30,6 +27,10 @@ export const router = createBrowserRouter([
             <Profile />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "trailrunning/:id",
+        element: <RaceDetail />,
       },
     ],
   },
