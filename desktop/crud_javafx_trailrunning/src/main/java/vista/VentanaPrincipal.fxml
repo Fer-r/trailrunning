@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="236.0" prefWidth="649.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorLibros">
+   <children>
+      <VBox layoutX="14.0" layoutY="14.0" spacing="15.0">
+         <children>
+            <Label text="ID">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="Título">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="Autor">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="Año">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="Páginas">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="75.0" layoutY="14.0" prefHeight="130.0" prefWidth="129.0" spacing="10.0">
+         <children>
+            <TextField fx:id="idField" />
+            <TextField fx:id="tituloField" />
+            <TextField fx:id="autorField" />
+            <TextField fx:id="anyoField" />
+            <TextField fx:id="paginasField" />
+           
+         </children>
+      </VBox>
+      <HBox layoutX="14.0" layoutY="193.0" spacing="10.0">
+         <children>
+            <Button fx:id="insertButton" mnemonicParsing="false" onAction="#insertButton" prefHeight="30.0" prefWidth="60.0" text="Insertar">
+               <tooltip>
+                  <Tooltip text="Si hay campos vacíos fallará" />
+               </tooltip></Button>
+            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateButton" prefHeight="30.0" prefWidth="70.0" text="Actualizar">
+               <tooltip>
+                  <Tooltip text="Solo actualiza si hay un ID en la caja correspondiente" />
+               </tooltip></Button>
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButton" prefHeight="30.0" prefWidth="60.0" text="Borrar">
+               <tooltip>
+                  <Tooltip text="Solo borra si hay un ID en la caja correspondiente" />
+               </tooltip></Button>
+         </children>
+      </HBox>
+      <TableView fx:id="TableView" layoutX="235.0" layoutY="14.0" prefHeight="210.0" prefWidth="400.0">
+        <columns>
+          <TableColumn fx:id="idColumn" prefWidth="35.0" text="ID" />
+          <TableColumn fx:id="tituloColumn" prefWidth="120.0" text="Título" />
+            <TableColumn fx:id="autorColumn" prefWidth="120.0" text="Autor" />
+            <TableColumn fx:id="anyoColumn" prefWidth="60.0" text="Año" />
+            <TableColumn fx:id="paginasColumn" prefWidth="60.0" text="Páginas" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
