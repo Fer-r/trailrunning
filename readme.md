@@ -10,6 +10,3 @@ La pantalla principal contendra todas las carreras
         Si el usuario esta baneado de la carrera no aparecera ni en la pantalla principal ni en sus carreras
 Cada Usuario puede acceder a su perfil
 ## Requisitos
-
-
-

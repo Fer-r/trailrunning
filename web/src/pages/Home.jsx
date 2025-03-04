@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-
+import RaceList from "../components/RaceList";
 const Home = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
@@ -25,6 +25,7 @@ const Home = () => {
         <p className="text-xl mb-8 max-w-2xl">
           Descubre las mejores rutas de trail running y únete a una comunidad apasionada por la naturaleza y el deporte.
         </p>
+        <RaceList />
       </div>
     </div>
   );
