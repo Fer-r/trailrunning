@@ -6,6 +6,7 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
+  
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -13,7 +14,8 @@ const LoginPage = () => {
     const nombre = e.target.name;
     setFormData({ ...formData, [nombre]: e.target.value.trim() });
   };
-  // voy a realizar un petición a la api con los datos del formulario para verificar
+
+  // Realizar un petición a la api con los datos del formulario para verificar
   // si el usuario existe en la base de datos
   const handleSubmit = async (e) => {
     e.preventDefault();

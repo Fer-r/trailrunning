@@ -2,7 +2,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const RootLayout = () => {
-  const { isAuthenticated, login, logOut } = useAuth();
+  const { logOut } = useAuth();
   const navigate = useNavigate();
   const isAuth = localStorage.getItem("token") !== null;
 
