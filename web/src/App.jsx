@@ -1,12 +1,13 @@
-// import { RouterProvider } from "react-router-dom";
-// import { router } from "./router";
-import RaceCard from "./components/RaceCard";
-import { BrowserRouter, RouterProvider } from "react-router-dom";
-import RaceList from "./components/RaceList";
+import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
+import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 };
 
 export default App;
