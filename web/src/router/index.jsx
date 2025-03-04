@@ -3,8 +3,11 @@ import RootLayout from "../layout/RootLayout";
 import Home from "../pages/Home";
 // import ProtectedRoute from "../components/ProtectedRoute";
 import Profile from "../pages/Profile";
-import Login from "../pages/Login";
+import LoginPage from "../pages/Login";
 import ProtectedRoute from "../components/ProtectedRoute";
+
+
+
 
 export const router = createBrowserRouter([
   {
@@ -15,12 +18,11 @@ export const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
-
       {
         path: "login",
-        element: <Login />,
+        element: <LoginPage />,
       },
-
+      
       {
         path: "profile",
         element: (
