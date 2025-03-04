@@ -3,7 +3,6 @@ components
     RaceList{
         RaceCard
     }
-
 hooks:
     useFetch
 context:
