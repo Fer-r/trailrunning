@@ -1,0 +1,44 @@
+{
+  "races": [
+    {
+      "id": 1,
+      "name": "Trail Sierra Nevada",
+      "release_date": "2024-05-20",
+      "distance_km": 21,
+      "location": "Granada",
+      "img": "https://lacasadeltrailrunning.com/wp-content/uploads/2019/12/trail-running-cosa-mi-serve.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Ultra Alpujarra",
+      "release_date": "2024-06-15",
+      "distance_km": 50,
+      "location": "Alpujarra Granadina",
+      "img": "https://lacasadeltrailrunning.com/wp-content/uploads/2019/12/trail-running-cosa-mi-serve.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Maratón Mulhacén",
+      "release_date": "2024-07-10",
+      "distance_km": 42,
+      "location": "Güéjar Sierra",
+      "img": "https://lacasadeltrailrunning.com/wp-content/uploads/2019/12/trail-running-cosa-mi-serve.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Trail Costa Tropical",
+      "release_date": "2024-08-05",
+      "distance_km": 30,
+      "location": "Almuñécar",
+      "img": "https://lacasadeltrailrunning.com/wp-content/uploads/2019/12/trail-running-cosa-mi-serve.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Desafío Veleta",
+      "release_date": "2024-09-22",
+      "distance_km": 60,
+      "location": "Sierra Nevada",
+      "img": "https://lacasadeltrailrunning.com/wp-content/uploads/2019/12/trail-running-cosa-mi-serve.jpg"
+    }
+  ]
+}

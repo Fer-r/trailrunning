@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { FiCalendar } from "react-icons/fi";
 
-const RaceCard = (race) => {
+const RaceCard = ({ race }) => {
   return (
     <Link to={`/race/${race?.id}`} className="group">
       <article className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden my-4 max-w-4xl mx-auto">
         <div className="flex flex-row h-36">
           <div className="w-1/4">
             <img
-              src={race?.img || "https://via.placeholder.com/300x200"}
+              src={race?.img}
               alt={race?.name}
               className="w-full h-full object-cover"
               loading="lazy"
