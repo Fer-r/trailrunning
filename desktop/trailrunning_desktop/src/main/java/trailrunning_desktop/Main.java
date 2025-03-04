@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import modelo.API.TrailrunningRepository;
 
 /**
  *
@@ -30,10 +31,10 @@ public class Main extends Application {
                               AVISO \u00a1Este es un ejemplo con errores de USABILIDAD y FUNCIONALIDAD! 
                               Consultar ToolTips de Botones principales!""");
         alert.show();
-
     }
 
     public static void main(String[] args) {
-        launch(args);
+        TrailrunningRepository.inicializarDatos();
+        //launch(args);
     }
 }
