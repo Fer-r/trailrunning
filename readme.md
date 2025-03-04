@@ -6,7 +6,8 @@ Hacer una aplicacion de trail Running
 Los usuarios podran logearse
     comprobar si se esta baneado al iniciar sesion
 La pantalla principal contendra todas las carreras
-Cada usuario podra unirse a una carrera
+    Desde hay te puedes apuntar a las carreras
+        Si el usuario esta baneado de la carrera no aparecera ni en la pantalla principal ni en sus carreras
 Cada Usuario puede acceder a su perfil
 ## Requisitos
 
