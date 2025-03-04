@@ -1,28 +1,10 @@
 import { createBrowserRouter, Navigate, useNavigate } from "react-router-dom";
 import RootLayout from "../layout/RootLayout";
-import Dashboard from "../pages/Dashboard";
 import Home from "../pages/Home";
+// import ProtectedRoute from "../components/ProtectedRoute";
 import Profile from "../pages/Profile";
 import Login from "../pages/Login";
-
-const isAuthenticated = () => {
-  // leer del localstorage si existe un token
-  return localStorage.getItem("token") !== null;
-};
-const ProtectedRoute = ({ children }) => {
-  // const navigate = useNavigate();
-  // Debe impedir el acceos al profile a no ser que tenga un token
-  // guardado en localstorage
-  // if (!isAuthenticated()) {
-  //   navigate("/");
-  //   return null;
-  // }
-
-  if (!isAuthenticated()) {
-    return <Navigate to="/" replace={true} />;
-  }
-  return children;
-};
+import ProtectedRoute from "../components/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -38,7 +20,7 @@ export const router = createBrowserRouter([
         path: "login",
         element: <Login />,
       },
-      
+
       {
         path: "profile",
         element: (
