@@ -1,6 +1,9 @@
 package modelo;
 
 public class User {
+    
+    // Estoy es lo que he añadido 
+    
     int id;
     String name;
     String emal;

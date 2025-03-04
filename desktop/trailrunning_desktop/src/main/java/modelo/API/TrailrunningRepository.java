@@ -190,5 +190,4 @@ public class TrailrunningRepository {
         System.out.println("No se ha encontrado la participación para borrar con id " + id);
     }
     
-    
 }

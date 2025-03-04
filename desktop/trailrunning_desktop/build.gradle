@@ -30,6 +30,9 @@ dependencies {
     //implementation 'mysql:mysql-connector-java:8.0.32'
     //MARIADB
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.2'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
 }
 
 
