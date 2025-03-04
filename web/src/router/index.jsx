@@ -22,7 +22,6 @@ export const router = createBrowserRouter([
         path: "login",
         element: <LoginPage />,
       },
-      
       {
         path: "profile",
         element: (
@@ -30,6 +29,10 @@ export const router = createBrowserRouter([
             <Profile />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "race/:id",
+        element: <RaceDetail />,
       },
     ],
   },
