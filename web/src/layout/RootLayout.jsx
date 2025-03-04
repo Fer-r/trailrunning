@@ -48,7 +48,7 @@ const RootLayout = () => {
           </div>
         </div>
       </nav>
-      <main className="max-w-6xl mx-auto mt-8 px-4 py-8">
+      <main className="mx-auto mt-8 px-4 py-8">
         <Outlet />
       </main>
     </div>
