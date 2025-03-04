@@ -19,6 +19,7 @@ public class Trailrunning {
     String image;
 
     public Trailrunning() {
+        
     }
 
     public Trailrunning(int id, String name, String description, LocalDate date, double distance_km, String location, String coordinates, int unevenness, double entry_fee, int available_slots, String status, String category, String image) {
