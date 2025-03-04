@@ -6,7 +6,7 @@ public class User {
     
     int id;
     String name;
-    String emal;
+    String email;
     String password;
     String[] roles;
     boolean banned;
@@ -17,7 +17,7 @@ public class User {
     public User(int id, String name, String emal, String password, String[] roles, boolean banned) {
         this.id = id;
         this.name = name;
-        this.emal = emal;
+        this.email = emal;
         this.password = password;
         this.roles = roles;
         this.banned = banned;
@@ -39,12 +39,12 @@ public class User {
         this.name = name;
     }
 
-    public String getEmal() {
-        return emal;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmal(String emal) {
-        this.emal = emal;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -73,6 +73,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + ", emal=" + emal + ", password=" + password + ", roles=" + roles + ", banned=" + banned + '}';
+        return "User{" + "id=" + id + ", name=" + name + ", emal=" + email + ", password=" + password + ", roles=" + roles + ", banned=" + banned + '}';
     }
 }
