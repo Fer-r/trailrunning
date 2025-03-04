@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "damdaw.mobile.application"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "damdaw.mobile.application"
@@ -13,7 +13,6 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -25,6 +24,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+    }
+    buildFeatures{
+        viewBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
