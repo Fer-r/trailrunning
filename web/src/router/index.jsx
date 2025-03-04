@@ -3,6 +3,7 @@ import RootLayout from "../layout/RootLayout";
 import Dashboard from "../pages/Dashboard";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
+import LoginPage from "../pages/Login";
 
 const isAuthenticated = () => {
   // leer del localstorage si existe un token
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "login",
+        element: <LoginPage />,
       },
       {
         path: "profile",

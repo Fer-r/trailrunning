@@ -1,12 +1,18 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const RootLayout = () => {
+  const { isAuthenticated, login, logOut } = useAuth();
   const navigate = useNavigate();
   const isAuth = localStorage.getItem("token") !== null;
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    logOut();
     navigate("/");
+  };
+
+  const handleLogin = () => {
+    navigate("/login");
   };
 
   return (
@@ -32,7 +38,13 @@ const RootLayout = () => {
               >
                 Cerrar Sesión
               </button>
-            ) : null}
+            ) : (<button
+            onClick={handleLogin}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-800 hover:shadow-2xl"
+          >
+            Iniciar Sesión
+          </button>
+        )}
           </div>
         </div>
       </nav>
