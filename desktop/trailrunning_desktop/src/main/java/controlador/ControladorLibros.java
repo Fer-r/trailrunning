@@ -84,52 +84,7 @@ public class ControladorLibros implements Initializable {
     @FXML
     private TableColumn<Libros, Integer> paginasColumn;
 
-    @FXML
-    private void insertButton() {
-        String query = "INSERT INTO libros VALUES (?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement preparedStatement = this.conexion.prepareStatement(query);
-            preparedStatement.setInt(1, Integer.parseInt(idField.getText()));
-            preparedStatement.setString(2, tituloField.getText());
-            preparedStatement.setString(3, autorField.getText());
-            preparedStatement.setInt(4, Integer.parseInt(anyoField.getText()));
-            preparedStatement.setInt(5, Integer.parseInt(paginasField.getText()));
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Excepción: " + e.getMessage());
-        }
-        mostrarLibros();//Tenemos que volver a volcar la BBDD a la OL
-    }
 
-    @FXML
-    private void updateButton() {
-        String query = "UPDATE libros SET Titulo=?, Autor=?, Anyo=?, Paginas=? WHERE ID=?";
-        try {
-            PreparedStatement preparedStatement = this.conexion.prepareStatement(query);
-            preparedStatement.setString(1, tituloField.getText());
-            preparedStatement.setString(2, autorField.getText());
-            preparedStatement.setInt(3, Integer.parseInt(anyoField.getText()));
-            preparedStatement.setInt(4, Integer.parseInt(paginasField.getText()));
-            preparedStatement.setInt(5, Integer.parseInt(idField.getText()));
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Excepción: " + e.getMessage());
-        }
-        mostrarLibros();//Tenemos que volver a volcar la BBDD a la OL
-    }
-
-    @FXML
-    private void deleteButton() {
-        String query = "DELETE FROM libros WHERE ID=?";
-        try {
-            PreparedStatement preparedStatement = this.conexion.prepareStatement(query);
-            preparedStatement.setInt(1, Integer.parseInt(idField.getText()));
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Excepción: " + e.getMessage());
-        }
-        mostrarLibros();//Tenemos que volver a volcar la BBDD a la OL
-    }
 
     public Connection getConnection() throws IOException {
         //Importante: hay que separar los datos de conexión del programa, así, al cambiar, no tendría
@@ -241,5 +196,6 @@ public class ControladorLibros implements Initializable {
         });
 
     }
-
+//sdfqweoijfweiojfiowe fioefio efi uiewfuio we fuiohefuiohw uiof wiofe
+    //ew few fwe wef fewfe
 }
