@@ -98,12 +98,14 @@ public class ControladorPerfil implements Initializable {
         
         tableView.setOnMouseClicked(event -> {
             Trailrunning carrera = tableView.getSelectionModel().getSelectedItem();
-            User user = Session.getInstance().getUsuario();
-            
-            Participant participante = TrailrunningRepository.leerParticipante(user, carrera);
-            
-            lblDorsal.setText(participante.getDorsal() + "");
-            lblFechaInscripcion.setText(participante.getTime().toString());
+            if(carrera != null){
+                User user = Session.getInstance().getUsuario();
+
+                Participant participante = TrailrunningRepository.leerParticipante(user, carrera);
+
+                lblDorsal.setText(participante.getDorsal() + "");
+                lblFechaInscripcion.setText(participante.getTime().toString());
+            }
         });
         
     }

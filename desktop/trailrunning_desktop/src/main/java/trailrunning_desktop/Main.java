@@ -19,7 +19,7 @@ public class Main extends Application {
         // PerfilUsuario
         // RegistrarUsuario
         
-        Funciones.mostrarVentana("VentanaPrincipal", "Hola");
+        Funciones.mostrarVentana("LogIn", "Hola");
         
         /*
         //Parent root = FXMLLoader.load(getClass().getResource("../vista/VentanaPrincipal.fxml"));
