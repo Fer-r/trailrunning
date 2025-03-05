@@ -30,15 +30,15 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto my-10 p-5 bg-white rounded-lg shadow-lg">
-      <h2 className="text-2xl font-semibold text-center text-gray-800">
+    <div className="w-full max-w-md mx-auto my-6 sm:my-10 p-4 sm:p-5 bg-white rounded-lg shadow-lg">
+      <h2 className="text-xl sm:text-2xl font-semibold text-center text-gray-800 mb-6">
         INICIAR SESIÓN
       </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label
             htmlFor="email"
-            className="block text-xl font-semibold text-gray-900"
+            className="block text-lg sm:text-xl font-semibold text-gray-900"
           >
             Correo Electrónico
           </label>
@@ -49,13 +49,14 @@ const LoginPage = () => {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 mt-2 text-lg text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
+            className="w-full px-3 sm:px-4 py-2 mt-2 text-base sm:text-lg text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
+            autoComplete="email"
           />
         </div>
         <div>
           <label
             htmlFor="password"
-            className="block text-xl font-semibold text-gray-900"
+            className="block text-lg sm:text-xl font-semibold text-gray-900"
           >
             Password
           </label>
@@ -66,13 +67,13 @@ const LoginPage = () => {
             value={formData.password}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 mt-2 text-lg text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
+            className="w-full px-3 sm:px-4 py-2 mt-2 text-base sm:text-lg text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500"
+            autoComplete="current-password"
           />
         </div>
         <button
           type="submit"
-          className="w-full px-4 py-2 text-lg font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-700 transition duration-200"
-          onClick={handleSubmit}
+          className="w-full px-4 py-3 text-base sm:text-lg font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-200"
         >
           Iniciar Sesión
         </button>

@@ -5,8 +5,8 @@ const RaceList = () => {
   const races = raceData.races;
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8 px-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen w-11/12 mx-auto bg-slate-50/80 py-8 px-4">
+      <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold text-slate-800 mb-8 text-center">
           Lista de Carreras
         </h1>
