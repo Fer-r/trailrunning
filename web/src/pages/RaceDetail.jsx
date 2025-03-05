@@ -3,11 +3,31 @@ import { useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useFetch } from '../hooks/useFetch';
 import { getTrailRunningDetails } from '../services/useServices';
+import { useState } from 'react';
+import example from "../example";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from 'leaflet';
+
+// Fix for default marker icon in Leaflet
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
+
 const RaceDetail = () => {
   const { id } = useParams();
   const { isAuthenticated } = useAuth();
-  const { data: race, error, loading } = useFetch(() => getTrailRunningDetails(id), [id]);
+  // const { data: error, loading } = useFetch(() => getTrailRunningDetails(id), [id]);
   const [isRegistered, setIsRegistered] = useState(false);
+  const race = example.races.find(race => race.id === parseInt(id));
+
+  // Parse coordinates from string to array of numbers
+  const coordinates = race?.coordinates?.split(',').map(coord => parseFloat(coord)) || [0, 0];
+  const [lat, lng] = coordinates;
+
   const handleRegistration = () => {
     if (isAuthenticated) {
       setIsRegistered(!isRegistered);
@@ -17,23 +37,23 @@ const RaceDetail = () => {
     }
   };
   
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-[60vh]">
-        <p className="text-lg text-slate-600">Cargando...</p>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="flex justify-center items-center min-h-[60vh]">
+  //       <p className="text-lg text-slate-600">Cargando...</p>
+  //     </div>
+  //   );
+  // }
 
-  if (error) {
-    return (
-      <div className="max-w-4xl mx-auto p-4 sm:p-6">
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-          <p>Error: {error}</p>
-        </div>
-      </div>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <div className="max-w-4xl mx-auto p-4 sm:p-6">
+  //       <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+  //         <p>Error: {error}</p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
   
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6">
@@ -41,7 +61,7 @@ const RaceDetail = () => {
         {/* Imagen de la carrera */}
         <div className="relative h-48 sm:h-64 w-full">
           <img
-            src={race?.image || 'https://via.placeholder.com/800x400'}
+            src={race?.image}
             alt={race?.name}
             className="w-full h-full object-cover"
           />
@@ -58,7 +78,7 @@ const RaceDetail = () => {
               <div className="space-y-3">
                 <p><span className="font-semibold">Fecha:</span> {race?.date ? new Date(race.date).toLocaleDateString() : 'No disponible'}</p>
                 <p><span className="font-semibold">Distancia:</span> {race?.distance_km} km</p>
-                <p><span className="font-semibold">Ubicación:</span> {race?.location}</p>
+                <p><span className="font-semibold">Provincia:</span> {race?.location}</p>
                 <p><span className="font-semibold">Desnivel:</span> {race?.unevenness}m</p>
                 <p><span className="font-semibold">Categoría:</span> {race?.category}</p>
                 <p><span className="font-semibold">Estado:</span> 
@@ -103,18 +123,30 @@ const RaceDetail = () => {
             <p className="text-gray-700 whitespace-pre-line">{race?.description}</p>
           </div>
 
-          {/* Mapa (placeholder para futura implementación) */}
-          {race?.coordinates && (
-            <div className="mt-8">
-              <h2 className="text-xl sm:text-2xl font-semibold mb-4">Ubicación</h2>
-              <div className="h-48 sm:h-64 bg-gray-200 rounded-lg">
-                {/* TODO: Implementar el mapa */}
-                <div className="w-full h-full flex items-center justify-center">
-                  <p className="text-gray-500">Mapa de la ubicación</p>
-                </div>
-              </div>
+          <div className="mt-8">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-4">Ubicación</h2>
+            <div className="h-[400px] rounded-lg overflow-hidden">
+              <MapContainer 
+                center={[lat, lng]} 
+                zoom={15} 
+                style={{ height: "100%", width: "100%" }}
+                scrollWheelZoom={false}
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker position={[lat, lng]}>
+                  <Popup>
+                    <div className="text-center">
+                      <strong>{race?.name}</strong><br />
+                      {race?.location}
+                    </div>
+                  </Popup>
+                </Marker>
+              </MapContainer>
             </div>
-          )}
+          </div>  
         </div>
       </div>
     </div>
