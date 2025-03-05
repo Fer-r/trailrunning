@@ -6,23 +6,6 @@ import { useEffect } from "react";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Home = () => {
-  const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      requestAnimationFrame(() => {
-        const scrolled = window.scrollY;
-        document.documentElement.style.setProperty(
-          "--scroll-offset",
-          `${scrolled * 0.15}px`
-        );
-      });
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <>
       {/* Hero Section */}

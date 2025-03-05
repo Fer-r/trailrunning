@@ -1,16 +1,18 @@
 import { createBrowserRouter, Navigate, useNavigate } from "react-router-dom";
-import RootLayout from "../layout/RootLayout";
 import Home from "../pages/Home";
 // import ProtectedRoute from "../components/ProtectedRoute";
 import Profile from "../pages/Profile";
 import LoginPage from "../pages/Login";
 import ProtectedRoute from "../components/ProtectedRoute";
 import RaceDetail from "../pages/RaceDetail";
+import ErrorPage from "../pages/errorpage";
+import RootLayout from "../layout/rootlayout";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,

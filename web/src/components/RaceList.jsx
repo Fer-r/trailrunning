@@ -1,11 +1,9 @@
 import { useEffect } from "react";
 import { useFetch } from "../hooks/useFetch";
-import { getTrailRunning } from "../services/useServices";
 
 const RaceList = () => {
   const {
     data: races,
-    error,
     loading,
     setLoading,
   } = useFetch(getTrailRunning, []);
