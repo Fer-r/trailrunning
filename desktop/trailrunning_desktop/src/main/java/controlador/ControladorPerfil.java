@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import modelo.API.TrailrunningRepository;
+import modelo.Participant;
 import modelo.Trailrunning;
 import modelo.User;
 
@@ -96,10 +97,13 @@ public class ControladorPerfil implements Initializable {
     private void inicializarEventosTableView(){
         
         tableView.setOnMouseClicked(event -> {
-            
             Trailrunning carrera = tableView.getSelectionModel().getSelectedItem();
-            User user = TrailrunningRepository.leerUsuarioPorId(1);
-            // TODO: continuar por aqui
+            User user = Session.getInstance().getUsuario();
+            
+            Participant participante = TrailrunningRepository.leerParticipante(user, carrera);
+            
+            lblDorsal.setText(participante.getDorsal() + "");
+            lblFechaInscripcion.setText(participante.getTime().toString());
         });
         
     }
