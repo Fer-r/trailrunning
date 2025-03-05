@@ -46,6 +46,15 @@ export default {
       boxShadow: {
         'inner-lg': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
       },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' }
+        }
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.5s ease-out forwards'
+      }
     },
   },
   plugins: [],

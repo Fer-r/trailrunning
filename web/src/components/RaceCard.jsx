@@ -4,10 +4,10 @@ import { FiCalendar } from "react-icons/fi";
 
 const RaceCard = ({ race }) => {
   return (
-    <Link to={`/trailrunning/${race?.id}`} className="group">
-      <article className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden my-4 max-w-4xl mx-auto hover:scale-[1.02] transform">
-        <div className="flex flex-row h-36">
-          <div className="w-1/4">
+    // <Link to={`/trailrunning/${race?.id}`} className="group">
+    //   <article className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden my-4 max-w-4xl mx-auto hover:scale-[1.02] transform">
+    //     <div className="flex flex-row h-36">
+    //       <div className="w-1/4">
     <Link to={`/race/${race?.id}`} className="group block touch-manipulation">
       <article className="bg-white rounded-xl shadow-lg hover:shadow-xl active:shadow-md transition-shadow duration-300 overflow-hidden my-4 max-w-4xl mx-auto">
         <div className="flex flex-col sm:flex-row h-auto sm:h-36">
@@ -30,7 +30,7 @@ const RaceCard = ({ race }) => {
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-8 mt-3 sm:mt-0">
               <span className="bg-sky-100 px-3 py-1 sm:px-4 sm:py-2 rounded-full text-sky-800 flex items-center gap-2 whitespace-nowrap text-sm sm:text-base">
                 <FiCalendar className="text-lg" />
-                {race?.release_date}
+                {race?.release_date.split("T")[0]}
               </span>
 
               <span className="font-semibold text-sky-700 text-base sm:text-lg">
