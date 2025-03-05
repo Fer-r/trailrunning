@@ -1,5 +1,5 @@
 {
-  "races": [
+  "trailrunning": [
     {
       "id": 1,
       "name": "Trail Sierra Nevada",
@@ -74,6 +74,58 @@
       "status": "Open",
       "category": "Ultra Trail",
       "img": "https://lacasadeltrailrunning.com/wp-content/uploads/2019/12/trail-running-cosa-mi-serve.jpg"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Carlos Rodríguez",
+      "email": "carlos@example.com",
+      "password": "hashedpassword123",
+      "roles": ["user"],
+      "banned": false
+    },
+    {
+      "id": 2,
+      "name": "Ana García",
+      "email": "ana@example.com",
+      "password": "hashedpassword456",
+      "roles": ["admin", "user"],
+      "banned": false
+    },
+    {
+      "id": 3,
+      "name": "Miguel López",
+      "email": "miguel@example.com",
+      "password": "hashedpassword789",
+      "roles": ["user"],
+      "banned": true
+    }
+  ],
+  "participants": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "race_id": 1,
+      "time": "2024-05-20T11:30:00",
+      "dorsal": 101,
+      "banned": false
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "race_id": 1,
+      "time": "2024-05-20T12:15:00",
+      "dorsal": 102,
+      "banned": false
+    },
+    {
+      "id": 3,
+      "user_id": 3,
+      "race_id": 2,
+      "time": null,
+      "dorsal": 201,
+      "banned": false
     }
   ]
 }

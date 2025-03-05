@@ -12,7 +12,7 @@ const RaceCard = ({ race }) => {
         <div className="flex flex-col sm:flex-row h-auto sm:h-36">
           <div className="w-full sm:w-1/4 h-48 sm:h-full">
             <img
-              src={race?.img || "https://via.placeholder.com/300x200"}
+              src={race?.img}
               alt={race?.name}
               className="w-full h-full object-cover"
               loading="lazy"
@@ -29,7 +29,13 @@ const RaceCard = ({ race }) => {
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-8 mt-3 sm:mt-0">
               <span className="bg-sky-100 px-3 py-1 sm:px-4 sm:py-2 rounded-full text-sky-800 flex items-center gap-2 whitespace-nowrap text-sm sm:text-base">
                 <FiCalendar className="text-lg" />
-                {race?.release_date}
+                {new Date(race?.release_date)
+                  .toLocaleDateString("es-ES", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                  })
+                  .replace(/\//g, "-")}
               </span>
 
               <span className="font-semibold text-sky-700 text-base sm:text-lg">

@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useFetch } from "../hooks/useFetch";
+import {
+  getParticipants,
+  getTrailRunningDetails,
+} from "../services/useServices";
 
 const RaceDetail = () => {
   const { id } = useParams();
   const { isAuthenticated } = useAuth();
+  const [isRegistered, setIsRegistered] = useState(false);
   const {
     data: race,
     error,
     loading,
   } = useFetch(() => getTrailRunningDetails(id), [id]);
-  const [isRegistered, setIsRegistered] = useState(false);
+  const {
+    data: participants,
+    error: participantsError,
+    loading: loadingParticipants,
+  } = useFetch(() => getParticipants(id), [id]);
   const handleRegistration = () => {
-    if (isAuthenticated) {
-      setIsRegistered(!isRegistered);
-    } else {
-      // Redirigir al usuario a la página de inicio de sesión
-      window.location.href = "/login";
-    }
+    setIsRegistered(!isRegistered);
   };
-
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[60vh]">
@@ -27,7 +31,6 @@ const RaceDetail = () => {
       </div>
     );
   }
-
   if (error) {
     return (
       <div className="max-w-4xl mx-auto p-4 sm:p-6">
@@ -37,14 +40,13 @@ const RaceDetail = () => {
       </div>
     );
   }
-
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6">
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
         {/* Imagen de la carrera */}
         <div className="relative h-48 sm:h-64 w-full">
           <img
-            src={race?.image || "https://via.placeholder.com/800x400"}
+            src={race?.image}
             alt={race?.name}
             className="w-full h-full object-cover"
           />
@@ -65,8 +67,8 @@ const RaceDetail = () => {
               <div className="space-y-3">
                 <p>
                   <span className="font-semibold">Fecha:</span>{" "}
-                  {race?.date
-                    ? new Date(race.date).toLocaleDateString()
+                  {race?.release_date
+                    ? new Date(race.release_date).toLocaleDateString()
                     : "No disponible"}
                 </p>
                 <p>
@@ -140,7 +142,7 @@ const RaceDetail = () => {
 
           {/* Descripción */}
           <div className="mt-8">
-            <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+            <h2 className="text-xl sm:text-2xl font-semibold m  b-4">
               Descripción
             </h2>
             <p className="text-gray-700 whitespace-pre-line">
@@ -148,20 +150,54 @@ const RaceDetail = () => {
             </p>
           </div>
 
-          {/* Mapa (placeholder para futura implementación) */}
-          {race?.coordinates && (
-            <div className="mt-8">
-              <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-                Ubicación
-              </h2>
-              <div className="h-48 sm:h-64 bg-gray-200 rounded-lg">
-                {/* TODO: Implementar el mapa */}
-                <div className="w-full h-full flex items-center justify-center">
-                  <p className="text-gray-500">Mapa de la ubicación</p>
-                </div>
+          <div className="mt-8 border-t pt-8">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-6">
+              Participantes
+            </h2>
+            {loadingParticipants ? (
+              <div className="text-center py-4">
+                <p className="text-gray-600">Cargando participantes...</p>
               </div>
-            </div>
-          )}
+            ) : participantsError ? (
+              <div className="text-center py-4">
+                <p className="text-red-600">Error: {participantsError}</p>
+              </div>
+            ) : participants?.length > 0 ? (
+              <div className="space-y-3">
+                {participants.map((participant) => (
+                  <div
+                    key={participant.id}
+                    className="flex items-center justify-between bg-gray-50 p-4 rounded-lg border border-gray-100"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 bg-sky-100 rounded-full flex items-center justify-center">
+                        <span className="text-sky-600 font-semibold">
+                          {participant.name?.[0]?.toUpperCase()}
+                        </span>
+                      </div>
+                      <div>
+                        <h3 className="font-medium text-gray-900">
+                          {participant.name}
+                        </h3>
+                        <p className="text-sm text-gray-500">
+                          {participant.category}
+                        </p>
+                      </div>
+                    </div>
+                    <span className="text-sm text-gray-500">
+                      #{participant.dorsal || "N/A"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-6">
+                <p className="text-gray-500">
+                  Aún no hay participantes, ¡Sé el primero!
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

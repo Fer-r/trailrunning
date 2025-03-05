@@ -6,6 +6,7 @@ import LoginPage from "../pages/Login";
 import ProtectedRoute from "../components/ProtectedRoute";
 import RaceDetail from "../pages/RaceDetail";
 import ErrorPage from "../pages/errorpage";
+import RootLayout from "../layout/rootlayout";
 
 export const router = createBrowserRouter([
   {

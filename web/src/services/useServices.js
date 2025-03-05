@@ -1,5 +1,4 @@
-
-const BASE_URL = import.meta.env.VITE_URL_API;
+const BASE_URL = `http://${import.meta.env.VITE_URL_API}`;
 
 const fetchFromAPI = async (endpoint) => {
   try {
@@ -69,7 +68,32 @@ export const getTrailRunning = async (page) => {
 };
 
 export const getTrailRunningDetails = async (id) => {
-  return await fetchFromAPI(`/api/trailrunning/${id}`);
+  return await fetchFromAPI(`/trailrunning/${Number(id)}`);
+};
+export const getParticipants = async (race_id) => {
+  try {
+    const participants = await fetchFromAPI(`/participants?race_id=${race_id}`);
+    const users = await fetchFromAPI("/users");
+
+    if (!participants || !users) {
+      throw new Error(
+        "No se pudo obtener los datos de participantes o usuarios"
+      );
+    }
+
+    return participants.map((participant) => {
+      const user = users.find((u) => u.id === participant.user_id) || {};
+      return {
+        ...participant,
+        name: user.name || "Usuario desconocido",
+        email: user.email || "No disponible",
+        banned: user.banned || participant.banned,
+      };
+    });
+  } catch (error) {
+    console.error("Error al obtener participantes:", error);
+    throw new Error(`Error fetching participants: ${error.message}`);
+  }
 };
 
 export const updateTrailRunning = async (id, data) => {
@@ -85,9 +109,6 @@ export const updateTrailRunning = async (id, data) => {
 // }
 
 //PARTICIPANTS
-export const getParticipants = async (page) => {
-  return await fetchFromAPI("/api/participants", { page });
-};
 
 export const getParticipant = async (id) => {
   return await fetchFromAPI(`/api/participants/${id}`);
