@@ -1,9 +1,12 @@
 import { useFetch } from "../hooks/useFetch";
-
-const API_URL = import.meta.env.VITE_URL_API;
+import { getTrailRunning } from "../services/useServices";
 
 const RaceList = () => {
-  const { races, error, loading } = useFetch(`${API_URL}/api/trailrunning`);
+  const {
+    data: races,
+    error,
+    loading,
+  } = useFetch(getTrailRunning, []);
 
   return (
     <div className="min-h-screen w-11/12 mx-auto bg-slate-50/80 py-8 px-4">

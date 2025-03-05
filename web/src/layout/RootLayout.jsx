@@ -41,9 +41,6 @@ const RootLayout = () => {
               <Link to="/profile" className="text-gray-800 hover:text-sky-600 px-3 py-2">
                 Profile
               </Link>
-              <Link to="/dashboard" className="text-gray-800 hover:text-sky-600 px-3 py-2">
-                Dashboard
-              </Link>
             </div>
             
             <div className="hidden md:block">
