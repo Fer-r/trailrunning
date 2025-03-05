@@ -1,10 +1,12 @@
+/* Remove the default padding that might conflict with our responsive layout */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
 }
 
+/* Keep other animations and utility classes */
 .logo {
   height: 6em;
   padding: 1.5em;
