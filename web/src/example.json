@@ -26,7 +26,7 @@
         "unevenness": 2800,
         "entry_fee": 65.00,
         "available_slots": 150,
-        "status": "Open",
+        "status": "Closed",
         "category": "Ultra Trail",
         "img": "https://lacasadeltrailrunning.com/wp-content/uploads/2019/12/trail-running-cosa-mi-serve.jpg"
       },
@@ -41,7 +41,7 @@
         "unevenness": 2500,
         "entry_fee": 55.00,
         "available_slots": 200,
-        "status": "Open",
+        "status": "Completed",
         "category": "Maratón de Montaña",
         "img": "https://lacasadeltrailrunning.com/wp-content/uploads/2019/12/trail-running-cosa-mi-serve.jpg"
       },

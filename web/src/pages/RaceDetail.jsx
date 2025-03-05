@@ -31,9 +31,6 @@ const RaceDetail = () => {
   const handleRegistration = () => {
     if (isAuthenticated) {
       setIsRegistered(!isRegistered);
-    } else {
-      // Redirigir al usuario a la página de inicio de sesión
-      window.location.href = '/login';
     }
   };
 
@@ -87,7 +84,7 @@ const RaceDetail = () => {
                   <span className={`ml-2 px-2 py-1 rounded ${
                     race?.status === 'Open' ? 'bg-green-100 text-green-800' :
                     race?.status === 'Closed' ? 'bg-red-100 text-red-800' :
-                    'bg-gray-100 text-gray-800'
+                    'bg-amber-100 text-amber-800'
                   }`}>
                     {race?.status}
                   </span>
@@ -103,16 +100,17 @@ const RaceDetail = () => {
                 
                 {isAuthenticated && race?.status === 'Open' && race?.available_slots > 0 ? (
                   <button
-                    className="w-full mt-4 bg-primary-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-primary-700 active:bg-primary-800 transition duration-200"
+                    className="w-full mt-4 bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-200"
                     onClick={handleRegistration}
                   >
                     Inscribirse ahora
                   </button>
                 ) : (
                   <p className="text-red-600 mt-4">
+                    <a href='/login'>
                     {!isAuthenticated ? 'Debes iniciar sesión para inscribirte' :
                      race?.available_slots <= 0 ? 'No hay plazas disponibles' :
-                     'Las inscripciones están cerradas'}
+                     'Las inscripciones están cerradas'}</a>
                   </p>
                 )}
               </div>
@@ -125,35 +123,49 @@ const RaceDetail = () => {
             <p className="text-gray-700 whitespace-pre-line">{race?.description}</p>
           </div>
           <br />
-          <div>
-            <button className="bg-green-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-green-700 active:bg-green-800 transition duration-200" onClick={() => setShowMap(!showMap)}>
-              Mostrar mapa
-            </button>
-          </div>
           
-          <div className={`mt-8 ${showMap ? 'block' : 'hidden'}`}>
+          <div className="mt-8">
             <h2 className="text-xl sm:text-2xl font-semibold mb-4">Ubicación</h2>
-            <button className="bg-green-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-green-700 active:bg-green-800 transition duration-200" onClick={() => window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank')}>Ver ubicación</button>
-            <div className="h-[400px] rounded-lg overflow-hidden">
-              <MapContainer 
-                center={[lat, lng]} 
-                zoom={15} 
-                style={{ height: "100%", width: "100%" }}
-                scrollWheelZoom={false}
+            <div className="space-y-4">
+              <button 
+                className="bg-green-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-green-700 active:bg-green-800 transition duration-200" 
+                onClick={() => setShowMap(!showMap)}
               >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Marker position={[lat, lng]}>
-                  <Popup>
-                    <div className="text-center">
-                      <strong>{race?.name}</strong><br />
-                      {race?.location}
-                    </div>
-                  </Popup>
-                </Marker>
-              </MapContainer>
+                {showMap ? 'Ocultar mapa' : 'Mostrar mapa'}
+              </button>
+              
+              {showMap && (
+                <div className="space-y-4">
+                  <button 
+                    className="bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-200" 
+                    onClick={() => window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank')}
+                  >
+                    Ver en Google Maps
+                  </button>
+                  
+                  <div className="h-[400px] rounded-lg overflow-hidden border border-gray-300">
+                    <MapContainer 
+                      center={[lat, lng]} 
+                      zoom={13} 
+                      style={{ height: "100%", width: "100%" }}
+                      scrollWheelZoom={false}
+                    >
+                      <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      />
+                      <Marker position={[lat, lng]}>
+                        <Popup>
+                          <div className="text-center">
+                            <strong>{race?.name}</strong><br />
+                            {race?.location}
+                          </div>
+                        </Popup>
+                      </Marker>
+                    </MapContainer>
+                  </div>
+                </div>
+              )}
             </div>
           </div>  
         </div>
