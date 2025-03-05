@@ -38,9 +38,19 @@ public class ControladorLogin implements Initializable {
 
     private void inicializarEventos(){
         btnRegistrarse.setOnAction(event -> {
-            Stage stage = new Stage();
-            Parent root;
             Funciones.mostrarVentana("RegistrarUsuario", "Registrar usuario", true);
+        });
+        btnLogin.setOnAction(event -> {
+            boolean datosCorrectos = true; // provisional
+            if(datosCorrectos){
+                Funciones.cerrarStageDelNodo(btnLogin);
+                Funciones.mostrarVentana("PerfilUsuario", "Mis carreras", true);
+            }else{
+                Funciones.mostrarAlertaError(
+                        "Los datos introducidos no son correctos",
+                        "Por favor, inténtelo de nuevo"
+                );
+            }
         });
     }
     

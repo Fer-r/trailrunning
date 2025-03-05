@@ -17,4 +17,9 @@ public class Session {
     public static boolean hayUsuario(){
         return session != null;
     }
+    
+    public static boolean datosCorrectos(){
+        // TODO: 
+        return false;
+    }
 }
