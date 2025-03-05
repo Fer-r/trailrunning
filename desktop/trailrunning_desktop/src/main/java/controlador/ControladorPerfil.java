@@ -1,14 +1,97 @@
 package controlador;
 
+import funciones.Funciones;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import modelo.API.TrailrunningRepository;
+import modelo.Trailrunning;
 
 public class ControladorPerfil implements Initializable {
+    
+    // UI ***
+    // Tabla
+    @FXML
+    private TableView<Trailrunning> tableView;
+    
+    @FXML
+    private TableColumn<Trailrunning, String> colCategoria;
 
+    @FXML
+    private TableColumn<Trailrunning, LocalDate> colFecha;
+
+    @FXML
+    private TableColumn<Trailrunning, String> colLugar;
+
+    @FXML
+    private TableColumn<Trailrunning, String> colNombre;
+    
+    // Botones
+    @FXML
+    private Button btnCerrarSesion;
+
+    @FXML
+    private Button btnPaginaPrincipal;
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("Controlador de perfil ha sido cargado");
+        System.out.println("uigwhuif");
+        inicializarTabla();
+        inicializarEventos();
+        
+    }
+    
+    private void inicializarTabla() {
+        
+        ArrayList<Trailrunning> carreras = TrailrunningRepository.leerTodasLasCarreras();
+        
+        colNombre.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colLugar.setCellValueFactory(new PropertyValueFactory<>("location"));
+        colFecha.setCellValueFactory(new PropertyValueFactory<>("date"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("category"));
+
+        // Opcional: Agregar datos de prueba
+        tableView.setItems(FXCollections.observableArrayList(carreras));
+        
+        /*
+        String name;
+        String category;
+        String location;
+        LocalDate date;
+        
+        String description;
+        
+        int id;
+        
+        double distance_km;
+        
+        String coordinates;
+        int unevenness;
+        double entry_fee;
+        int available_slots;
+        String status; // TODO: meter enum?
+        
+        String image;
+        */
+    }
+    
+    private void inicializarEventos(){
+        btnPaginaPrincipal.setOnAction(event -> {
+            Funciones.cerrarStageDelNodo(btnPaginaPrincipal);
+            Funciones.mostrarVentana("VentanaPrincipal", "Trailrunning");
+        });
+        btnCerrarSesion.setOnAction(event -> {
+            
+        });
     }
     
 }
