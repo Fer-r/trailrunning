@@ -1,0 +1,33 @@
+# Archivos de compilación
+/bin/
+/build/
+/out/
+
+# Archivos de configuración del IDE
+/.idea/
+*.iml
+*.iws
+*.ipr
+
+# Dependencias descargadas por Gradle o Maven
+/.gradle/
+.gradle/
+.mvn/
+/target/
+
+# Archivos temporales del sistema
+*.class
+*.log
+*.tmp
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Configuración del entorno
+.env
+
+# Caché de Gradle y otros archivos generados
+**/build/
+**/.gradle/
+!gradle/wrapper/gradle-wrapper.jar  # Excepción para el wrapper de Gradle
