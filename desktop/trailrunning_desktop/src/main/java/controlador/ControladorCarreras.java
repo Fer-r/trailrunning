@@ -1,14 +1,19 @@
 package controlador;
 
+import java.io.IOException;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import modelo.Trailrunning;
 
 public class ControladorCarreras {
@@ -44,11 +49,16 @@ public class ControladorCarreras {
     private Label labelImagen;
     @FXML
     private ImageView imageView;
-
+    
+    @FXML
+    private ImageView imagenLogin;
+    
     private ObservableList<Trailrunning> listaDeCarreras;
 
     @FXML
     public void initialize() {
+        
+        
         // Crear algunos datos de ejemplo
         listaDeCarreras = FXCollections.observableArrayList(
             new Trailrunning(1, "Carrera 1", "Descripción 1", java.time.LocalDate.now(), 5.0, "Ubicación 1", "Coordenadas 1", 100, 20.0, 50, "Abierta", "Categoría 1", "image1.jpg"),
@@ -104,4 +114,24 @@ public class ControladorCarreras {
             System.out.println("Selecciona una carrera para inscribirte.");
         }
     }
+    
+    @FXML
+    public void cambiarAVentanaLogin() {
+        cambiarEscena("/vista/LogIn.fxml");
+    }
+
+    private void cambiarEscena(String rutaFXML) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFXML));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) imagenLogin.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
