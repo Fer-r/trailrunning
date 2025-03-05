@@ -35,7 +35,7 @@ const RootLayout = () => {
             </div>
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-4">
-              {isAuth && (
+            {isAuth && (
                 <Link to="/profile" className="text-white font-bold text-lg hover:scale-110 px-3 py-2 transition-all duration-300 transform inline-block">
                   Profile
                 </Link>
