@@ -27,4 +27,10 @@ public class Session {
     public static boolean hayUsuario(){
         return session != null;
     }
+
+    public User getUsuario() {
+        return usuario;
+    }
+    
+    
 }

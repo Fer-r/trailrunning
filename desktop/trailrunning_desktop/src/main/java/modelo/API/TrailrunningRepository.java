@@ -42,7 +42,8 @@ public class TrailrunningRepository {
                 new Participant(2, 2, 1, LocalDate.of(2025, 5, 10), 102, false),
                 new Participant(3, 3, 2, LocalDate.of(2025, 6, 15), 201, true),
                 new Participant(4, 4, 3, LocalDate.of(2025, 7, 20), 301, false),
-                new Participant(5, 5, 2, LocalDate.of(2025, 6, 15), 202, false)
+                new Participant(5, 5, 2, LocalDate.of(2025, 6, 15), 202, false),
+                new Participant(6, 1, 2, LocalDate.of(2025, 5, 10), 101, false)
         ));
         
         System.out.println("Datos inicializados correctamente");
@@ -138,6 +139,18 @@ public class TrailrunningRepository {
         }
         System.out.println("No se ha encontrado la carrera para leer con id" + id);
         return null;
+    }
+    
+    public static ArrayList<Trailrunning> leerCarrerasDeUsuario(User user){
+        ArrayList<Trailrunning> resultado = new ArrayList<>();
+        
+        for(Participant p : participants){
+            if(p.getUser_id() == user.getId()){
+                resultado.add(leerCarreraPorId(p.getRace_id()));
+            }
+        }
+        
+        return resultado;
     }
     
         // U

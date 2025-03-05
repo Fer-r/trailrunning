@@ -61,7 +61,9 @@ public class ControladorPerfil implements Initializable {
     
     private void inicializarTabla() {
         
-        ArrayList<Trailrunning> carreras = TrailrunningRepository.leerTodasLasCarreras();
+        //ArrayList<Trailrunning> carreras = TrailrunningRepository.leerTodasLasCarreras();
+        ArrayList<Trailrunning> carreras = TrailrunningRepository
+                .leerCarrerasDeUsuario(Session.getInstance().getUsuario());
         
         colNombre.setCellValueFactory(new PropertyValueFactory<>("name"));
         colLugar.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -71,26 +73,6 @@ public class ControladorPerfil implements Initializable {
         // Opcional: Agregar datos de prueba
         tableView.setItems(FXCollections.observableArrayList(carreras));
         
-        /*
-        String name;
-        String category;
-        String location;
-        LocalDate date;
-        
-        String description;
-        
-        int id;
-        
-        double distance_km;
-        
-        String coordinates;
-        int unevenness;
-        double entry_fee;
-        int available_slots;
-        String status; // TODO: meter enum?
-        
-        String image;
-        */
     }
     
     private void inicializarEventos(){

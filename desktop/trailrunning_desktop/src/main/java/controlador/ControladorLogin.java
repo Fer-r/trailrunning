@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import modelo.API.TrailrunningRepository;
 import modelo.User;
@@ -20,7 +21,7 @@ public class ControladorLogin implements Initializable {
     private Button btnRegistrarse;
 
     @FXML
-    private TextField edtPassword;
+    private PasswordField edtPassword;
 
     @FXML
     private TextField edtUsuario;
