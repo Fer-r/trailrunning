@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import RaceList from "../components/RaceList";
 import { useEffect } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Home = () => {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ const Home = () => {
       </section>
 
       {/* Races Section */}
-      <section className="bg-gray-50 py-12">
+      <section className="bg-[#F8E4BE] py-12">
         <div className="container mx-auto px-4">
           <RaceList />
         </div>

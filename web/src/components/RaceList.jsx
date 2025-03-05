@@ -1,67 +1,65 @@
-import { useState, useEffect } from 'react';
-import RaceCard from './RaceCard';
-import raceData from '../example.json';
+import { useState, useEffect } from "react";
+import RaceCard from "./RaceCard";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const RaceList = () => {
-  const [races, setRaces] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const itemsPerPage = 5;
-
-  const loadMoreRaces = () => {
-    setLoading(true);
-    const startIndex = (page - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const newRaces = raceData.races.slice(startIndex, endIndex);
-    setTimeout(() => {
-      if (page === 1) {
-        setRaces(newRaces);
-      } else {
-        setRaces(prevRaces => [...prevRaces, ...newRaces]);
-      }
-      setLoading(false);
-    }, 500); // Small delay for smooth transition
-  };
+  const [allRaces, setAllRaces] = useState([]);
+  const [visibleRaces, setVisibleRaces] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(3);
 
   useEffect(() => {
-    loadMoreRaces();
-  }, [page]);
+    const fetchRaces = async () => {
+      try {
+        const response = await fetch(`${API_URL}/races`);
+        if (!response.ok) throw new Error('Failed to fetch races');
+        const data = await response.json();
+        setAllRaces(data);
+        setVisibleRaces(data.slice(0, 3));
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+    fetchRaces();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Load next page when user is 300px from bottom
-      if (
-        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 300 &&
-        !loading &&
-        races.length < raceData.races.length
-      ) {
-        setPage(prev => prev + 1);
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
+        if (!loading && visibleCount < allRaces.length) {
+          setLoading(true);
+          setTimeout(() => {
+            setVisibleCount(prev => prev + 3);
+            setVisibleRaces(allRaces.slice(0, visibleCount + 3));
+            setLoading(false);
+          }, 1000);
+        }
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [loading, races.length]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [loading, visibleCount, allRaces]);
+
+  if (error) return <div className="text-red-500 text-center py-4">Error: {error}</div>;
 
   return (
-    <div className="w-full max-w-6xl mx-auto">
-      <div className="space-y-4">
-        {races.map((race, index) => (
-          <div
-            key={race.id}
-            className="animate-fadeIn"
-            style={{
-              animationDelay: `${index * 100}ms`,
-              animationFillMode: 'forwards'
-            }}
-          >
-            <RaceCard race={race} />
-          </div>
-        ))}
-      </div>
+    <div className="space-y-4">
+      {visibleRaces.map((race) => (
+        <RaceCard key={race.id} race={race} />
+      ))}
       {loading && (
-        <div className="text-center py-8">
-          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-sky-600 border-r-transparent"></div>
+        <div className="flex justify-center items-center py-4">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+        </div>
+      )}
+      {visibleCount >= allRaces.length && !loading && (
+        <div className="text-center text-gray-600 py-4">
+          Ya no hay mas carreras.
         </div>
       )}
     </div>
