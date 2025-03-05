@@ -4,16 +4,15 @@ import { FiCalendar } from "react-icons/fi";
 
 const RaceCard = ({ race }) => {
   return (
-    <Link to={`/trailrunning/${race?.id}`} className="group">
-      <article className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden my-4 max-w-4xl mx-auto hover:scale-[1.02] transform">
-        <div className="flex flex-row h-36">
-          <div className="w-1/4">
-    <Link to={`/race/${race?.id}`} className="group block touch-manipulation">
+    <Link
+      to={`/trailrunning/${race?.id}`}
+      className="group block touch-manipulation"
+    >
       <article className="bg-white rounded-xl shadow-lg hover:shadow-xl active:shadow-md transition-shadow duration-300 overflow-hidden my-4 max-w-4xl mx-auto">
         <div className="flex flex-col sm:flex-row h-auto sm:h-36">
           <div className="w-full sm:w-1/4 h-48 sm:h-full">
             <img
-              src={race?.img}
+              src={race?.img || "https://via.placeholder.com/300x200"}
               alt={race?.name}
               className="w-full h-full object-cover"
               loading="lazy"
@@ -42,14 +41,10 @@ const RaceCard = ({ race }) => {
                 {race?.location}
               </span>
 
-              {/* <Link
-                to={`/trailrunning/${race.id}`}
-                className="text-sky-600 font-medium flex items-center gap-1 hover:text-sky-700 transition-colors duration-300"
-              >
               <span className="text-sky-600 font-medium flex items-center gap-1 hover:text-sky-700 transition-colors duration-300 text-sm sm:text-base">
                 Ver detalles
                 <span className="text-lg">→</span>
-              </Link> */}
+              </span>
             </div>
           </div>
         </div>

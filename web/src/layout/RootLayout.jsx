@@ -9,8 +9,7 @@ const RootLayout = () => {
   const location = useLocation();
   const isAuth = localStorage.getItem("token") !== null;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
-  // Check if current path is home page
+
   const isHomePage = location.pathname === "/";
 
   const handleLogout = () => {
@@ -32,20 +31,23 @@ const RootLayout = () => {
                 Trail Running
               </Link>
             </div>
-            
+
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-4">
-              <Link to="/" className="text-gray-800 hover:text-sky-600 px-3 py-2">
+              <Link
+                to="/"
+                className="text-gray-800 hover:text-sky-600 px-3 py-2"
+              >
                 Home
               </Link>
-              <Link to="/profile" className="text-gray-800 hover:text-sky-600 px-3 py-2">
+              <Link
+                to="/profile"
+                className="text-gray-800 hover:text-sky-600 px-3 py-2"
+              >
                 Profile
               </Link>
-              <Link to="/dashboard" className="text-gray-800 hover:text-sky-600 px-3 py-2">
-                Dashboard
-              </Link>
             </div>
-            
+
             <div className="hidden md:block">
               {isAuth ? (
                 <button
@@ -63,10 +65,10 @@ const RootLayout = () => {
                 </button>
               )}
             </div>
-            
+
             {/* Mobile menu button */}
             <div className="md:hidden flex items-center">
-              <button 
+              <button
                 className="text-gray-800 hover:text-sky-600 focus:outline-none"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
@@ -75,27 +77,27 @@ const RootLayout = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
-              <Link 
-                to="/" 
+              <Link
+                to="/"
                 className="block px-3 py-2 text-gray-800 hover:text-sky-600"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Home
               </Link>
-              <Link 
-                to="/profile" 
+              <Link
+                to="/profile"
                 className="block px-3 py-2 text-gray-800 hover:text-sky-600"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Profile
               </Link>
-              <Link 
-                to="/dashboard" 
+              <Link
+                to="/dashboard"
                 className="block px-3 py-2 text-gray-800 hover:text-sky-600"
                 onClick={() => setMobileMenuOpen(false)}
               >
