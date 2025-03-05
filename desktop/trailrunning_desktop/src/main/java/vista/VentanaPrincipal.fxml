@@ -11,18 +11,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="811.0" prefWidth="1105.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorPrincipal">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="811.0" prefWidth="1105.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorCarreras">
    <children>
-      <TableView fx:id="TableView" layoutX="14.0" layoutY="129.0" prefHeight="480.0" prefWidth="718.0">
+      <TableView fx:id="tableView" layoutX="14.0" layoutY="129.0" prefHeight="480.0" prefWidth="718.0">
         <columns>
             <TableColumn fx:id="columnaID" prefWidth="35.0" text="ID" />
             <TableColumn fx:id="columnaNombre" prefWidth="110.0" text="NOMBRE" />
             <TableColumn fx:id="columnaFecha" prefWidth="81.0" text="FECHA" />
             <TableColumn fx:id="columnaUbicacion" prefWidth="92.0" text="UBICACION" />
             <TableColumn fx:id="columnaPrecio" prefWidth="65.0" text="PRECIO" />
-            <TableColumn fx:id="columnaPlazas" prefWidth="135.0" text="PLAZAS DISPONIBLES" />
-            <TableColumn fx:id="columnaEstado" prefWidth="56.0" text="ESTADO" />
-            <TableColumn fx:id="columnaCatgoria" prefWidth="146.0" text="CATEGORÍA" />
+            <TableColumn fx:id="columnaPlazas" prefWidth="159.0" text="PLAZAS DISPONIBLES" />
+            <TableColumn fx:id="columnaEstado" prefWidth="65.0" text="ESTADO" />
+            <TableColumn fx:id="columnaCategoria" prefWidth="113.0" text="CATEGORÍA" />
         </columns>
       </TableView>
       <VBox layoutX="788.0" layoutY="326.0" spacing="15.0">
@@ -56,11 +56,11 @@
       </VBox>
       <VBox layoutX="920.0" layoutY="326.0" prefHeight="160.0" prefWidth="136.0" spacing="10.0">
          <children>
-            <Label fx:id="labelDescripcion" prefHeight="29.0" prefWidth="129.0" text="WEF" />
-            <Label fx:id="labelDistancia" prefHeight="29.0" prefWidth="129.0" text="WEF" />
-            <Label fx:id="labelCoordenadas" prefHeight="29.0" prefWidth="129.0" text="WEF" />
-            <Label fx:id="labelTiempo" prefHeight="29.0" prefWidth="129.0" text="WEF" />
-            <Label fx:id="labelImagen" prefHeight="29.0" prefWidth="129.0" text="WEF" />
+            <Label fx:id="labelDescripcion" prefHeight="29.0" prefWidth="129.0" text="" />
+            <Label fx:id="labelDistancia" prefHeight="29.0" prefWidth="129.0" text="" />
+            <Label fx:id="labelCoordenadas" prefHeight="29.0" prefWidth="129.0" text="" />
+            <Label fx:id="labelTiempo" prefHeight="29.0" prefWidth="129.0" text="" />
+            <Label fx:id="labelImagen" prefHeight="29.0" prefWidth="129.0" text="" />
          </children>
       </VBox>
       <HBox layoutX="835.0" layoutY="290.0" prefHeight="41.0" prefWidth="87.0" />
