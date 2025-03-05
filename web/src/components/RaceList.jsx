@@ -6,7 +6,7 @@ const RaceList = () => {
   const { races, error, loading } = useFetch(`${API_URL}/api/trailrunning`);
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8 px-4">
+    <div className="min-h-screen w-11/12 mx-auto bg-slate-50/80 py-8 px-4">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold text-slate-800 mb-8 text-center">
           Lista de Carreras
