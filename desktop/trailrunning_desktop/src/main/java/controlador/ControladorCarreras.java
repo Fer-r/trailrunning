@@ -17,7 +17,6 @@ import javafx.stage.Stage;
 import modelo.Trailrunning;
 
 public class ControladorCarreras {
-
     @FXML
     private TableView<Trailrunning> tableView;
     @FXML
@@ -36,7 +35,6 @@ public class ControladorCarreras {
     private TableColumn<Trailrunning, String> columnaEstado;
     @FXML
     private TableColumn<Trailrunning, String> columnaCategoria;
-
     @FXML
     private Label labelDescripcion;
     @FXML
@@ -49,21 +47,47 @@ public class ControladorCarreras {
     private Label labelImagen;
     @FXML
     private ImageView imageView;
-    
     @FXML
     private ImageView imagenLogin;
-    
+
+    @FXML
+    private ComboBox<String> comboFiltro;
+    @FXML
+    private Button btnLimpiar;
+    @FXML
+    private Button btnFiltrar;
+
     private ObservableList<Trailrunning> listaDeCarreras;
+    private ObservableList<Trailrunning> listaFiltrada;
 
     @FXML
     public void initialize() {
         
+    // Crear algunos datos de ejemplo
+    listaDeCarreras = FXCollections.observableArrayList(
+            new Trailrunning(1, "Maratón de Montaña", "Carrera exigente en la sierra", java.time.LocalDate.now(), 42.0, "Sierra Nevada", "37.0987,-3.3976", 500, 50.0, 200, "Abierta", "Maratón", "maraton_montana.jpg"),
+            new Trailrunning(2, "Ultra Trail Pirineos", "Recorrido extremo en alta montaña", java.time.LocalDate.now(), 100.0, "Pirineos", "42.5833,1.6667", 300, 100.0, 150, "Cerrada", "Ultra Trail", "ultra_pirineos.jpg"),
+            new Trailrunning(3, "Carrera Nocturna", "Trail running en plena noche", java.time.LocalDate.now(), 15.0, "Bosque Encantado", "40.4165,-3.7038", 200, 30.0, 90, "Abierta", "Trail Nocturno", "carrera_nocturna.jpg"),
+            new Trailrunning(4, "Desafío del Desierto", "Ruta exigente en dunas", java.time.LocalDate.now(), 30.0, "Desierto del Sahara", "23.4162,25.6628", 250, 40.0, 120, "Completada", "Trail Desértico", "desafio_desierto.jpg"),
+            new Trailrunning(5, "Sendero del Lobo", "Carrera por senderos de bosque", java.time.LocalDate.now(), 20.0, "Montes de León", "42.5987,-6.4157", 180, 25.0, 80, "Abierta", "Carrera de Senderos", "sendero_lobo.jpg"),
+            new Trailrunning(6, "Costa Run", "Ruta costera con vistas impresionantes", java.time.LocalDate.now(), 25.0, "Costa Brava", "41.8122,3.0649", 300, 35.0, 130, "Cerrada", "Trail Costero", "costa_run.jpg"),
+            new Trailrunning(7, "Desafío Volcánico", "Carrera en terreno volcánico", java.time.LocalDate.now(), 12.0, "Lanzarote", "29.0469,-13.5899", 150, 20.0, 70, "Abierta", "Trail Volcánico", "desafio_volcanico.jpg"),
+            new Trailrunning(8, "Glacier Trail", "Carrera extrema en glaciares", java.time.LocalDate.now(), 50.0, "Alpes Suizos", "46.8182,8.2275", 250, 75.0, 100, "Completada", "Glacier Trail", "glacier_trail.jpg"),
+            new Trailrunning(9, "Reto de la Selva", "Recorrido selvático con clima húmedo", java.time.LocalDate.now(), 18.0, "Amazonas", "-3.4653,-62.2159", 220, 30.0, 95, "Abierta", "Trail Selvático", "reto_selva.jpg"),
+            new Trailrunning(10, "Endurance Challenge", "Ultra resistencia en montaña", java.time.LocalDate.now(), 80.0, "Andes", "-33.4372,-70.6506", 350, 90.0, 160, "Cerrada", "Ultra Endurance", "endurance_challenge.jpg"),
+            new Trailrunning(11, "Río Salvaje", "Carrera junto a ríos y cascadas", java.time.LocalDate.now(), 22.0, "Patagonia", "-49.3315,-72.8866", 200, 28.0, 85, "Completada", "Trail Fluvial", "rio_salvaje.jpg"),
+            new Trailrunning(12, "Ruta del Hielo", "Recorrido con bajas temperaturas", java.time.LocalDate.now(), 35.0, "Groenlandia", "72.0000,-40.0000", 180, 45.0, 90, "Abierta", "Trail Gélido", "ruta_hielo.jpg"),
+            new Trailrunning(13, "Pico Extremo", "Carrera hasta la cumbre", java.time.LocalDate.now(), 10.0, "Picos de Europa", "43.1876,-4.8555", 170, 22.0, 75, "Cerrada", "Ascenso a la Cumbre", "pico_extremo.jpg"),
+            new Trailrunning(14, "Montaña Rápida", "Carrera corta pero intensa", java.time.LocalDate.now(), 8.0, "Montañas Rocosas", "39.5501,-105.7821", 130, 18.0, 60, "Abierta", "Trail Sprint", "montana_rapida.jpg"),
+            new Trailrunning(15, "Lluvia y Barro", "Ruta con terrenos fangosos", java.time.LocalDate.now(), 16.0, "Galicia", "42.5751,-8.1339", 210, 27.0, 100, "Completada", "Mud Run", "lluvia_barro.jpg"),
+            new Trailrunning(16, "Aventura Alpina", "Carrera con grandes desniveles", java.time.LocalDate.now(), 28.0, "Dolomitas", "46.4102,11.8440", 250, 50.0, 110, "Abierta", "Alpine Trail", "aventura_alpina.jpg"),
+            new Trailrunning(17, "Bosque Profundo", "Trail entre árboles milenarios", java.time.LocalDate.now(), 14.0, "Selva Negra", "48.0329,8.2042", 160, 25.0, 85, "Cerrada", "Forest Trail", "bosque_profundo.jpg"),
+            new Trailrunning(18, "La Gran Duna", "Recorrido por dunas de arena", java.time.LocalDate.now(), 21.0, "Namibia", "-24.7000,15.2833", 200, 32.0, 105, "Completada", "Dune Run", "gran_duna.jpg"),
+            new Trailrunning(19, "Reto Urbano", "Carrera mixta entre ciudad y montaña", java.time.LocalDate.now(), 12.0, "Barcelona", "41.3851,2.1734", 190, 26.0, 95, "Abierta", "Urban Trail", "reto_urbano.jpg"),
+            new Trailrunning(20, "Cañón Extremo", "Ruta espectacular entre cañones", java.time.LocalDate.now(), 40.0, "Gran Cañón", "36.1070,-112.1130", 300, 60.0, 140, "Cerrada", "Canyon Trail", "canon_extremo.jpg")
+            );
         
-        // Crear algunos datos de ejemplo
-        listaDeCarreras = FXCollections.observableArrayList(
-            new Trailrunning(1, "Carrera 1", "Descripción 1", java.time.LocalDate.now(), 5.0, "Ubicación 1", "Coordenadas 1", 100, 20.0, 50, "Abierta", "Categoría 1", "image1.jpg"),
-            new Trailrunning(2, "Carrera 2", "Descripción 2", java.time.LocalDate.now(), 10.0, "Ubicación 2", "Coordenadas 2", 200, 30.0, 100, "Cerrada", "Categoría 2", "image2.jpg")
-        );
+        listaFiltrada = FXCollections.observableArrayList(listaDeCarreras);
 
         // Configuración de las columnas
         columnaID.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
@@ -74,16 +98,88 @@ public class ControladorCarreras {
         columnaPlazas.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getAvailable_slots()).asObject());
         columnaEstado.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
         columnaCategoria.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCategory()));
-
+        
         // Asociar los datos al TableView
         tableView.setItems(listaDeCarreras);
-
+        
         // Escuchar cambios en la selección de la tabla
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 mostrarDetalles(newValue);
             }
         });
+        
+        // Configurar las opciones del ComboBox
+        comboFiltro.getItems().addAll(
+            "Filtrar por estado: Abierta",
+            "Filtrar por precio < 50",
+            "Filtrar por plazas > 100",
+            "Filtrar por estado: Cerrada",
+            "Filtrar por categoría: Maratón",
+            "Filtrar por distancia > 20 km"
+        );
+        comboFiltro.setValue(""); // Establecer valor inicial
+        
+        // Establecer el comportamiento del botón de filtrar
+        btnFiltrar.setOnAction(event -> filtrarCarreras());
+        
+        // Establecer el comportamiento del botón de limpiar
+        btnLimpiar.setOnAction(event -> limpiarFiltro());
+    }
+
+    @FXML
+    public void filtrarCarreras() {
+        String filtroSeleccionado = comboFiltro.getValue();
+        ObservableList<Trailrunning> carrerasFiltradas = FXCollections.observableArrayList();
+
+        // Filtrar según la categoría seleccionada en el ComboBox
+        if (filtroSeleccionado != null) {
+            for (Trailrunning carrera : listaDeCarreras) {
+                switch (filtroSeleccionado) {
+                    case "Filtrar por estado: Abierta":
+                        if (carrera.getStatus().equalsIgnoreCase("Abierta")) {
+                            carrerasFiltradas.add(carrera);
+                        }
+                        break;
+                    case "Filtrar por precio < 50":
+                        if (carrera.getEntry_fee() < 50) {
+                            carrerasFiltradas.add(carrera);
+                        }
+                        break;
+                    case "Filtrar por plazas > 100":
+                        if (carrera.getAvailable_slots() > 100) {
+                            carrerasFiltradas.add(carrera);
+                        }
+                        break;
+                    case "Filtrar por estado: Cerrada":
+                        if (carrera.getStatus().equalsIgnoreCase("Cerrada")) {
+                            carrerasFiltradas.add(carrera);
+                        }
+                        break;
+                    case "Filtrar por categoría: Maratón":
+                        if (carrera.getCategory().equalsIgnoreCase("Maratón")) {
+                            carrerasFiltradas.add(carrera);
+                        }
+                        break;
+                    case "Filtrar por distancia > 20 km":
+                        if (carrera.getDistance_km() > 20) {
+                            carrerasFiltradas.add(carrera);
+                        }
+                        break;
+                }
+            }
+        }
+        // Actualizar la lista filtrada y la vista de la tabla
+        listaFiltrada.setAll(carrerasFiltradas);
+        tableView.setItems(listaFiltrada);
+    }
+
+    @FXML
+    public void limpiarFiltro() {
+        // Restablecer la lista a la original
+        listaFiltrada.setAll(listaDeCarreras);
+        tableView.setItems(listaFiltrada);
+        comboFiltro.getSelectionModel().clearSelection();  // Limpiar la selección del ComboBox
     }
 
     // Mostrar los detalles del Trailrunning seleccionado
@@ -114,7 +210,7 @@ public class ControladorCarreras {
             System.out.println("Selecciona una carrera para inscribirte.");
         }
     }
-    
+
     @FXML
     public void cambiarAVentanaLogin() {
         cambiarEscena("/vista/LogIn.fxml");
@@ -124,7 +220,6 @@ public class ControladorCarreras {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFXML));
             Parent root = loader.load();
-
             Stage stage = (Stage) imagenLogin.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -132,6 +227,4 @@ public class ControladorCarreras {
             e.printStackTrace();
         }
     }
-
-
 }
