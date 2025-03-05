@@ -72,6 +72,17 @@ public class TrailrunningRepository {
         return null;
     }
     
+    public static User leerUsuarioPorNombre(String nombre){
+        for(User u : users){
+            if(u.getName().equals(nombre)){
+                System.out.println("Usuario leído correctamente con nombre " + nombre);
+                return u;
+            }
+        }
+        System.out.println("No se ha encontrado el usuario para leer con nombre " + nombre);
+        return null;
+    }
+    
         // U
     public static void actualizarUsuario(User user){
         for(User u : users){
@@ -96,6 +107,15 @@ public class TrailrunningRepository {
         System.out.println("No se ha encontrado el usuario para borrar con id " + id);
     }
     
+    // Otros
+    public static boolean comprobarUsuario(String nombre, String password){
+        for(User u : users){
+            if(u.getName().equals(nombre) && u.getPassword().equals(password))
+                return true;
+        }
+        System.out.println("No se ha encontrado el usuario");
+        return false;
+    }
     
     // 2. Trailrunning (Race)
         // C
