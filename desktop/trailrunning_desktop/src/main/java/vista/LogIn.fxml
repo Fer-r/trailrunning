@@ -2,10 +2,10 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="393.0" spacing="20.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorLogin">
    <children>
@@ -27,7 +27,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="edtPassword" />
+            <PasswordField fx:id="edtPassword" />
          </children>
       </VBox>
       <Button fx:id="btnLogin" mnemonicParsing="false" text="Iniciar sesión" />

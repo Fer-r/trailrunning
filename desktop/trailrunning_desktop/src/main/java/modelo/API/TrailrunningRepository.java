@@ -42,7 +42,8 @@ public class TrailrunningRepository {
                 new Participant(2, 2, 1, LocalDate.of(2025, 5, 10), 102, false),
                 new Participant(3, 3, 2, LocalDate.of(2025, 6, 15), 201, true),
                 new Participant(4, 4, 3, LocalDate.of(2025, 7, 20), 301, false),
-                new Participant(5, 5, 2, LocalDate.of(2025, 6, 15), 202, false)
+                new Participant(5, 5, 2, LocalDate.of(2025, 6, 15), 202, false),
+                new Participant(6, 1, 2, LocalDate.of(2025, 1, 10), 420, false)
         ));
         
         System.out.println("Datos inicializados correctamente");
@@ -72,6 +73,17 @@ public class TrailrunningRepository {
         return null;
     }
     
+    public static User leerUsuarioPorNombre(String nombre){
+        for(User u : users){
+            if(u.getName().equals(nombre)){
+                System.out.println("Usuario leído correctamente con nombre " + nombre);
+                return u;
+            }
+        }
+        System.out.println("No se ha encontrado el usuario para leer con nombre " + nombre);
+        return null;
+    }
+    
         // U
     public static void actualizarUsuario(User user){
         for(User u : users){
@@ -96,6 +108,15 @@ public class TrailrunningRepository {
         System.out.println("No se ha encontrado el usuario para borrar con id " + id);
     }
     
+    // Otros
+    public static boolean comprobarUsuario(String nombre, String password){
+        for(User u : users){
+            if(u.getName().equals(nombre) && u.getPassword().equals(password))
+                return true;
+        }
+        System.out.println("No se ha encontrado el usuario");
+        return false;
+    }
     
     // 2. Trailrunning (Race)
         // C
@@ -118,6 +139,18 @@ public class TrailrunningRepository {
         }
         System.out.println("No se ha encontrado la carrera para leer con id" + id);
         return null;
+    }
+    
+    public static ArrayList<Trailrunning> leerCarrerasDeUsuario(User user){
+        ArrayList<Trailrunning> resultado = new ArrayList<>();
+        
+        for(Participant p : participants){
+            if(p.getUser_id() == user.getId()){
+                resultado.add(leerCarreraPorId(p.getRace_id()));
+            }
+        }
+        
+        return resultado;
     }
     
         // U
@@ -154,6 +187,14 @@ public class TrailrunningRepository {
         // R
     public static ArrayList<Participant> leerTodosLosParticipantes(){
         return participants;
+    }
+    
+    public static Participant leerParticipante(User user, Trailrunning carrera){
+        for(Participant p : participants){
+            if(p.getUser_id() == user.getId() && p.getRace_id() == carrera.getId())
+                return p;
+        }
+        return null;
     }
     
     // TODO: aquí podría poner más métodos para encontrar participaciones

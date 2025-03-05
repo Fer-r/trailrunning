@@ -34,18 +34,35 @@
          <children>
             <VBox spacing="10.0">
                <children>
-                  <Label text="Datos participación" />
-                  <Label text="Dato 1" />
-                  <Label text="Dato 2" />
+                  <Label text="Datos participación">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Label>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Label text="Dorsal:" />
+                        <Label fx:id="lblDorsal" text="lblDorsal" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Label text="Fecha de inscripción:" />
+                        <Label fx:id="lblFechaInscripcion" text="lblFechaInscripcion" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <VBox spacing="10.0">
                <children>
-                  <Label text="Operaciones" />
+                  <Label text="Operaciones">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Label>
                   <Label text="Operación 1" />
                </children>
             </VBox>
          </children>
       </VBox>
+      <Button layoutX="551.0" layoutY="361.0" mnemonicParsing="false" text="Desinscribirse" />
    </children>
 </AnchorPane>
