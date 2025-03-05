@@ -7,42 +7,30 @@
 <?import javafx.scene.text.Font?>
 
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="427.0" spacing="20.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorRegistrarUsuario">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="393.0" spacing="20.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorLogin">
    <children>
-      <Label text="Nuevo usuario">
+      <Label text="Log In">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
       <VBox maxWidth="250.0" spacing="20.0">
          <children>
-            <Label text="Nombre de usuario:">
+            <Label text="Usuario:">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
             <TextField fx:id="edtUsuario" />
-            <Label text="Introduzca su correo electrónico:">
+            <Label text="Contraseña:">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="edtEmail" />
-            <Label text="Introduzca la contraseña:">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="edtPassword1" />
-            <Label text="Repita la contraseña:">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="edtPassword2" />
+            <TextField fx:id="edtPassword" />
          </children>
       </VBox>
-      <Button fx:id="btnCrearUsuario" mnemonicParsing="false" text="Crear usuario" />
-      <Button fx:id="btnVolver" mnemonicParsing="false" text="Volver" />
+      <Button fx:id="btnLogin" mnemonicParsing="false" text="Iniciar sesión" />
+      <Button fx:id="btnRegistrarse" mnemonicParsing="false" text="Registrarse" />
    </children>
 </VBox>

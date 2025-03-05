@@ -1,5 +1,6 @@
 package controlador;
 
+import funciones.Funciones;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,17 +40,7 @@ public class ControladorLogin implements Initializable {
         btnRegistrarse.setOnAction(event -> {
             Stage stage = new Stage();
             Parent root;
-            try {
-                root = FXMLLoader.load(getClass().getResource("../vista/RegistrarUsuario.fxml"));
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setTitle("Librería");
-                stage.show();
-            } catch (IOException ex) {
-                Logger.getLogger(ControladorLogin.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            
+            Funciones.mostrarVentana("RegistrarUsuario", "Registrar usuario", true);
         });
     }
     
