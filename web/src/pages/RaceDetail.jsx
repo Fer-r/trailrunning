@@ -36,6 +36,8 @@ const RaceDetail = () => {
       window.location.href = '/login';
     }
   };
+
+  const [showMap, setShowMap] = useState(false);
   
   // if (loading) {
   //   return (
@@ -122,9 +124,16 @@ const RaceDetail = () => {
             <h2 className="text-xl sm:text-2xl font-semibold mb-4">Descripción</h2>
             <p className="text-gray-700 whitespace-pre-line">{race?.description}</p>
           </div>
-
-          <div className="mt-8">
+          <br />
+          <div>
+            <button className="bg-green-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-green-700 active:bg-green-800 transition duration-200" onClick={() => setShowMap(!showMap)}>
+              Mostrar mapa
+            </button>
+          </div>
+          
+          <div className={`mt-8 ${showMap ? 'block' : 'hidden'}`}>
             <h2 className="text-xl sm:text-2xl font-semibold mb-4">Ubicación</h2>
+            <button className="bg-green-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-green-700 active:bg-green-800 transition duration-200" onClick={() => window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank')}>Ver ubicación</button>
             <div className="h-[400px] rounded-lg overflow-hidden">
               <MapContainer 
                 center={[lat, lng]} 
