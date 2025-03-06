@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useFetch } from "../hooks/useFetch";
 import {
@@ -129,7 +129,7 @@ const RaceDetail = () => {
                   <span className="font-semibold">Plazas disponibles:</span>{" "}
                   {race?.available_slots}
                 </p>
-
+                
                 {isAuthenticated &&
                 race?.status === "Open" &&
                 race?.available_slots > 0 ? (
@@ -140,13 +140,16 @@ const RaceDetail = () => {
                     Inscribirse ahora
                   </button>
                 ) : (
+                <Link to="/login">
                   <p className="text-red-600 mt-4">
+                    
                     {!isAuthenticated
                       ? "Debes iniciar sesión para inscribirte"
                       : race?.available_slots <= 0
                       ? "No hay plazas disponibles"
                       : "Las inscripciones están cerradas"}
                   </p>
+                  </Link>
                 )}
               </div>
             </div>

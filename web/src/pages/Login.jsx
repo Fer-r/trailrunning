@@ -33,28 +33,28 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-2xl">
+      <div className="max-w-xl w-full space-y-8 bg-white p-10 rounded-xl shadow-2xl">
         {/* Header */}
         <div className="text-center">
-          <h2 className="text-3xl font-extrabold text-gray-900 mb-2">
+          <h2 className="text-4xl font-extrabold text-gray-900 mb-3">
             Bienvenido de nuevo
           </h2>
-          <p className="text-sm text-gray-600">
+          <p className="text-lg text-gray-600">
             Inicia sesión para acceder a tu cuenta
           </p>
         </div>
 
         {/* Form */}
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm space-y-4">
+        <form className="mt-10 space-y-8" onSubmit={handleSubmit}>
+          <div className="rounded-md shadow-sm space-y-6">
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="email" className="block text-base font-medium text-gray-700 mb-2">
                 Correo Electrónico
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FiMail className="h-5 w-5 text-gray-400" />
+                  <FiMail className="h-6 w-6 text-gray-400" />
                 </div>
                 <input
                   id="email"
@@ -64,7 +64,7 @@ const LoginPage = () => {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="appearance-none relative block w-full pl-10 pr-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm"
+                  className="appearance-none relative block w-full pl-12 pr-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 text-base"
                   placeholder="tu@email.com"
                 />
               </div>
@@ -72,12 +72,12 @@ const LoginPage = () => {
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="password" className="block text-base font-medium text-gray-700 mb-2">
                 Contraseña
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FiLock className="h-5 w-5 text-gray-400" />
+                  <FiLock className="h-6 w-6 text-gray-400" />
                 </div>
                 <input
                   id="password"
@@ -87,7 +87,7 @@ const LoginPage = () => {
                   required
                   value={formData.password}
                   onChange={handleChange}
-                  className="appearance-none relative block w-full pl-10 pr-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm"
+                  className="appearance-none relative block w-full pl-12 pr-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 text-base"
                   placeholder="••••••••"
                 />
               </div>
@@ -101,31 +101,23 @@ const LoginPage = () => {
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
-                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                className="h-5 w-5 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
               />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+              <label htmlFor="remember-me" className="ml-3 block text-base text-gray-900">
                 Recordarme
               </label>
             </div>
-
-            <div className="text-sm">
-              <a href="#" className="font-medium text-primary-600 hover:text-primary-500">
-                ¿Olvidaste tu contraseña?
-              </a>
-            </div>
           </div>
-
           {/* Submit Button */}
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 text-sm font-medium rounded-lg text-white bg-black hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200"
+              className="group relative w-full flex justify-center py-3 px-6 text-base font-medium rounded-lg text-white bg-[#8B4513] hover:bg-[#c45e16] cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200"
             >
               Iniciar Sesión
             </button>
           </div>
-
-          {/* Sign up link */}
+ {/* Sign up link */}
           <div className="text-center text-sm">
             <span className="text-gray-600">¿No tienes una cuenta? </span>
             <a href="#" className="font-medium text-primary-600 hover:text-primary-500">
