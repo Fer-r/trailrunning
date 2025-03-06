@@ -45,8 +45,8 @@ public class ControladorCarreras {
     private Label labelTiempo;
     @FXML
     private Label labelImagen;
-    @FXML
-    private ImageView imageView;
+//    @FXML
+//    private ImageView imageView;
     @FXML
     private ImageView imagenLogin;
 
@@ -188,15 +188,16 @@ public class ControladorCarreras {
         labelDistancia.setText(String.valueOf(carrera.getDistance_km()) + " km");
         labelCoordenadas.setText(carrera.getCoordinates());
         labelTiempo.setText(carrera.getDate().toString());
-        labelImagen.setText(carrera.getImage());
+        // labelImagen.setText(carrera.getImage());
 
+        /*
         // Cargar la imagen
         try {
             Image image = new Image("file:" + carrera.getImage());  // Aquí carga la imagen desde la ruta especificada
             imageView.setImage(image);
         } catch (Exception e) {
             imageView.setImage(null);  // Si no se puede cargar la imagen, dejar la imagen en blanco
-        }
+        }*/
     }
 
     @FXML
