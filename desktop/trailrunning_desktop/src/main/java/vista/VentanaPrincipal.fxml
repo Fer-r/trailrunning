@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorCarreras">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="856.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorCarreras">
    <children>
       <BorderPane prefHeight="84.0" prefWidth="790.0">
          <center>
@@ -30,7 +30,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </BorderPane>
-      <VBox prefHeight="421.0" prefWidth="663.0">
+      <VBox prefHeight="464.0" prefWidth="856.0">
          <children>
             <VBox prefHeight="87.0" prefWidth="600.0" spacing="10.0">
                <children>
@@ -50,10 +50,10 @@
                   </HBox>
                </children>
                <padding>
-                  <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
+                  <Insets bottom="15.0" left="45.0" right="45.0" top="15.0" />
                </padding>
             </VBox>
-            <HBox prefHeight="328.0" prefWidth="790.0" spacing="20.0">
+            <HBox prefHeight="328.0" prefWidth="790.0" spacing="45.0">
                <children>
                   <TableView fx:id="tableView" prefHeight="259.0" prefWidth="385.0">
                      <columns>
@@ -69,60 +69,51 @@
                   </TableView>
                   <VBox alignment="CENTER" prefHeight="298.0" prefWidth="303.0" spacing="25.0">
                      <children>
+                        <ImageView fx:id="imagenCarrera" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
                         <HBox>
                            <children>
                               <VBox prefWidth="251.0" spacing="15.0">
                                  <children>
-                                    <Label text="DESCRIPCIÓN">
+                                    <Label text="Descripción:">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label text="DISTANCIA">
+                                    <Label text="Distancia:">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label text="COORDENADAS">
+                                    <Label text="Coordenadas:">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label text="TIEMPO">
+                                    <Label text="Tiempo:">
                                        <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="IMAGEN">
-                                       <font>
-                                          <Font size="14.0" />
+                                          <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </VBox>
                               <VBox prefWidth="251.0" spacing="15.0">
                                  <children>
-                                    <Label fx:id="labelDescripcion" text="DESCRIPCIÓN">
+                                    <Label fx:id="labelDescripcion" text="-">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="labelDistancia" text="DISTANCIA">
+                                    <Label fx:id="labelDistancia" text="-">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="labelCoordenadas" text="COORDENADAS">
+                                    <Label fx:id="labelCoordenadas" text="-">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="labelTiempo" text="TIEMPO">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="labelmagen" text="IMAGEN">
+                                    <Label fx:id="labelTiempo" text="-">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -131,17 +122,17 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <Button fx:id="butonIncribirse" mnemonicParsing="false" prefHeight="41.0" prefWidth="87.0" text="INSCRIBIRSE" />
+                        <Button fx:id="butonIncribirse" mnemonicParsing="false" prefHeight="41.0" prefWidth="87.0" text="Inscribirse" />
                      </children>
                   </VBox>
                </children>
                <padding>
-                  <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
+                  <Insets bottom="15.0" left="45.0" right="45.0" top="30.0" />
                </padding>
             </HBox>
          </children>
          <padding>
-            <Insets bottom="20.0" />
+            <Insets bottom="45.0" />
          </padding>
       </VBox>
    </children>

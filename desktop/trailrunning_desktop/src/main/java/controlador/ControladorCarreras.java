@@ -1,5 +1,6 @@
 package controlador;
 
+import java.io.File;
 import java.io.IOException;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -49,6 +50,9 @@ public class ControladorCarreras {
 //    private ImageView imageView;
     @FXML
     private ImageView imagenLogin;
+    
+    @FXML
+    private ImageView imagenCarrera;
 
     @FXML
     private ComboBox<String> comboFiltro;
@@ -62,6 +66,8 @@ public class ControladorCarreras {
 
     @FXML
     public void initialize() {
+        
+        inicializarImagen();
         
     // Crear algunos datos de ejemplo
     listaDeCarreras = FXCollections.observableArrayList(
@@ -125,6 +131,24 @@ public class ControladorCarreras {
         
         // Establecer el comportamiento del botón de limpiar
         btnLimpiar.setOnAction(event -> limpiarFiltro());
+    }
+    
+    void inicializarImagen(){ // TODO: not working
+        //findsFile("images/circle-user.png");
+        //Image image = new Image(getClass().getClassLoader().getResource("/images/circle-user.png").toExternalForm());
+        //this.imagenLogin.setImage(image);
+    }
+    
+    void findsFile(String s){
+        String url = getClass().getClassLoader().getResource(s).toExternalForm();
+        //String url = "D:/DAM/3.2%20Proyecto%20integrado/Proyecto%20DAM-DAW/trailrunning/desktop/trailrunning_desktop/build/resources/main/images/circle-user.png";
+        System.out.println("URL is: " + url);
+        File file = new File(url);
+        if(file.exists()){
+            System.out.println("File was found!!");
+        }else{
+            System.out.println("File was NOT found");
+        }
     }
 
     @FXML
