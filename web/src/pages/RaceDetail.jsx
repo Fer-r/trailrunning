@@ -8,13 +8,17 @@ import {
 } from "../services/useServices";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import L from 'leaflet';
+import L from "leaflet";
+import defaultTrailImage from "../assets/default-trail.jpg";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+  iconRetinaUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
+  iconUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
 });
 const RaceDetail = () => {
   const { id } = useParams();
@@ -31,7 +35,9 @@ const RaceDetail = () => {
     error: participantsError,
     loading: loadingParticipants,
   } = useFetch(() => getParticipants(id), [id]);
-  const coordinates = race?.coordinates?.split(',').map(coord => parseFloat(coord)) || [0, 0];
+  const coordinates = race?.coordinates
+    ?.split(",")
+    .map((coord) => parseFloat(coord)) || [0, 0];
   const [lat, lng] = coordinates;
   const handleRegistration = () => {
     setIsRegistered(!isRegistered);
@@ -58,11 +64,14 @@ const RaceDetail = () => {
         {/* Imagen de la carrera */}
         <div className="relative h-48 sm:h-64 w-full">
           <img
-            src={race?.image}
+            src={race?.img || defaultTrailImage}
             alt={race?.name}
             className="w-full h-full object-cover"
+            onError={(e) => {
+              e.target.src = defaultTrailImage;
+            }}
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 flex items-center justify-center">
+          <div className="absolute top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center">
             <h1 className="text-2xl sm:text-4xl font-bold text-white px-4 text-center">
               {race?.name}
             </h1>
@@ -162,28 +171,35 @@ const RaceDetail = () => {
             </p>
           </div>
           <div className="mt-8">
-            <h2 className="text-xl sm:text-2xl font-semibold mb-4">Ubicación</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+              Ubicación
+            </h2>
             <div className="space-y-4">
-              <button 
-                className="bg-green-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-green-700 active:bg-green-800 transition duration-200" 
+              <button
+                className="bg-green-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-green-700 active:bg-green-800 transition duration-200"
                 onClick={() => setShowMap(!showMap)}
               >
-                {showMap ? 'Ocultar mapa' : 'Mostrar mapa'}
+                {showMap ? "Ocultar mapa" : "Mostrar mapa"}
               </button>
-              
+
               {showMap && (
                 <div className="space-y-4">
-                  <button 
-                    className="bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-200" 
-                    onClick={() => window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank')}
+                  <button
+                    className="bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-200"
+                    onClick={() =>
+                      window.open(
+                        `https://www.google.com/maps?q=${lat},${lng}`,
+                        "_blank"
+                      )
+                    }
                   >
                     Ver en Google Maps
                   </button>
-                  
+
                   <div className="h-[400px] rounded-lg overflow-hidden border border-gray-300">
-                    <MapContainer 
-                      center={[lat, lng]} 
-                      zoom={13} 
+                    <MapContainer
+                      center={[lat, lng]}
+                      zoom={13}
                       style={{ height: "100%", width: "100%" }}
                       scrollWheelZoom={false}
                     >
@@ -194,7 +210,8 @@ const RaceDetail = () => {
                       <Marker position={[lat, lng]}>
                         <Popup>
                           <div className="text-center">
-                            <strong>{race?.name}</strong><br />
+                            <strong>{race?.name}</strong>
+                            <br />
                             {race?.location}
                           </div>
                         </Popup>
@@ -204,7 +221,7 @@ const RaceDetail = () => {
                 </div>
               )}
             </div>
-          </div>  
+          </div>
 
           <div className="mt-8 border-t pt-8">
             <h2 className="text-xl sm:text-2xl font-semibold mb-6">
