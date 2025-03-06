@@ -7,8 +7,14 @@ import { FaLocationCrosshairs } from "react-icons/fa6";
 import Select from "react-select";
 
 const RaceList = () => {
-  const { data: races, loading, error } = useFetch(getTrailRunning, []);
+  const {
+    data: races,
+    loading,
+    error,
+    setLoading,
+  } = useFetch(getTrailRunning, []);
   const [visibleRaces, setVisibleRaces] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(3);
   const [showDateFilter, setShowDateFilter] = useState(false);
   const {
     sortRacesByDistance,
@@ -19,7 +25,6 @@ const RaceList = () => {
     setSelectedCategories,
     applyFilters,
   } = useFilter(races);
-
   const categoryOptions = [
     { value: "Trail Medio", label: "Trail Medio" },
     { value: "Ultra Trail", label: "Ultra Trail" },
@@ -28,22 +33,46 @@ const RaceList = () => {
     { value: "Trail Corto", label: "Trail Corto" },
     { value: "Trail Técnico", label: "Trail Técnico" },
   ];
+  // useEffect(() => {
+  //   if (races && races.length > 0) {
+  //     handleLocationSort();
+  //   }
+  // }, [races]);
   useEffect(() => {
-    if (races && races.length > 0) {
-      handleLocationSort();
+    if (races.length > 0) {
+      setVisibleRaces(races.slice(0, visibleCount));
     }
-  }, [races]);
+  }, [races, visibleCount]);
 
   useEffect(() => {
-    if (races && races.length > 0) {
-      if (sortedByLocation) {
-        handleLocationSort();
-      } else {
-        const filteredRaces = applyFilters(races);
-        setVisibleRaces(filteredRaces);
+    const handleScroll = () => {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 100
+      ) {
+        if (!loading && visibleCount < races.length) {
+          setLoading(true);
+          setTimeout(() => {
+            setVisibleCount((prev) => prev + 3);
+            setLoading(false);
+          }, 1000);
+        }
       }
-    }
-  }, [dateRange, selectedCategories]);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [loading, visibleCount, races.length, setLoading]);
+  // useEffect(() => {
+  //   if (races && races.length > 0) {
+  //     if (sortedByLocation) {
+  //       handleLocationSort();
+  //     } else {
+  //       const filteredRaces = applyFilters(races);
+  //       setVisibleRaces(filteredRaces);
+  //     }
+  //   }
+  // }, [dateRange, selectedCategories]);
   const handleCategoryChange = (selectedOptions) => {
     setSelectedCategories(
       selectedOptions ? selectedOptions.map((option) => option.value) : []
@@ -69,40 +98,37 @@ const RaceList = () => {
   };
 
   return (
-    <div className="min-h-screen w-11/12 mx-auto bg-slate-50/80 py-8 px-4">
+    <div className="min-h-screen max-w-7xl mx-auto bg-slate-50/80 py-8 px-4 rounded-3xl">
       <div className="max-w-8xl mx-auto">
-        <div className="flex flex-col gap-4 mb-8">
-          <div className="flex flex-wrap justify-between items-center gap-4">
-            <h1 className="text-4xl font-bold text-slate-800">
-              Lista de Carreras
-            </h1>
-            <div className="flex flex-wrap gap-3">
-              <button
-                onClick={() => setShowDateFilter(!showDateFilter)}
-                className="flex cursor-pointer items-center gap-2 bg-green-600 text-white px-4 py-2.5 rounded-lg hover:bg-green-700 active:bg-green-800 transition-all duration-200 shadow-md hover:shadow-lg"
-              >
-                {showDateFilter ? (
-                  <>
-                    <span className="text-lg">×</span>
-                    Ocultar filtros
-                  </>
-                ) : (
-                  <>
-                    <span className="text-lg">+</span>
-                    Filtros
-                  </>
-                )}
-              </button>
-              <button
-                onClick={handleLocationSort}
-                className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg cursor-pointer hover:bg-blue-700 active:bg-blue-800 transition-all duration-200 shadow-md hover:shadow-lg"
-              >
-                <FaLocationCrosshairs className="text-lg" />
-                {sortedByLocation ? "Ver todas" : "Más Relevantes"}
-              </button>
-            </div>
-          </div>
-
+        <h1 className="text-4xl font-bold text-slate-800 mb-8 text-center">
+          Lista de Carreras
+        </h1>
+        <div className="flex flex-wrap gap-3 mb-4">
+          <button
+            onClick={() => setShowDateFilter(!showDateFilter)}
+            className="flex cursor-pointer items-center gap-2 bg-green-600 text-white px-4 py-2.5 rounded-lg hover:bg-green-700 active:bg-green-800 transition-all duration-200 shadow-md hover:shadow-lg"
+          >
+            {showDateFilter ? (
+              <>
+                <span className="text-lg">×</span>
+                Ocultar filtros
+              </>
+            ) : (
+              <>
+                <span className="text-lg">+</span>
+                Filtros
+              </>
+            )}
+          </button>
+          <button
+            onClick={handleLocationSort}
+            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg cursor-pointer hover:bg-blue-700 active:bg-blue-800 transition-all duration-200 shadow-md hover:shadow-lg"
+          >
+            <FaLocationCrosshairs className="text-lg" />
+            {sortedByLocation ? "Ver todas" : "Más Relevantes"}
+          </button>
+        </div>
+        <div>
           {showDateFilter && (
             <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-xl shadow-lg border border-gray-200">
               <div className="flex flex-wrap justify-center gap-8 items-center">
@@ -189,36 +215,36 @@ const RaceList = () => {
             </div>
           )}
         </div>
-
-        {loading && (
-          <div className="flex justify-center items-center py-4">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
-          </div>
-        )}
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-1 gap-6 p-4">
+          {visibleRaces.map((race) => (
+            <RaceCard
+              key={race.id}
+              race={race}
+              distance={race.distance ? `${race.distance.toFixed(1)} km` : null}
+            />
+          ))}
+          {loading && (
+            <div className="flex justify-center items-center py-4">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+            </div>
+          )}
+          {visibleCount >= races.length && !loading && races.length > 0 && (
+            <div className="text-center text-gray-600 py-4">
+              Ya no hay mas carreras.
+            </div>
+          )}
+        </div>
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
             <p>Error: {error}</p>
           </div>
         )}
-        {races && races.length === 0 && (
+        {races && races.length === 0 && !loading && (
           <div className="text-center py-8">
             <p className="text-xl text-slate-600">
               No hay carreras disponibles en este momento
             </p>
             <p className="text-slate-500 mt-2">Vuelve a consultar más tarde</p>
-          </div>
-        )}
-        {races && races.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-1 gap-6 p-4">
-            {visibleRaces.map((race) => (
-              <RaceCard
-                key={race.id}
-                race={race}
-                distance={
-                  race.distance ? `${race.distance.toFixed(1)} km` : null
-                }
-              />
-            ))}
           </div>
         )}
       </div>

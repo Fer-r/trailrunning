@@ -10,8 +10,11 @@ const RaceCard = ({ race, distance }) => {
   };
 
   return (
-    <Link to={`/trailrunning/${race?.id}`} className="group block touch-manipulation">
-      <article className="bg-white rounded-xl shadow-lg hover:shadow-xl active:shadow-md transition-shadow duration-300 overflow-hidden my-4 max-w-4xl mx-auto">
+    <Link
+      to={`/trailrunning/${race?.id}`}
+      className="group block touch-manipulation"
+    >
+      <article className="bg-white rounded-xl shadow-lg hover:shadow-xl active:shadow-md transition-shadow duration-300 overflow-hidden my-2 max-w-4xl mx-auto">
         <div className="flex flex-col sm:flex-row h-auto sm:h-36">
           <div className="w-full sm:w-1/4 h-48 sm:h-full relative">
             <img
@@ -21,12 +24,9 @@ const RaceCard = ({ race, distance }) => {
               loading="lazy"
               onError={handleImageError}
             />
-            {/* <img
-              src={getStatusImage(race?.status)}
-              alt={`Estado: ${race?.status}`}
-              className="absolute top-2 right-2 w-12 h-12"
-              loading="lazy"
-            /> */}
+            <div className={`absolute bottom-2 right-2 px-3 py-1 rounded-lg text-white text-sm font-medium ${race?.status === "Open" ? "bg-green-500" : race?.status === "Closed" ? "bg-red-500" : race?.status === "Completed" ? "bg-orange-500" : "bg-gray-500"}`}>
+              {race?.status}
+            </div>
           </div>
 
           <div className="w-full sm:w-3/4 p-4 sm:p-6 flex flex-col justify-between">

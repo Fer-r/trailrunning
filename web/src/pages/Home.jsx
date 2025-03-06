@@ -1,20 +1,53 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import RaceList from "../components/RaceList";
-import { useEffect } from "react";
+import UpcomingRaces from "../components/UpcomingRaces";
+import { useEffect, useState } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Home = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const backgroundImages = [
+    "/fondo1.png",
+    "/fondo2.png",
+    "/fondo3.png"
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentImageIndex((prevIndex) =>
+          prevIndex === backgroundImages.length - 1 ? 0 : prevIndex + 1
+        );
+        setIsTransitioning(false);
+      }, 1000);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex flex-col items-center justify-center">
-        <img
-          src="https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=1470&auto=format&fit=crop"
-          alt="Trail running background"
-          className="absolute inset-0 z-0 w-full h-full object-cover brightness-50"
-        />
+      <section className="relative min-h-[60vh] flex flex-col items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 w-full h-full">
+          {backgroundImages.map((img, index) => (
+            <img
+              key={index}
+              src={img}
+              alt={`Trail running background ${index + 1}`}
+              className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out ${
+                index === currentImageIndex
+                  ? "opacity-100 scale-105"
+                  : "opacity-0 scale-100"
+              } ${isTransitioning ? "blur-sm" : ""}`}
+            />
+          ))}
+          <div className="absolute inset-0 bg-black/50"></div>
+        </div>
         <div className="relative z-10 text-center text-white px-4 py-8 sm:py-12">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold p-2 sm:p-4">Trail Running Hlanz</h1>
           <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto">
@@ -24,7 +57,14 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Races Section */}
+      {/* Upcoming Races Section */}
+      <section className="bg-[#F8E4BE] py-12">
+        <div className="container mx-auto px-4">
+          <UpcomingRaces />
+        </div>
+      </section>
+
+      {/* All Races Section */}
       <section className="bg-[#F8E4BE] py-12">
         <div className="container mx-auto px-4">
           <RaceList />
