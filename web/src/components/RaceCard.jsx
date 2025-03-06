@@ -1,21 +1,28 @@
 import { Link } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { FiCalendar } from "react-icons/fi";
+import defaultTrailImage from "../assets/default-trail.jpg"; // Import default image
 
 const RaceCard = ({ race }) => {
+  // Function to handle image loading errors
+  const handleImageError = (e) => {
+    e.target.src = defaultTrailImage;
+  };
+
   return (
     <Link
-    to={`/trailrunning/${race?.id}`}
-    className="group block touch-manipulation"
-  >
+      to={`/trailrunning/${race?.id}`}
+      className="group block touch-manipulation"
+    >
       <article className="bg-white rounded-xl shadow-lg hover:shadow-xl active:shadow-md transition-shadow duration-300 overflow-hidden my-4 max-w-4xl mx-auto">
         <div className="flex flex-col sm:flex-row h-auto sm:h-36">
           <div className="w-full sm:w-1/4 h-48 sm:h-full relative">
             <img
-              src={race?.img}
+              src={race?.img || defaultTrailImage}
               alt={race?.name}
               className="w-full h-full object-cover"
               loading="lazy"
+              onError={handleImageError}
             />
             {/* <img
               src={getStatusImage(race?.status)}

@@ -8,8 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "api": "json-server --watch ./src/db.json --port 4000 id"
-  },  
+    "api": "json-server --watch ./src/db.json --port 4000"
+  },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.0",
     "react": "^18.3.1",

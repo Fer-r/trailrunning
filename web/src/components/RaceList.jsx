@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFetch } from "../hooks/useFetch";
+import { getTrailRunning } from "./../services/useServicesMejorado";
 
 const RaceList = () => {
   const {
     data: races,
     loading,
+    error,
     setLoading,
   } = useFetch(getTrailRunning, []);
   const [visibleRaces, setVisibleRaces] = useState([]);
@@ -41,10 +43,10 @@ const RaceList = () => {
           Lista de Carreras
         </h1>
         {loading && (
-        <div className="flex justify-center items-center py-4">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
-        </div>
-      )}
+          <div className="flex justify-center items-center py-4">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+          </div>
+        )}
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
             <p>Error: {error}</p>
@@ -63,14 +65,14 @@ const RaceList = () => {
             {races.map((race) => (
               <RaceCard key={race.id} race={race} />
             ))}
+            {visibleCount >= races.length && !loading && (
+              <div className="text-center text-gray-600 py-4">
+                Ya no hay mas carreras.
+              </div>
+            )}
           </div>
         )}
       </div>
-      {visibleCount >= races.length && !loading && (
-        <div className="text-center text-gray-600 py-4">
-          Ya no hay mas carreras.
-        </div>
-      )}
     </div>
   );
 };
