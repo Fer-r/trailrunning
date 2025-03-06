@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFetch } from "../hooks/useFetch";
-import { getTrailRunning } from "./../services/useServicesMejorado";
+import { getTrailRunning } from "./../services/useServices";
+import RaceCard from "./RaceCard";
 
 const RaceList = () => {
   const {

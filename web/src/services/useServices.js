@@ -64,7 +64,7 @@ const deleteFromAPI = async (endpoint) => {
 
 //TRAILRUNNING
 export const getTrailRunning = async (page) => {
-  return await fetchFromAPI("/api/trailrunning", { page });
+  return await fetchFromAPI("/trailrunning", { page });
 };
 
 export const getTrailRunningDetails = async (id) => {

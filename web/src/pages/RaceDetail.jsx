@@ -162,49 +162,53 @@ const RaceDetail = () => {
             </p>
           </div>
           <div className="mt-8">
-            <h2 className="text-xl sm:text-2xl font-semibold mb-4">Ubicación</h2>
-            <div className="space-y-4">
-              <button 
-                className="bg-green-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-green-700 active:bg-green-800 transition duration-200" 
-                onClick={() => setShowMap(!showMap)}
-              >
-                {showMap ? 'Ocultar mapa' : 'Mostrar mapa'}
-              </button>
-              
-              {showMap && (
-                <div className="space-y-4">
-                  <button 
-                    className="bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-200" 
-                    onClick={() => window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank')}
-                  >
-                    Ver en Google Maps
-                  </button>
-                  
-                  <div className="h-[400px] rounded-lg overflow-hidden border border-gray-300">
-                    <MapContainer 
-                      center={[lat, lng]} 
-                      zoom={13} 
-                      style={{ height: "100%", width: "100%" }}
-                      scrollWheelZoom={false}
-                    >
-                      <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                      />
-                      <Marker position={[lat, lng]}>
-                        <Popup>
-                          <div className="text-center">
-                            <strong>{race?.name}</strong><br />
-                            {race?.location}
-                          </div>
-                        </Popup>
-                      </Marker>
-                    </MapContainer>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>  
+  <h2 className="text-xl sm:text-2xl font-semibold mb-4">Ubicación</h2>
+  <div className="space-y-4">
+    <button 
+      className="bg-green-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-green-700 active:bg-green-800 transition duration-200" 
+      onClick={() => setShowMap(!showMap)}
+    >
+      {showMap ? 'Ocultar mapa' : 'Mostrar mapa'}
+    </button>
+
+    {/* Contenedor con animación */}
+    <div 
+      className={`transition-all duration-500 ease-in-out overflow-hidden ${
+        showMap ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+      }`}
+    >
+      <button 
+        className="bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-200 mt-4" 
+        onClick={() => window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank')}
+      >
+        Ver en Google Maps
+      </button>
+
+      <div className="h-[400px] rounded-lg overflow-hidden border border-gray-300 mt-4">
+        <MapContainer 
+          center={[lat, lng]} 
+          zoom={13} 
+          style={{ height: "100%", width: "100%" }}
+          scrollWheelZoom={false}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker position={[lat, lng]}>
+            <Popup>
+              <div className="text-center">
+                <strong>{race?.name}</strong><br />
+                {race?.location}
+              </div>
+            </Popup>
+          </Marker>
+        </MapContainer>
+      </div>
+    </div>
+  </div>
+</div>
+
 
           <div className="mt-8 border-t pt-8">
             <h2 className="text-xl sm:text-2xl font-semibold mb-6">
