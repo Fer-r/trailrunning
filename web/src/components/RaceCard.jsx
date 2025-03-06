@@ -3,7 +3,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FiCalendar } from "react-icons/fi";
 import defaultTrailImage from "../assets/default-trail.jpg"; // Import default image
 
-const RaceCard = ({ race }) => {
+const RaceCard = ({ race, distance }) => {
   // Function to handle image loading errors
   const handleImageError = (e) => {
     e.target.src = defaultTrailImage;
@@ -57,6 +57,11 @@ const RaceCard = ({ race }) => {
                 <FaLocationDot className="text-lg" />
                 {race?.location}
               </span>
+              {distance && (
+                <span className="text-green-600 font-medium">
+                  A {distance} de ti
+                </span>
+              )}
               <span className="text-sky-600 font-medium flex items-center gap-1 hover:text-sky-700 transition-colors duration-300 text-sm sm:text-base">
                 Ver detalles
                 <span className="text-lg">→</span>

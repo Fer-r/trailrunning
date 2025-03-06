@@ -9,6 +9,7 @@ import {
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from 'leaflet';
+import defaultTrailImage from "../assets/default-trail.jpg";
 import { CiCalendar } from "react-icons/ci";
 import { GiLevelEndFlag, GiPathDistance } from "react-icons/gi";
 import { FaLocationDot } from "react-icons/fa6";
@@ -18,9 +19,12 @@ import { Link } from "react-router-dom";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+  iconRetinaUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
+  iconUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
 });
 const RaceDetail = () => {
   const { id } = useParams();
@@ -37,7 +41,9 @@ const RaceDetail = () => {
     error: participantsError,
     loading: loadingParticipants,
   } = useFetch(() => getParticipants(id), [id]);
-  const coordinates = race?.coordinates?.split(',').map(coord => parseFloat(coord)) || [0, 0];
+  const coordinates = race?.coordinates
+    ?.split(",")
+    .map((coord) => parseFloat(coord)) || [0, 0];
   const [lat, lng] = coordinates;
   const handleRegistration = () => {
     setIsRegistered(!isRegistered);
@@ -65,9 +71,12 @@ const RaceDetail = () => {
         <div className="relative h-64 sm:h-96 w-full">
           <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent z-1"></div>
           <img
-            src={race?.img}
+            src={race?.img || defaultTrailImage}
             alt={race?.name}
             className="w-full h-full object-cover blur-sm"
+            onError={(e) => {
+              e.target.src = defaultTrailImage;
+            }}
           />
           <div className="absolute top-0 left-0 w-full h-full z-20">
             {/* Race details overlay */}
@@ -211,13 +220,13 @@ const RaceDetail = () => {
                     Inscribirse ahora
                   </button>
                 ) : (
-                  <p className="mt-6 text-red-600 p-4 bg-red-50 rounded-lg text-center">
+                  <div className="mt-6 text-red-600 p-4 bg-red-50 rounded-lg text-center">
                     {!isAuthenticated
                       ? <span>Debes <Link to="/login" className="underline decoration-red-600">iniciar sesión</Link> para inscribirte</span>
                       : race?.available_slots <= 0
                       ? "No hay plazas disponibles"
                       : "Las inscripciones están cerradas"}
-                  </p>
+                  </div>
                 )}
               </div>
             </div>
