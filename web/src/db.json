@@ -4,22 +4,22 @@
       "id": 1,
       "name": "Trail Sierra Nevada",
       "description": "Espectacular carrera por los senderos más emblemáticos de Sierra Nevada, atravesando paisajes de alta montaña y vistas panorámicas inolvidables.",
-      "release_date": "2024-05-20T08:00:00",
+      "release_date": "2025-03-14T08:00:00",
       "distance_km": 21.5,
       "location": "Granada",
       "coordinates": "37.1768,-3.5986",
       "unevenness": 1200,
       "entry_fee": 35.0,
       "available_slots": 250,
-      "status": "Open",
+      "status": "Closed",
       "category": "Trail Medio",
-      "img": "https://images.unsplash.com/photo-1551632811-561732d1e306"
+      "img": "https://carreraspormontana.com/images/2023/01/xjsaragossa-dsc8488.jpg"
     },
     {
       "id": 2,
       "name": "Ultra Alpujarra",
       "description": "Una ultra trail que recorre los pueblos más pintorescos de la Alpujarra granadina, entre bancales y senderos históricos.",
-      "release_date": "2024-06-15T07:00:00",
+      "release_date": "2025-03-13T07:00:00",
       "distance_km": 50.0,
       "location": "Alpujarra Granadina",
       "coordinates": "36.9263,-3.3590",
@@ -28,22 +28,22 @@
       "available_slots": 150,
       "status": "Open",
       "category": "Ultra Trail",
-      "img": "https://images.unsplash.com/photo-1551632811-561732d1e306"
+      "img": "https://revistaclubdecorredores.com/wp-content/uploads/2024/09/Conoce-las-Diferentes-distancias-del-trail-running-y-sus-desafios.png"
     },
     {
       "id": 3,
       "name": "Maratón Mulhacén",
       "description": "Carrera de alta montaña que alcanza el pico más alto de la península ibérica.",
-      "release_date": "2024-07-10T06:30:00",
+      "release_date": "2025-03-12T06:30:00",
       "distance_km": 42.2,
       "location": "Güéjar Sierra",
       "coordinates": "37.1547,-3.4419",
       "unevenness": 2500,
       "entry_fee": 55.0,
       "available_slots": 200,
-      "status": "Open",
+      "status": "Completed",
       "category": "Maratón de Montaña",
-      "img": "https://images.unsplash.com/photo-1551632811-561732d1e306"
+      "img": "https://blog.endurancegroup.org/wp-content/uploads/2021/10/DYNAFIT-Trail-Running-Davos-Summer-Athlete-Hannes-Namberger_1140x640_800x800.jpg"
     },
     {
       "id": 4,
