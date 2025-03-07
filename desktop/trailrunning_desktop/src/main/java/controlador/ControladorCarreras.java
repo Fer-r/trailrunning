@@ -93,6 +93,9 @@ public class ControladorCarreras {
     // Botón inscribirse
     @FXML
     private Button btnInscribirse;
+    
+    @FXML
+    private Button btnIniciarSesion;
 
     @FXML
     public void initialize() {
@@ -311,15 +314,11 @@ public class ControladorCarreras {
     }
     
     void logicaUsuarioLogueado(){
-        /*
-        // Quitar esto luego
         if(Session.hayUsuario()){
-            lblPruebaUsuario.setText("Hay usuario logueado");
-            lblPruebaUsuario.setStyle("-fx-text-fill: green;");
+            btnIniciarSesion.setText("Ir a mi perfil");
         }else{
-            lblPruebaUsuario.setText("No hay usuario logueado");
-            lblPruebaUsuario.setStyle("-fx-text-fill: red;");
-        }*/
+            btnIniciarSesion.setText("Iniciar sesión");
+        }
     }
 
     @FXML

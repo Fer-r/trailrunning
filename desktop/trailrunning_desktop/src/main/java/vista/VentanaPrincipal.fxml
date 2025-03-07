@@ -30,7 +30,7 @@
                   <Font name="Georgia Bold Italic" size="20.0" />
                </font>
             </Label>
-            <Button fx:id="btnIniciarSesion" alignment="BOTTOM_CENTER" mnemonicParsing="false" prefHeight="42.0" prefWidth="146.0" style="-fx-label-padding: 8px; -fx-border-color: white; -fx-border-radius: 36px; -fx-background-color: #8EB486;" text="Cerrar Sesión" textFill="WHITE">
+            <Button fx:id="btnIniciarSesion" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#cambiarAVentanaLogin" prefHeight="42.0" prefWidth="146.0" style="-fx-label-padding: 8px; -fx-border-color: white; -fx-border-radius: 36px; -fx-background-color: #8EB486;" text="Iniciar sesión" textFill="WHITE">
                <font>
                   <Font name="SansSerif Regular" size="13.0" />
                </font>
@@ -58,7 +58,6 @@
                               <ComboBox fx:id="comboFiltro" prefHeight="26.0" prefWidth="161.0" />
                               <Button fx:id="btnLimpiar" mnemonicParsing="false" onAction="#limpiarFiltro" prefHeight="25.0" prefWidth="86.0" text="Limpiar" />
                               <Button fx:id="btnFiltrar" mnemonicParsing="false" onAction="#filtrarCarreras" prefHeight="25.0" prefWidth="86.0" text="Filtrar" />
-                              <Button fx:id="butonIncribirse" mnemonicParsing="false" prefHeight="25.0" prefWidth="87.0" text="Inscribirse" />
                            </children>
                         </HBox>
                      </children>
