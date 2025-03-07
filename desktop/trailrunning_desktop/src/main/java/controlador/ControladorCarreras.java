@@ -78,6 +78,10 @@ public class ControladorCarreras {
     private Button btnLimpiar;
     @FXML
     private Button btnFiltrar;
+    
+    // Botón inscribirse
+    @FXML
+    private Button btnInscribirse;
 
     @FXML
     public void initialize() {
@@ -166,8 +170,20 @@ public class ControladorCarreras {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 mostrarDetalles(newValue);
+                
+                // Lógica del botón de inscribirse
+                logicaBtnInscribirse();
+                
             }
         });
+    }
+    
+    void logicaBtnInscribirse(){
+        if(Session.hayUsuario()){
+            btnInscribirse.setDisable(false);
+        }else{
+            
+        }
     }
     
     void inicializarComboBox(){
@@ -184,6 +200,8 @@ public class ControladorCarreras {
     }
     
     void inicializarBotones(){
+        btnInscribirse.setDisable(true);
+        
         // Establecer el comportamiento del botón de filtrar
         btnFiltrar.setOnAction(event -> filtrarCarreras());
         

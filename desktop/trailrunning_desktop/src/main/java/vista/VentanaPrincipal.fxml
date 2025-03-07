@@ -125,7 +125,7 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <Button fx:id="butonIncribirse" mnemonicParsing="false" prefHeight="41.0" prefWidth="87.0" text="Inscribirse" />
+                        <Button fx:id="btnInscribirse" mnemonicParsing="false" prefHeight="41.0" prefWidth="87.0" text="Inscribirse" />
                      </children>
                   </VBox>
                </children>
