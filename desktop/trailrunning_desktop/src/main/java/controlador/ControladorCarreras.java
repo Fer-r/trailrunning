@@ -27,21 +27,22 @@ public class ControladorCarreras {
     @FXML
     private TableView<Trailrunning> tableView;
     @FXML
-    private TableColumn<Trailrunning, Integer> columnaID;
+    private TableColumn<Trailrunning, Integer> columnaID;//
     @FXML
-    private TableColumn<Trailrunning, String> columnaNombre;
+    private TableColumn<Trailrunning, String> columnaNombre;//
+    //@FXML
+    //private TableColumn<Trailrunning, String> columnaFecha;
     @FXML
-    private TableColumn<Trailrunning, String> columnaFecha;
-    @FXML
-    private TableColumn<Trailrunning, String> columnaUbicacion;
+    private TableColumn<Trailrunning, String> columnaUbicacion;//
+    /*
     @FXML
     private TableColumn<Trailrunning, Double> columnaPrecio;
     @FXML
-    private TableColumn<Trailrunning, Integer> columnaPlazas;
+    private TableColumn<Trailrunning, Integer> columnaPlazas;*/
     @FXML
-    private TableColumn<Trailrunning, String> columnaEstado;
+    private TableColumn<Trailrunning, String> columnaEstado;//
     @FXML
-    private TableColumn<Trailrunning, String> columnaCategoria;
+    private TableColumn<Trailrunning, String> columnaCategoria; //
     
     private ObservableList<Trailrunning> listaDeCarreras;
     
@@ -49,16 +50,26 @@ public class ControladorCarreras {
     
     // Labels
     @FXML
+    private Label labelCoordenadas;
+
+    @FXML
     private Label labelDescripcion;
+
     @FXML
     private Label labelDistancia;
-    @FXML
-    private Label labelCoordenadas;
+
     @FXML
     private Label labelTiempo;
+
     @FXML
-    private Label labelImagen;
-    
+    private Label lblFecha;
+
+    @FXML
+    private Label lblPlazas;
+
+    @FXML
+    private Label lblPrecio;
+
     @FXML
     private Label lblPruebaUsuario;
     
@@ -117,10 +128,10 @@ public class ControladorCarreras {
         // Configuración de las columnas
         columnaID.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
         columnaNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        columnaFecha.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDate().toString()));
+        //columnaFecha.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDate().toString()));
         columnaUbicacion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLocation()));
-        columnaPrecio.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getEntry_fee()).asObject());
-        columnaPlazas.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getAvailable_slots()).asObject());
+        //columnaPrecio.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getEntry_fee()).asObject());
+        //columnaPlazas.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getAvailable_slots()).asObject());
         columnaEstado.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
         columnaCategoria.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCategory()));
         
@@ -220,7 +231,10 @@ public class ControladorCarreras {
         labelDescripcion.setText(carrera.getDescription());
         labelDistancia.setText(String.valueOf(carrera.getDistance_km()) + " km");
         labelCoordenadas.setText(carrera.getCoordinates());
-        labelTiempo.setText(carrera.getDate().toString());
+        labelTiempo.setText(carrera.getEntry_fee() + "");
+        lblFecha.setText(carrera.getDate().toString());
+        lblPrecio.setText(carrera.getEntry_fee() + "");
+        lblPlazas.setText(carrera.getAvailable_slots() + "");
         // labelImagen.setText(carrera.getImage());
 
         /*
