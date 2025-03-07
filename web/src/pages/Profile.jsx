@@ -4,8 +4,13 @@ import { useFetch } from '../hooks/useFetch';
 import { getParticipant } from '../services/useServices';
 // import {races} from '../services/races.json';
 import RaceCard from '../components/RaceCard';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
+  const defaultImages = {
+    male: "../public/photo-male.jpg", // Male runner image
+    female: "../public/photo-female.jpg", // Female runner image
+  };
 
   // const { user } = useAuth();
   const user = {
@@ -21,9 +26,11 @@ const Profile = () => {
     category:  'Trail Running',
     club: 'Need for Run',
     federationNumber: '123',
-    registeredRaces: [1, 3, 5]
+    registeredRaces: [1, 3, 5],
+    profileImage: defaultImages.male
+    // profileImage: defaultImages[user?.gender?.toLowerCase() || 'male']
   }
-  
+
   // const { data: participant, loading, error } = useFetch(() => getParticipant(user?.id));
   const { data: participants, loading, error } = useFetch(() => 
     fetch('/src/data/participants.json').then(res => res.json())
@@ -33,7 +40,7 @@ const Profile = () => {
   const { data: races} = useFetch(() => 
     fetch('/src/data/races.json').then(res => res.json())
   );
-  
+  const navigate = useNavigate();
 
   const participantRaces = races?.filter(race => {
     return participants?.some(participant => 
@@ -160,7 +167,13 @@ const Profile = () => {
           {/* Race */}
           {/* Actions */}
           <div className="mt-8 flex gap-4">
-            <button className="btn-primary px-4 py-2 rounded bg-amber-300 hover:bg-yellow-600">
+            <button 
+              className="btn-primary px-4 py-2 rounded bg-amber-300 hover:bg-yellow-600"
+              onClick={() => {
+                // Navigate to edit profile page
+                navigate('/profile/edit');
+              }}
+            >
               Edit Profile
             </button>
           </div>

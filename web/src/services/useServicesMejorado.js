@@ -37,7 +37,7 @@ const fetchAPI = async (endpoint, options = {}) => {
 
 // TrailRunning endpoints
 export const getTrailRunning = async (page, signal) => 
-    fetchAPI("/api/trailrunning", { params: { page }, signal });
+    fetchAPI("/trailrunning", { params: { page }, signal });
 
 export const getTrailRunningDetails = async (id, signal) => 
     fetchAPI(`/api/trailrunning/${id}`, { signal });
