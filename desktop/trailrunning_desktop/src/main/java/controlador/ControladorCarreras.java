@@ -172,18 +172,30 @@ public class ControladorCarreras {
                 mostrarDetalles(newValue);
                 
                 // Lógica del botón de inscribirse
-                logicaBtnInscribirse();
+                logicaBtnInscribirse(newValue);
                 
             }
         });
     }
     
-    void logicaBtnInscribirse(){
-        if(Session.hayUsuario()){
-            btnInscribirse.setDisable(false);
-        }else{
-            
-        }
+    void logicaBtnInscribirse(Trailrunning carreraSeleccionada){
+        // Si no hay usuario, el botón siempre estará desactivado
+        if(!Session.hayUsuario()) return;
+        btnInscribirse.setDisable(false);
+        
+        // El valor dependerá de si el usuario está inscrito o no en la carrera
+        boolean estaInscrito = TrailrunningRepository
+                .estaInscrito(
+                        Session.getInstance().getUsuario(), 
+                        carreraSeleccionada
+                );
+        
+        if(!estaInscrito)
+            btnInscribirse.setText("Inscribirse");
+        else
+            btnInscribirse.setText("Desinscribirse");
+        
+        System.out.println("Esta es la carrera seleccionada: " + carreraSeleccionada);
     }
     
     void inicializarComboBox(){
@@ -201,6 +213,24 @@ public class ControladorCarreras {
     
     void inicializarBotones(){
         btnInscribirse.setDisable(true);
+        btnInscribirse.setOnAction(event -> {
+            if(btnInscribirse.getText().equals("Inscribirse")){
+                TrailrunningRepository
+                        .crearParticipante(
+                                Session.getInstance().getUsuario(), 
+                                tableView.getSelectionModel().getSelectedItem()
+                        );
+                btnInscribirse.setText("Desinscribirse");
+            }else{
+                Trailrunning carrera = tableView.getSelectionModel().getSelectedItem();
+                boolean resultado = TrailrunningRepository.borrarParticipante(
+                        Session.getInstance().getUsuario(), 
+                        carrera
+                );
+                if(resultado)
+                    btnInscribirse.setText("Inscribirse");
+            }
+        });
         
         // Establecer el comportamiento del botón de filtrar
         btnFiltrar.setOnAction(event -> filtrarCarreras());

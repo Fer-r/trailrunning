@@ -184,6 +184,20 @@ public class TrailrunningRepository {
         System.out.println("Participación creada correctamente");
     }
     
+    public static void crearParticipante(User user, Trailrunning carrera){
+        Participant p = new Participant(
+                calcularSiguienteIdParticipante(),
+                user.getId(),
+                carrera.getId(),
+                LocalDate.now(),
+                100, // TODO: cómo se calcula el dorsal?
+                false
+        );
+        
+        participants.add(p);
+        System.out.println("Participante añadido");
+    }
+    
         // R
     public static ArrayList<Participant> leerTodosLosParticipantes(){
         return participants;
@@ -195,6 +209,22 @@ public class TrailrunningRepository {
                 return p;
         }
         return null;
+    }
+    
+    public static boolean estaInscrito(User user, Trailrunning carrera){
+        return leerParticipante(user, carrera) != null;
+    }
+    
+    public static int calcularSiguienteIdParticipante(){
+        ArrayList<Participant> list = TrailrunningRepository.leerTodosLosParticipantes();
+        int resultado = 1;
+        while(true){
+            for(Participant p : list){
+                if(p.getId() == resultado) break;
+                return resultado;
+            }
+            resultado++;
+        }
     }
     
     // TODO: aquí podría poner más métodos para encontrar participaciones
@@ -229,6 +259,17 @@ public class TrailrunningRepository {
             }
         }
         System.out.println("No se ha encontrado la participación para borrar con id " + id);
+    }
+    
+    public static boolean borrarParticipante(User user, Trailrunning carrera){
+        for(Participant p : participants){
+            if(p.getUser_id() == user.getId() && p.getRace_id() == carrera.getId()){
+                participants.remove(p);
+                System.out.println("Participante eliminado correctamente");
+                return true;
+            }
+        }
+        return false;
     }
     
 }
