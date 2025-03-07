@@ -16,9 +16,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import modelo.API.TrailrunningRepository;
 import modelo.Trailrunning;
 
 public class ControladorCarreras {
+    
+    
+    // *** UI ***
+    // Tabla
     @FXML
     private TableView<Trailrunning> tableView;
     @FXML
@@ -37,6 +42,12 @@ public class ControladorCarreras {
     private TableColumn<Trailrunning, String> columnaEstado;
     @FXML
     private TableColumn<Trailrunning, String> columnaCategoria;
+    
+    private ObservableList<Trailrunning> listaDeCarreras;
+    
+    private ObservableList<Trailrunning> listaFiltrada;
+    
+    // Labels
     @FXML
     private Label labelDescripcion;
     @FXML
@@ -47,6 +58,11 @@ public class ControladorCarreras {
     private Label labelTiempo;
     @FXML
     private Label labelImagen;
+    
+    @FXML
+    private Label lblPruebaUsuario;
+    
+    // Imágenes
 //    @FXML
 //    private ImageView imageView;
     @FXML
@@ -55,6 +71,7 @@ public class ControladorCarreras {
     @FXML
     private ImageView imagenCarrera;
 
+    // Filtrado
     @FXML
     private ComboBox<String> comboFiltro;
     @FXML
@@ -62,16 +79,46 @@ public class ControladorCarreras {
     @FXML
     private Button btnFiltrar;
 
-    private ObservableList<Trailrunning> listaDeCarreras;
-    private ObservableList<Trailrunning> listaFiltrada;
-
     @FXML
     public void initialize() {
+        inicializarImagen(); // TODO: no funciona por ahora
+        inicializarLista(); // TODO: va a dar problemas porque estos datos no están enlazados ocn los del repository
+        inicializarTableView();
+        inicializarComboBox();
+        inicializarBotones();
         
-        inicializarImagen();
+        if(Session.hayUsuario()){
+            lblPruebaUsuario.setText("Hay usuario logueado");
+            lblPruebaUsuario.setStyle("-fx-text-fill: green;");
+        }else{
+            lblPruebaUsuario.setText("No hay usuario logueado");
+            lblPruebaUsuario.setStyle("-fx-text-fill: red;");
+        }
         
-    // Crear algunos datos de ejemplo
-    listaDeCarreras = FXCollections.observableArrayList(
+    }
+    
+    void inicializarImagen(){ // TODO: not working
+        //findsFile("images/circle-user.png");
+        //Image image = new Image(getClass().getClassLoader().getResource("/images/circle-user.png").toExternalForm());
+        //this.imagenLogin.setImage(image);
+    }
+    
+    void findsFile(String s){
+        String url = getClass().getClassLoader().getResource(s).toExternalForm();
+        //String url = "D:/DAM/3.2%20Proyecto%20integrado/Proyecto%20DAM-DAW/trailrunning/desktop/trailrunning_desktop/build/resources/main/images/circle-user.png";
+        System.out.println("URL is: " + url);
+        File file = new File(url);
+        if(file.exists()){
+            System.out.println("File was found!!");
+        }else{
+            System.out.println("File was NOT found");
+        }
+    }
+    
+    void inicializarLista(){
+        /*
+        // Crear algunos datos de ejemplo
+        listaDeCarreras = FXCollections.observableArrayList(
             new Trailrunning(1, "Maratón de Montaña", "Carrera exigente en la sierra", java.time.LocalDate.now(), 42.0, "Sierra Nevada", "37.0987,-3.3976", 500, 50.0, 200, "Abierta", "Maratón", "maraton_montana.jpg"),
             new Trailrunning(2, "Ultra Trail Pirineos", "Recorrido extremo en alta montaña", java.time.LocalDate.now(), 100.0, "Pirineos", "42.5833,1.6667", 300, 100.0, 150, "Cerrada", "Ultra Trail", "ultra_pirineos.jpg"),
             new Trailrunning(3, "Carrera Nocturna", "Trail running en plena noche", java.time.LocalDate.now(), 15.0, "Bosque Encantado", "40.4165,-3.7038", 200, 30.0, 90, "Abierta", "Trail Nocturno", "carrera_nocturna.jpg"),
@@ -92,10 +139,16 @@ public class ControladorCarreras {
             new Trailrunning(18, "La Gran Duna", "Recorrido por dunas de arena", java.time.LocalDate.now(), 21.0, "Namibia", "-24.7000,15.2833", 200, 32.0, 105, "Completada", "Dune Run", "gran_duna.jpg"),
             new Trailrunning(19, "Reto Urbano", "Carrera mixta entre ciudad y montaña", java.time.LocalDate.now(), 12.0, "Barcelona", "41.3851,2.1734", 190, 26.0, 95, "Abierta", "Urban Trail", "reto_urbano.jpg"),
             new Trailrunning(20, "Cañón Extremo", "Ruta espectacular entre cañones", java.time.LocalDate.now(), 40.0, "Gran Cañón", "36.1070,-112.1130", 300, 60.0, 140, "Cerrada", "Canyon Trail", "canon_extremo.jpg")
-            );
+        );*/
+        
+        listaDeCarreras = FXCollections.observableArrayList(
+                TrailrunningRepository.leerTodasLasCarreras()
+        );
         
         listaFiltrada = FXCollections.observableArrayList(listaDeCarreras);
-
+    }
+    
+    void inicializarTableView(){
         // Configuración de las columnas
         columnaID.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
         columnaNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
@@ -115,7 +168,9 @@ public class ControladorCarreras {
                 mostrarDetalles(newValue);
             }
         });
-        
+    }
+    
+    void inicializarComboBox(){
         // Configurar las opciones del ComboBox
         comboFiltro.getItems().addAll(
             "Filtrar por estado: Abierta",
@@ -126,30 +181,14 @@ public class ControladorCarreras {
             "Filtrar por distancia > 20 km"
         );
         comboFiltro.setValue(""); // Establecer valor inicial
-        
+    }
+    
+    void inicializarBotones(){
         // Establecer el comportamiento del botón de filtrar
         btnFiltrar.setOnAction(event -> filtrarCarreras());
         
         // Establecer el comportamiento del botón de limpiar
         btnLimpiar.setOnAction(event -> limpiarFiltro());
-    }
-    
-    void inicializarImagen(){ // TODO: not working
-        //findsFile("images/circle-user.png");
-        //Image image = new Image(getClass().getClassLoader().getResource("/images/circle-user.png").toExternalForm());
-        //this.imagenLogin.setImage(image);
-    }
-    
-    void findsFile(String s){
-        String url = getClass().getClassLoader().getResource(s).toExternalForm();
-        //String url = "D:/DAM/3.2%20Proyecto%20integrado/Proyecto%20DAM-DAW/trailrunning/desktop/trailrunning_desktop/build/resources/main/images/circle-user.png";
-        System.out.println("URL is: " + url);
-        File file = new File(url);
-        if(file.exists()){
-            System.out.println("File was found!!");
-        }else{
-            System.out.println("File was NOT found");
-        }
     }
 
     @FXML
