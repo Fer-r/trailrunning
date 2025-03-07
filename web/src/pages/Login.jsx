@@ -8,7 +8,7 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
-  
+
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -49,7 +49,10 @@ const LoginPage = () => {
           <div className="rounded-md shadow-sm space-y-4">
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Correo Electrónico
               </label>
               <div className="relative">
@@ -72,7 +75,10 @@ const LoginPage = () => {
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Contraseña
               </label>
               <div className="relative">
@@ -103,13 +109,19 @@ const LoginPage = () => {
                 type="checkbox"
                 className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
               />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+              <label
+                htmlFor="remember-me"
+                className="ml-2 block text-sm text-gray-900"
+              >
                 Recordarme
               </label>
             </div>
 
             <div className="text-sm">
-              <a href="#" className="font-medium text-primary-600 hover:text-primary-500">
+              <a
+                href="#"
+                className="font-medium text-primary-600 hover:text-primary-500"
+              >
                 ¿Olvidaste tu contraseña?
               </a>
             </div>
@@ -128,7 +140,10 @@ const LoginPage = () => {
           {/* Sign up link */}
           <div className="text-center text-sm">
             <span className="text-gray-600">¿No tienes una cuenta? </span>
-            <a href="#" className="font-medium text-primary-600 hover:text-primary-500">
+            <a
+              href="#"
+              className="font-medium text-primary-600 hover:text-primary-500"
+            >
               Regístrate
             </a>
           </div>

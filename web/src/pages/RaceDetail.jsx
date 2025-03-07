@@ -17,7 +17,6 @@ import { FaLocationDot } from "react-icons/fa6";
 import { BiSolidCategory } from "react-icons/bi";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
@@ -27,10 +26,12 @@ L.Icon.Default.mergeOptions({
   shadowUrl:
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
 });
+import { joinRace } from "../services/useServices";
 const RaceDetail = () => {
   const { id } = useParams();
-  const { isAuthenticated } = useAuth();
-  const [isRegistered, setIsRegistered] = useState(false);
+  const { user, isAuthenticated } = useAuth();
+  const [isJoining, setIsJoining] = useState(false);
+  const [joinMessage, setJoinMessage] = useState("");
   const [showMap, setShowMap] = useState(false);
   const {
     data: race,
@@ -46,9 +47,28 @@ const RaceDetail = () => {
     ?.split(",")
     .map((coord) => parseFloat(coord)) || [0, 0];
   const [lat, lng] = coordinates;
-  const handleRegistration = () => {
-    setIsRegistered(!isRegistered);
+
+  const handleJoinRace = async () => {
+    if (!isAuthenticated || !user || !race) {
+      return;
+    }
+
+    setIsJoining(true);
+    setJoinMessage("");
+
+    try {
+      await joinRace(race.id, user.id);
+      setJoinMessage("¡Te has inscrito correctamente a la carrera!");
+      // Refresh participants list
+      window.location.reload();
+    } catch (error) {
+      console.error("Error joining race:", error);
+      setJoinMessage("Error al inscribirse. Por favor, inténtalo de nuevo.");
+    } finally {
+      setIsJoining(false);
+    }
   };
+
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -228,32 +248,42 @@ const RaceDetail = () => {
                   </span>
                 </p>
 
-                {isAuthenticated &&
-                race?.status === "Open" &&
-                race?.available_slots > 0 ? (
-                  <button
-                    className="w-full mt-6 bg-blue-600 text-white px-4 sm:px-6 py-3 rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-200 font-semibold"
-                    onClick={handleRegistration}
-                  >
-                    Inscribirse ahora
-                  </button>
-                ) : (
+                {!isAuthenticated ? (
                   <div className="mt-6 text-red-600 p-4 bg-red-50 rounded-lg text-center">
-                    {!isAuthenticated ? (
-                      <span>
-                        Debes{" "}
-                        <Link
-                          to="/login"
-                          className="underline decoration-red-600"
-                        >
-                          iniciar sesión
-                        </Link>{" "}
-                        para inscribirte
-                      </span>
-                    ) : race?.available_slots <= 0 ? (
-                      "No hay plazas disponibles"
-                    ) : (
-                      "Las inscripciones están cerradas"
+                    Debes{" "}
+                    <Link to="/login" className="underline decoration-red-600">
+                      iniciar sesión
+                    </Link>{" "}
+                    para inscribirte
+                  </div>
+                ) : (
+                  <div className="mt-6">
+                    <button
+                      onClick={handleJoinRace}
+                      disabled={isJoining || race?.status !== "open"}
+                      className={`w-full px-6 py-3 rounded-lg text-white font-semibold transition-all duration-200 
+                        ${
+                          isJoining || race?.status !== "open"
+                            ? "bg-gray-400 cursor-not-allowed"
+                            : "bg-green-500 hover:bg-green-600"
+                        }`}
+                    >
+                      {isJoining
+                        ? "Inscribiéndote..."
+                        : race?.status !== "open"
+                        ? "Inscripciones cerradas"
+                        : "Unirse a la carrera"}
+                    </button>
+                    {joinMessage && (
+                      <p
+                        className={`mt-4 text-center text-sm font-medium ${
+                          joinMessage.includes("Error")
+                            ? "text-red-600"
+                            : "text-green-600"
+                        }`}
+                      >
+                        {joinMessage}
+                      </p>
                     )}
                   </div>
                 )}

@@ -9,8 +9,6 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  
-
 
   const login = async ({ email, password }) => {
     try {
@@ -48,7 +46,9 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user");
   };
   return (
-    <AuthContext.Provider value={{ user, token, isAuthenticated, login, logOut, error, loading }}>
+    <AuthContext.Provider
+      value={{ user, token, isAuthenticated, login, logOut, error, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );

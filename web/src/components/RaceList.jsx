@@ -60,7 +60,7 @@ const RaceList = () => {
     dateRange,
     selectedCategories,
     searchTerm,
-  ]); 
+  ]);
   // Maneja el scroll infinito para cargar más carreras
   useEffect(() => {
     const handleScroll = () => {
@@ -130,7 +130,7 @@ const RaceList = () => {
             {showFilter ? (
               <>
                 <span className="text-lg">×</span>
-                Ocultar filtros 
+                Ocultar filtros
               </>
             ) : (
               <>

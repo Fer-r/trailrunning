@@ -23,7 +23,17 @@ const RaceCard = ({ race, distance }) => {
               loading="lazy"
               onError={handleImageError}
             />
-            <div className={`absolute bottom-2 right-2 px-3 py-1 rounded-lg text-sm font-medium border ${race?.status === "open" ? "border-green-500 text-green-500 bg-transparent" : race?.status === "closed" ? "border-red-500 text-red-500 bg-transparent" : race?.status === "completed" ? "border-orange-500 text-orange-500 bg-transparent" : "border-gray-500 text-gray-500 bg-transparent"}`}>
+            <div
+              className={`absolute bottom-2 right-2 px-3 py-1 rounded-lg text-white text-sm font-medium ${
+                race?.status === "Open"
+                  ? "bg-green-500"
+                  : race?.status === "Closed"
+                  ? "bg-red-500"
+                  : race?.status === "Completed"
+                  ? "bg-orange-500"
+                  : "bg-gray-500"
+              }`}
+            >
               {race?.status}
             </div>
           </div>
@@ -36,14 +46,18 @@ const RaceCard = ({ race, distance }) => {
             </div>
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-8 mt-3 sm:mt-0">
-            <span className="bg-[#8B4513] px-3 py-1 sm:px-4 sm:py-2 rounded-full text-[#F8E4BE] flex items-center gap-2 whitespace-nowrap text-sm sm:text-base">
-               <FiCalendar className="text-lg" />
-                   {new Date(race?.date).toLocaleString('es-ES', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit'
-                    }).split(',')[0]}
-                </span>
+              <span className="bg-[#8B4513] px-3 py-1 sm:px-4 sm:py-2 rounded-full text-[#F8E4BE] flex items-center gap-2 whitespace-nowrap text-sm sm:text-base">
+                <FiCalendar className="text-lg" />
+                {
+                  new Date(race?.date)
+                    .toLocaleString("es-ES", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    })
+                    .split(",")[0]
+                }
+              </span>
 
               <span className="font-semibold text-base sm:text-lg">
                 <span className="text-black">{race?.distance_km}</span>{" "}
