@@ -63,6 +63,6 @@
             </VBox>
          </children>
       </VBox>
-      <Button layoutX="551.0" layoutY="361.0" mnemonicParsing="false" text="Desinscribirse" />
+      <Button fx:id="btnDesinscribirse" layoutX="551.0" layoutY="361.0" mnemonicParsing="false" text="Desinscribirse" />
    </children>
 </AnchorPane>

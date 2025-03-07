@@ -45,6 +45,9 @@ public class ControladorPerfil implements Initializable {
     @FXML
     private Button btnPaginaPrincipal;
     
+    @FXML
+    private Button btnDesinscribirse;
+    
     // Labels
     @FXML
     private Label lblDorsal;
@@ -58,13 +61,13 @@ public class ControladorPerfil implements Initializable {
         inicializarTabla();
         inicializarEventos();
         
+        btnDesinscribirse.setDisable(true);
     }
     
     private void inicializarTabla() {
         
         //ArrayList<Trailrunning> carreras = TrailrunningRepository.leerTodasLasCarreras();
-        ArrayList<Trailrunning> carreras = TrailrunningRepository
-                .leerCarrerasDeUsuario(Session.getInstance().getUsuario());
+        
         
         colNombre.setCellValueFactory(new PropertyValueFactory<>("name"));
         colLugar.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -72,8 +75,15 @@ public class ControladorPerfil implements Initializable {
         colCategoria.setCellValueFactory(new PropertyValueFactory<>("category"));
 
         // Opcional: Agregar datos de prueba
-        tableView.setItems(FXCollections.observableArrayList(carreras));
+        actualizarTableView();
         
+    }
+    
+    void actualizarTableView(){
+        ArrayList<Trailrunning> carreras = TrailrunningRepository
+                .leerCarrerasDeUsuario(Session.getInstance().getUsuario());
+        tableView.getItems().clear();
+        tableView.setItems(FXCollections.observableArrayList(carreras));
     }
     
     private void inicializarEventos(){
@@ -99,15 +109,34 @@ public class ControladorPerfil implements Initializable {
         tableView.setOnMouseClicked(event -> {
             Trailrunning carrera = tableView.getSelectionModel().getSelectedItem();
             if(carrera != null){
-                User user = Session.getInstance().getUsuario();
-
-                Participant participante = TrailrunningRepository.leerParticipante(user, carrera);
-
-                lblDorsal.setText(participante.getDorsal() + "");
-                lblFechaInscripcion.setText(participante.getTime().toString());
+                mostrarDatosParticipacion(carrera);
+                
+                setBtnDesinscribirse(carrera);
+            }else{
+                btnDesinscribirse.setDisable(true);
+                btnDesinscribirse.setOnAction(event2 -> {});
             }
         });
         
+    }
+    
+    void mostrarDatosParticipacion(Trailrunning carrera){
+        User user = Session.getInstance().getUsuario();
+        Participant participante = TrailrunningRepository.leerParticipante(user, carrera);
+        lblDorsal.setText(participante.getDorsal() + "");
+        lblFechaInscripcion.setText(participante.getTime().toString());
+    }
+    
+    void setBtnDesinscribirse(Trailrunning carrera){
+        btnDesinscribirse.setDisable(false);
+        btnDesinscribirse.setOnAction(event -> {
+            TrailrunningRepository.borrarParticipante(
+                    Session.getInstance().getUsuario(),
+                    carrera
+            );
+            btnDesinscribirse.setDisable(true);
+            actualizarTableView();
+        });
     }
     
 }
