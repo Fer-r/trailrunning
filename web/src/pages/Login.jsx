@@ -4,11 +4,12 @@ import { useAuth } from "../context/AuthContext";
 import { FiMail, FiLock } from "react-icons/fi";
 
 const LoginPage = () => {
+  const apiUrl = import.meta.env.VITE_URL_API;
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  
+
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -49,7 +50,10 @@ const LoginPage = () => {
           <div className="rounded-md shadow-sm space-y-6">
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-base font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="email"
+                className="block text-base font-medium text-gray-700 mb-2"
+              >
                 Correo Electrónico
               </label>
               <div className="relative">
@@ -72,7 +76,10 @@ const LoginPage = () => {
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-base font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="password"
+                className="block text-base font-medium text-gray-700 mb-2"
+              >
                 Contraseña
               </label>
               <div className="relative">
@@ -103,24 +110,31 @@ const LoginPage = () => {
                 type="checkbox"
                 className="h-5 w-5 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
               />
-              <label htmlFor="remember-me" className="ml-3 block text-base text-gray-900">
+              <label
+                htmlFor="remember-me"
+                className="ml-3 block text-base text-gray-900"
+              >
                 Recordarme
               </label>
             </div>
+
           </div>
           {/* Submit Button */}
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-3 px-6 text-base font-medium rounded-lg text-white bg-[#8B4513] hover:bg-[#c45e16] cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200"
+              className="group relative  cursor-pointer w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-[#8EB486] hover:bg-[#7a9c72] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#8EB486] transition-colors duration-200"
             >
               Iniciar Sesión
             </button>
           </div>
- {/* Sign up link */}
+          {/* Sign up link */}
           <div className="text-center text-sm">
             <span className="text-gray-600">¿No tienes una cuenta? </span>
-            <a href="#" className="font-medium text-primary-600 hover:text-primary-500">
+            <a
+              href={`${apiUrl}/register`}
+              className="font-medium text-primary-600 hover:text-primary-500"
+            >
               Regístrate
             </a>
           </div>

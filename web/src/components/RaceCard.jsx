@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { FiCalendar } from "react-icons/fi";
-import defaultTrailImage from "../assets/default-trail.jpg"; // Import default image
+import defaultTrailImage from "../assets/default-trail.jpg";
 
 const RaceCard = ({ race, distance }) => {
-  // Function to handle image loading errors
   const handleImageError = (e) => {
     e.target.src = defaultTrailImage;
   };
@@ -24,7 +23,17 @@ const RaceCard = ({ race, distance }) => {
               loading="lazy"
               onError={handleImageError}
             />
-            <div className={`absolute bottom-2 right-2 px-3 py-1 rounded-lg text-white text-sm font-medium ${race?.status === "Open" ? "bg-green-500" : race?.status === "Closed" ? "bg-red-500" : race?.status === "Completed" ? "bg-orange-500" : "bg-gray-500"}`}>
+            <div
+              className={`absolute bottom-2 right-2 px-3 py-1 rounded-lg text-white text-sm font-medium ${
+                race?.status === "Open"
+                  ? "bg-green-500"
+                  : race?.status === "Closed"
+                  ? "bg-red-500"
+                  : race?.status === "Completed"
+                  ? "bg-orange-500"
+                  : "bg-gray-500"
+              }`}
+            >
               {race?.status}
             </div>
           </div>
@@ -39,13 +48,15 @@ const RaceCard = ({ race, distance }) => {
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-8 mt-3 sm:mt-0">
               <span className="bg-[#8B4513] px-3 py-1 sm:px-4 sm:py-2 rounded-full text-[#F8E4BE] flex items-center gap-2 whitespace-nowrap text-sm sm:text-base">
                 <FiCalendar className="text-lg" />
-                {new Date(race?.release_date)
-                  .toLocaleDateString("es-ES", {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric",
-                  })
-                  .replace(/\//g, "-")}
+                {
+                  new Date(race?.date)
+                    .toLocaleString("es-ES", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    })
+                    .split(",")[0]
+                }
               </span>
 
               <span className="font-semibold text-base sm:text-lg">

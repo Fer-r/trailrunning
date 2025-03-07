@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_URL_API;
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -9,12 +9,10 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  
-
 
   const login = async ({ email, password }) => {
     try {
-      const response = await fetch(`${API_URL}/api/auth/login`, {
+      const response = await fetch(`${API_URL}/api2/auth/login_check`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +46,9 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user");
   };
   return (
-    <AuthContext.Provider value={{ user, token, isAuthenticated, login, logOut, error, loading }}>
+    <AuthContext.Provider
+      value={{ user, token, isAuthenticated, login, logOut, error, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );

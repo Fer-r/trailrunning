@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useFetch } from "../hooks/useFetch";
+import LoadingSpinner from "../components/LoadingSpinner";
 import {
   getParticipants,
   getTrailRunningDetails,
@@ -16,7 +17,6 @@ import { FaLocationDot } from "react-icons/fa6";
 import { BiSolidCategory } from "react-icons/bi";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { IoMenu, IoClose } from "react-icons/io5";
-
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
@@ -26,10 +26,12 @@ L.Icon.Default.mergeOptions({
   shadowUrl:
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
 });
+import { joinRace } from "../services/useServices";
 const RaceDetail = () => {
   const { id } = useParams();
-  const { isAuthenticated } = useAuth();
-  const [isRegistered, setIsRegistered] = useState(false);
+  const { user, isAuthenticated } = useAuth();
+  const [isJoining, setIsJoining] = useState(false);
+  const [joinMessage, setJoinMessage] = useState("");
   const [showMap, setShowMap] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {
@@ -46,15 +48,30 @@ const RaceDetail = () => {
     ?.split(",")
     .map((coord) => parseFloat(coord)) || [0, 0];
   const [lat, lng] = coordinates;
-  const handleRegistration = () => {
-    setIsRegistered(!isRegistered);
+
+  const handleJoinRace = async () => {
+    if (!isAuthenticated || !user || !race) {
+      return;
+    }
+
+    setIsJoining(true);
+    setJoinMessage("");
+
+    try {
+      await joinRace(race.id, user.id);
+      setJoinMessage("¡Te has inscrito correctamente a la carrera!");
+      // Refresh participants list
+      window.location.reload();
+    } catch (error) {
+      console.error("Error joining race:", error);
+      setJoinMessage("Error al inscribirse. Por favor, inténtalo de nuevo.");
+    } finally {
+      setIsJoining(false);
+    }
   };
+
   if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-[60vh]">
-        <p className="text-lg text-slate-600">Cargando...</p>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
   if (error) {
     return (
@@ -66,7 +83,7 @@ const RaceDetail = () => {
     );
   }
   return (
-    <div className="max-w-6xl mx-auto p-4 sm:p-6">
+    <div className="max-w-full mx-auto p-4 sm:p-6">
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
         {/* Imagen de la carrera */}
         <div className="relative h-64 sm:h-96 w-full">
@@ -284,7 +301,7 @@ const RaceDetail = () => {
 
         {/* Tabla de información principal */}
         <div className="p-4 sm:p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
             {/* Columna izquierda */}
             <div className="space-y-6 p-6">
               {/* Fila de Descripción */}
@@ -374,32 +391,42 @@ const RaceDetail = () => {
                   </span>
                 </p>
 
-                {isAuthenticated &&
-                race?.status === "Open" &&
-                race?.available_slots > 0 ? (
-                  <button
-                    className="w-full mt-6 bg-blue-600 text-white px-4 sm:px-6 py-3 rounded-lg hover:bg-blue-700 active:bg-blue-800 transition duration-200 font-semibold"
-                    onClick={handleRegistration}
-                  >
-                    Inscribirse ahora
-                  </button>
-                ) : (
+                {!isAuthenticated ? (
                   <div className="mt-6 text-red-600 p-4 bg-red-50 rounded-lg text-center">
-                    {!isAuthenticated ? (
-                      <span>
-                        Debes{" "}
-                        <Link
-                          to="/login"
-                          className="underline decoration-red-600"
-                        >
-                          iniciar sesión
-                        </Link>{" "}
-                        para inscribirte
-                      </span>
-                    ) : race?.available_slots <= 0 ? (
-                      "No hay plazas disponibles"
-                    ) : (
-                      "Las inscripciones están cerradas"
+                    Debes{" "}
+                    <Link to="/login" className="underline decoration-red-600">
+                      iniciar sesión
+                    </Link>{" "}
+                    para inscribirte
+                  </div>
+                ) : (
+                  <div className="mt-6">
+                    <button
+                      onClick={handleJoinRace}
+                      disabled={isJoining || race?.status !== "open"}
+                      className={`w-full px-6 py-3 rounded-lg text-white font-semibold transition-all duration-200 
+                        ${
+                          isJoining || race?.status !== "open"
+                            ? "bg-gray-400 cursor-not-allowed"
+                            : "bg-green-500 hover:bg-green-600"
+                        }`}
+                    >
+                      {isJoining
+                        ? "Inscribiéndote..."
+                        : race?.status !== "open"
+                        ? "Inscripciones cerradas"
+                        : "Unirse a la carrera"}
+                    </button>
+                    {joinMessage && (
+                      <p
+                        className={`mt-4 text-center text-sm font-medium ${
+                          joinMessage.includes("Error")
+                            ? "text-red-600"
+                            : "text-green-600"
+                        }`}
+                      >
+                        {joinMessage}
+                      </p>
                     )}
                   </div>
                 )}
