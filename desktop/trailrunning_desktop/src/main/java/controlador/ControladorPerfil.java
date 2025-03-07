@@ -21,7 +21,7 @@ import modelo.User;
 
 public class ControladorPerfil implements Initializable {
     
-    // UI ***
+    // *** UI ***
     // Tabla
     @FXML
     private TableView<Trailrunning> tableView;
@@ -55,28 +55,23 @@ public class ControladorPerfil implements Initializable {
     @FXML
     private Label lblFechaInscripcion;
     
-    
+    // *** Métodos ***
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         inicializarTabla();
         inicializarEventos();
         
-        btnDesinscribirse.setDisable(true);
+        btnDesinscribirse.setDisable(true); // establecer estado inicial del botón
     }
     
+    // Tabla
     private void inicializarTabla() {
-        
-        //ArrayList<Trailrunning> carreras = TrailrunningRepository.leerTodasLasCarreras();
-        
-        
         colNombre.setCellValueFactory(new PropertyValueFactory<>("name"));
         colLugar.setCellValueFactory(new PropertyValueFactory<>("location"));
         colFecha.setCellValueFactory(new PropertyValueFactory<>("date"));
         colCategoria.setCellValueFactory(new PropertyValueFactory<>("category"));
 
-        // Opcional: Agregar datos de prueba
         actualizarTableView();
-        
     }
     
     void actualizarTableView(){
@@ -86,6 +81,7 @@ public class ControladorPerfil implements Initializable {
         tableView.setItems(FXCollections.observableArrayList(carreras));
     }
     
+    // Eventos
     private void inicializarEventos(){
         inicializarEventosBotones();
         inicializarEventosTableView();
@@ -93,31 +89,25 @@ public class ControladorPerfil implements Initializable {
     
     private void inicializarEventosBotones(){
         btnPaginaPrincipal.setOnAction(event -> {
-            Funciones.cerrarStageDelNodo(btnPaginaPrincipal);
-            Funciones.mostrarVentana("VentanaPrincipal", "Trailrunning");
+            Funciones.mostrarVentanaYCerrarEsta("VentanaPrincipal", "Trailrunning", btnPaginaPrincipal);
         });
         btnCerrarSesion.setOnAction(event -> {
-            // TODO: volver a página principal y cerrar la sesión del singleton
             Session.logOut();
-            Funciones.cerrarStageDelNodo(btnCerrarSesion);
-            Funciones.mostrarVentana("VentanaPrincipal", "Todas las carreras");
+            Funciones.mostrarVentanaYCerrarEsta("VentanaPrincipal", "Trailrunning", btnPaginaPrincipal);
         });
     }
     
     private void inicializarEventosTableView(){
-        
         tableView.setOnMouseClicked(event -> {
             Trailrunning carrera = tableView.getSelectionModel().getSelectedItem();
             if(carrera != null){
                 mostrarDatosParticipacion(carrera);
-                
-                setBtnDesinscribirse(carrera);
+                activarBtnDesinscribirse(carrera);
             }else{
                 btnDesinscribirse.setDisable(true);
-                btnDesinscribirse.setOnAction(event2 -> {});
+                //btnDesinscribirse.setOnAction(event2 -> {}); innecesario
             }
         });
-        
     }
     
     void mostrarDatosParticipacion(Trailrunning carrera){
@@ -125,9 +115,10 @@ public class ControladorPerfil implements Initializable {
         Participant participante = TrailrunningRepository.leerParticipante(user, carrera);
         lblDorsal.setText(participante.getDorsal() + "");
         lblFechaInscripcion.setText(participante.getTime().toString());
+        // Aquí se podrían poner más datos de la carrera
     }
     
-    void setBtnDesinscribirse(Trailrunning carrera){
+    void activarBtnDesinscribirse(Trailrunning carrera){
         btnDesinscribirse.setDisable(false);
         btnDesinscribirse.setOnAction(event -> {
             TrailrunningRepository.borrarParticipante(

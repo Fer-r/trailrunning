@@ -40,7 +40,7 @@ public class ControladorLogin implements Initializable {
         });*/
         
         btnLogin.setOnAction(event -> iniciarSesion());
-        // hola buenas
+        // hola buenasqq
     }
     
     public void iniciarSesion(){
