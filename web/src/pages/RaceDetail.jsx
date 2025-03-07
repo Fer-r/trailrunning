@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useFetch } from "../hooks/useFetch";
+import LoadingSpinner from "../components/LoadingSpinner";
 import {
   getParticipants,
   getTrailRunningDetails,
@@ -69,11 +70,7 @@ const RaceDetail = () => {
   };
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-[60vh]">
-        <p className="text-lg text-slate-600">Cargando...</p>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
   if (error) {
     return (
@@ -85,7 +82,7 @@ const RaceDetail = () => {
     );
   }
   return (
-    <div className="max-w-6xl mx-auto p-4 sm:p-6">
+    <div className="max-w-full mx-auto p-4 sm:p-6">
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
         {/* Imagen de la carrera */}
         <div className="relative h-64 sm:h-96 w-full">
@@ -102,13 +99,18 @@ const RaceDetail = () => {
             {/* Race details overlay */}
             <div className="absolute top-4 right-4 p-4 rounded-lg text-white max-w-sm backdrop-blur-sm bg-black/50">
               <div className="space-y-2 text-shadow-lg">
-                <p className="text-base font-medium flex items-center gap-2">
-                  <CiCalendar className="text-lg" />
-                  Fecha:{" "}
-                  {race?.release_date
-                    ? new Date(race.release_date).toLocaleDateString()
+              <p className="text-base font-medium flex items-center gap-2">
+                    <CiCalendar className="text-lg" />
+                     Fecha:{" "}
+                    {race?.date
+                    ? new Date(race.date).toLocaleDateString("es-ES", {
+                     year: "numeric",
+                     month: "2-digit",
+                     day: "2-digit",
+                     })
                     : "No disponible"}
-                </p>
+                    </p>
+
                 <p className="text-base font-medium flex items-center gap-2">
                   <GiPathDistance className="text-lg" />
                   Distancia: {race?.distance_km} km
@@ -131,9 +133,9 @@ const RaceDetail = () => {
                     className={`ml-2 px-2 py-1 rounded ${
                       race?.status === "open"
                         ? "bg-green-500"
-                        : race?.status === "Closed"
+                        : race?.status === "closed"
                         ? "bg-red-500"
-                        : race?.status === "Completed"
+                        : race?.status === "completed"
                         ? "bg-orange-500"
                         : "bg-gray-500"
                     }`}
@@ -154,7 +156,7 @@ const RaceDetail = () => {
 
         {/* Tabla de información principal */}
         <div className="p-4 sm:p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
             {/* Columna izquierda */}
             <div className="space-y-6 p-6">
               {/* Fila de Descripción */}

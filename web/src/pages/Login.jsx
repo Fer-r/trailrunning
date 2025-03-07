@@ -131,7 +131,7 @@ const LoginPage = () => {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200"
+              className="group relative  cursor-pointer w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-[#8EB486] hover:bg-[#7a9c72] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#8EB486] transition-colors duration-200"
             >
               Iniciar Sesión
             </button>

@@ -5,7 +5,7 @@ import { getTrailRunning } from "./../services/useServices";
 import RaceCard from "./RaceCard";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 import Select from "react-select";
-
+import LoadingSpinner from "./LoadingSpinner";
 const RaceList = () => {
   const {
     data: races,
@@ -125,7 +125,7 @@ const RaceList = () => {
         <div className="flex items-center flex-wrap gap-3 mb-4 justify-center">
           <button
             onClick={() => setShowFilter(!showFilter)}
-            className="flex cursor-pointer items-center gap-2 bg-green-600 text-white px-4 py-2.5 rounded-lg hover:bg-green-700 active:bg-green-800 transition-all duration-200 shadow-md hover:shadow-lg"
+            className="flex cursor-pointer items-center gap-2 border-2 border-[#8EB486] text-[#8EB486] px-4 py-2.5 rounded-lg hover:bg-[#8EB486] hover:text-white active:bg-[#6b8d63] active:border-[#6b8d63] transition-all duration-200 shadow-md hover:shadow-lg"
           >
             {showFilter ? (
               <>
@@ -141,7 +141,7 @@ const RaceList = () => {
           </button>
           <button
             onClick={handleLocationSort}
-            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg cursor-pointer hover:bg-blue-700 active:bg-blue-800 transition-all duration-200 shadow-md hover:shadow-lg"
+            className="flex cursor-pointer items-center gap-2 border-2 border-[#8EB486] text-[#8EB486] px-4 py-2.5 rounded-lg hover:bg-[#8EB486] hover:text-white active:bg-[#6b8d63] active:border-[#6b8d63] transition-all duration-200 shadow-md hover:shadow-lg"
           >
             <FaLocationCrosshairs className="text-lg" />
             {sortedByLocation ? "Ver todas" : "Más relevantes"}
@@ -261,8 +261,8 @@ const RaceList = () => {
             />
           ))}
           {loading && (
-            <div className="flex justify-center items-center py-8">
-              <div className="animate-spin rounded-full h-12 w-12 border-4 border-slate-200 border-t-slate-800"></div>
+            <div className="flex justify-center items-center py-4">
+              <LoadingSpinner />
             </div>
           )}
           {visibleCount >= races.length && !loading && races.length > 0 && (
