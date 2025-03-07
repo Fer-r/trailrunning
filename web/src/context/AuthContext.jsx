@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_URL_API;
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async ({ email, password }) => {
     try {
-      const response = await fetch(`${API_URL}/api/auth/login`, {
+      const response = await fetch(`${API_URL}/api2/auth/login_check`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

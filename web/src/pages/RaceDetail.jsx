@@ -82,13 +82,18 @@ const RaceDetail = () => {
             {/* Race details overlay */}
             <div className="absolute top-4 right-4 p-4 rounded-lg text-white max-w-sm backdrop-blur-sm bg-black/50">
               <div className="space-y-2 text-shadow-lg">
-                <p className="text-base font-medium flex items-center gap-2">
-                  <CiCalendar className="text-lg" />
-                  Fecha:{" "}
-                  {race?.release_date
-                    ? new Date(race.release_date).toLocaleDateString()
+              <p className="text-base font-medium flex items-center gap-2">
+                    <CiCalendar className="text-lg" />
+                     Fecha:{" "}
+                    {race?.date
+                    ? new Date(race.date).toLocaleDateString("es-ES", {
+                     year: "numeric",
+                     month: "2-digit",
+                     day: "2-digit",
+                     })
                     : "No disponible"}
-                </p>
+                    </p>
+
                 <p className="text-base font-medium flex items-center gap-2">
                   <GiPathDistance className="text-lg" />
                   Distancia: {race?.distance_km} km
