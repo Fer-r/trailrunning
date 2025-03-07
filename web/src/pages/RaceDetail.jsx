@@ -167,13 +167,15 @@ const RaceDetail = () => {
 
         {/* Menú móvil */}
         <div className={`
-          sm:hidden fixed inset-y-0 right-0 w-full bg-white shadow-xl z-50 
+          sm:hidden fixed inset-y-0 right-0 w-full bg-[#F8E4BE] shadow-xl z-50 
           transform transition-transform duration-300 ease-in-out
           ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}
           overflow-y-auto
+          flex flex-col
+          min-h-screen
         `}>
           {/* Cabecera del menú */}
-          <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
+          <div className="sticky top-0 bg-[#8EB486] p-4 border-b flex justify-between items-center">
             <h2 className="text-lg font-semibold text-center w-full">Detalles de la carrera</h2>
             <button
               onClick={() => setIsMenuOpen(false)}
@@ -184,7 +186,7 @@ const RaceDetail = () => {
           </div>
 
           {/* Contenido del menú móvil centrado */}
-          <div className="p-4 space-y-6 flex flex-col items-center">
+          <div className="p-4 space-y-6 flex flex-col items-center flex-1">
             <div className="space-y-6 w-full max-w-sm">
               <div className="flex flex-col items-center gap-2 p-4 bg-gray-50 rounded-lg">
                 <p className="flex flex-col items-center gap-1">
@@ -256,6 +258,18 @@ const RaceDetail = () => {
               </div>
             </div>
           </div>
+
+          {/* Footer con el color beige que ocupa todo el espacio restante */}
+          <div className="bg-[#F8E4BE] w-full min-h-[200px] mt-auto flex flex-col justify-end">
+            <div className="flex justify-center items-center p-4">
+              <button
+                onClick={() => setIsMenuOpen(false)}
+                className="px-6 py-2 rounded-lg bg-white text-gray-800 font-medium shadow-sm hover:shadow-md transition-all"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Overlay para cerrar el menú al hacer clic fuera (solo móvil) */}
@@ -265,6 +279,8 @@ const RaceDetail = () => {
             onClick={() => setIsMenuOpen(false)}
           />
         )}
+
+        
 
         {/* Tabla de información principal */}
         <div className="p-4 sm:p-6">
