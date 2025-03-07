@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="612.0" spacing="20.0" style="-fx-background-color: #F8E4BE; -fx-border-radius: 55;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorLogin">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="479.0" spacing="20.0" style="-fx-background-color: #F8E4BE; -fx-border-radius: 55;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorLogin">
    <children>
       <HBox prefHeight="35.0" prefWidth="603.0" style="-fx-background-color: #8EB486;">
          <children>
@@ -20,7 +20,7 @@
                <children>
                   <ImageView fitHeight="55.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/logo.png" />
+                        <Image url="@img/logo.png" />
                      </image>
                      <VBox.margin>
                         <Insets left="5.0" />
@@ -33,14 +33,6 @@
                   <Font name="Georgia Bold Italic" size="20.0" />
                </font>
             </Label>
-            <Button fx:id="btnIniciarSesion" alignment="BOTTOM_CENTER" mnemonicParsing="false" prefHeight="42.0" prefWidth="146.0" style="-fx-label-padding: 8px; -fx-border-color: white; -fx-border-radius: 36px; -fx-background-color: #8EB486;" text="Iniciar Sesión" textFill="WHITE">
-               <font>
-                  <Font name="SansSerif Regular" size="13.0" />
-               </font>
-               <HBox.margin>
-                  <Insets right="5.0" top="5.0" />
-               </HBox.margin>
-            </Button>
          </children>
       </HBox>
       <Label text="Bienvenido">
@@ -48,19 +40,19 @@
             <Font name="SansSerif Bold" size="36.0" />
          </font>
       </Label>
-      <Label text="Inicia sesion para acceder a tu cuenta">
+      <Label text="Inicia sesión para acceder a tu cuenta">
          <font>
             <Font name="SansSerif Regular" size="18.0" />
          </font>
       </Label>
       <VBox maxWidth="250.0" spacing="20.0">
          <children>
-            <Label text="Correo Electronico">
+            <Label text="Correo Electrónico">
                <font>
                   <Font name="SansSerif Regular" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="txtUsuario" promptText="tu@email.com">
+            <TextField fx:id="edtUsuario" promptText="tu@email.com">
                <font>
                   <Font name="SansSerif Regular" size="14.0" />
                </font>
@@ -70,7 +62,7 @@
                   <Font name="SansSerif Regular" size="16.0" />
                </font>
             </Label>
-            <PasswordField fx:id="txtPassword" promptText="••••••••••••">
+            <PasswordField fx:id="edtPassword" promptText="••••••••••••">
                <font>
                   <Font name="SansSerif Regular" size="14.0" />
                </font>
@@ -94,7 +86,7 @@
                   <Font name="SansSerif Regular" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="lblRegistrate" text=" Registrate">
+            <Label fx:id="lblRegistrate" text=" Regístrate">
                <font>
                   <Font name="SansSerif Bold" size="14.0" />
                </font>
@@ -105,7 +97,7 @@
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="612.0" text="© 2025 Trail Running Hlanz. Todos los derechos reservados." textFill="WHITE">
                <font>
-                  <Font name="SansSerif Regular" size="14.0" />
+                  <Font name="SansSerif Regular" size="12.0" />
                </font>
                <HBox.margin>
                   <Insets top="20.0" />
