@@ -16,12 +16,12 @@ const UpcomingRaces = () => {
       // Filter and sort upcoming races
       const filtered = races
         .filter((race) => {
-          const raceDate = new Date(race.release_date);
+          const raceDate = new Date(race.date);
           return raceDate >= currentDate;
         })
         .sort((a, b) => {
-          const dateA = new Date(a.release_date);
-          const dateB = new Date(b.release_date);
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
           return dateA - dateB;
         });
 
