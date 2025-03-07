@@ -49,8 +49,8 @@ public class ControladorCarreras {
     private ObservableList<Trailrunning> listaFiltrada;
     
     // Labels
-    @FXML
-    private Label labelCoordenadas;
+    //@FXML
+    //private Label labelCoordenadas;
 
     @FXML
     private Label labelDescripcion;
@@ -70,8 +70,8 @@ public class ControladorCarreras {
     @FXML
     private Label lblPrecio;
 
-    @FXML
-    private Label lblPruebaUsuario;
+    //@FXML
+    //private Label lblPruebaUsuario;
     
     // Imágenes
 //    @FXML
@@ -230,7 +230,7 @@ public class ControladorCarreras {
     private void mostrarDetalles(Trailrunning carrera) {
         labelDescripcion.setText(carrera.getDescription());
         labelDistancia.setText(String.valueOf(carrera.getDistance_km()) + " km");
-        labelCoordenadas.setText(carrera.getCoordinates());
+        //labelCoordenadas.setText(carrera.getCoordinates());
         labelTiempo.setText(carrera.getEntry_fee() + "");
         lblFecha.setText(carrera.getDate().toString());
         lblPrecio.setText(carrera.getEntry_fee() + "");
@@ -311,6 +311,7 @@ public class ControladorCarreras {
     }
     
     void logicaUsuarioLogueado(){
+        /*
         // Quitar esto luego
         if(Session.hayUsuario()){
             lblPruebaUsuario.setText("Hay usuario logueado");
@@ -318,7 +319,7 @@ public class ControladorCarreras {
         }else{
             lblPruebaUsuario.setText("No hay usuario logueado");
             lblPruebaUsuario.setStyle("-fx-text-fill: red;");
-        }
+        }*/
     }
 
     @FXML

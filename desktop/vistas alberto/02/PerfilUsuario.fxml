@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="609.0" prefWidth="931.0" spacing="20.0" style="-fx-background-color: #F8E4BE; -fx-border-radius: 55;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorPerfil">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="609.0" prefWidth="931.0" spacing="20.0" style="-fx-background-color: #F8E4BE; -fx-border-radius: 55;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorLogin">
    <children>
       <HBox prefHeight="55.0" prefWidth="918.0" style="-fx-background-color: #8EB486;">
          <children>
