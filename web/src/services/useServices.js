@@ -1,4 +1,4 @@
-const BASE_URL = `http://${import.meta.env.VITE_URL_API}`;
+const BASE_URL = import.meta.env.VITE_URL_API;
 
 const fetchFromAPI = async (endpoint) => {
   try {
@@ -14,22 +14,42 @@ const fetchFromAPI = async (endpoint) => {
 
 const postToAPI = async (endpoint, data) => {
   try {
+    const token = localStorage.getItem("token");
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // Add the JWT token
       },
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      throw new Error(`Error posting data: ${response.status}`);
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(
+        errorData.message || `Error posting data: ${response.status}`
+      );
     }
     return await response.json();
   } catch (error) {
-    throw new Error(`Error`, error);
+    console.error("API Error:", error);
+    throw error;
   }
 };
 
+// Update joinRace function to handle the response better
+export const joinRace = async (raceId, userId) => {
+  try {
+    return await postToAPI(`/api/trailrunning_participant/new`, {
+      trail_running_id: raceId,
+      user_id: userId,
+    });
+  } catch (error) {
+    console.error("Join race error:", error);
+    throw new Error(
+      "No se pudo inscribir en la carrera. Por favor, inténtalo de nuevo."
+    );
+  }
+};
 const putToAPI = async (endpoint, data) => {
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
@@ -64,16 +84,16 @@ const deleteFromAPI = async (endpoint) => {
 
 //TRAILRUNNING
 export const getTrailRunning = async (page) => {
-  return await fetchFromAPI("/trailrunning", { page });
+  return await fetchFromAPI("/api/trailrunning", { page });
 };
 
 export const getTrailRunningDetails = async (id) => {
-  return await fetchFromAPI(`/trailrunning/${Number(id)}`);
+  return await fetchFromAPI(`/api/trailrunning/${Number(id)}`);
 };
 export const getParticipants = async (race_id) => {
   try {
-    const participants = await fetchFromAPI(`/participants?race_id=${race_id}`);
-    const users = await fetchFromAPI("/users");
+    const participants = await fetchFromAPI(`/api/trailrunning_participant`);
+    const users = await fetchFromAPI("/api/user");
 
     if (!participants || !users) {
       throw new Error(
@@ -111,17 +131,17 @@ export const updateTrailRunning = async (id, data) => {
 //PARTICIPANTS
 
 export const getParticipant = async (id) => {
-  return await fetchFromAPI(`/api/participants/${id}`);
+  return await fetchFromAPI(`/api/trailrunning_participant/${id}`);
 };
 
-export const createParticipant = async (data) => {
-  return await postToAPI(`/api/participants/`, data);
-};
+// export const createParticipant = async (data) => {
+//   return await postToAPI(`/api/trailrunning_participant/new`, data);
+// };
 
 export const updateParticipant = async (id, data) => {
-  return await putToAPI(`/api/participants/${id}`, data);
+  return await putToAPI(`/api/trailrunning_participant/${id}/edit`, data);
 };
 
 export const deleteParticipant = async (id) => {
-  return await deleteFromAPI(`/api/participants/${id}`);
+  return await deleteFromAPI(`/api/trailrunning_participant/${id}`);
 };

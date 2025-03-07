@@ -1,5 +1,5 @@
 {
-  "trailrunning": [
+  "trail_runnings": [
     {
       "id": 1,
       "name": "Trail Sierra Nevada",
@@ -462,7 +462,7 @@
       "banned": true
     }
   ],
-  "participants": [
+  "trail_running_participants": [
     {
       "id": 1,
       "user_id": 1,

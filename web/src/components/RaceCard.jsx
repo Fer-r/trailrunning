@@ -24,7 +24,17 @@ const RaceCard = ({ race, distance }) => {
               loading="lazy"
               onError={handleImageError}
             />
-            <div className={`absolute bottom-2 right-2 px-3 py-1 rounded-lg text-white text-sm font-medium ${race?.status === "Open" ? "bg-green-500" : race?.status === "Closed" ? "bg-red-500" : race?.status === "Completed" ? "bg-orange-500" : "bg-gray-500"}`}>
+            <div
+              className={`absolute bottom-2 right-2 px-3 py-1 rounded-lg text-white text-sm font-medium ${
+                race?.status === "Open"
+                  ? "bg-green-500"
+                  : race?.status === "Closed"
+                  ? "bg-red-500"
+                  : race?.status === "Completed"
+                  ? "bg-orange-500"
+                  : "bg-gray-500"
+              }`}
+            >
               {race?.status}
             </div>
           </div>

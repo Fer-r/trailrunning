@@ -60,7 +60,7 @@ const RaceList = () => {
     dateRange,
     selectedCategories,
     searchTerm,
-  ]); 
+  ]);
   // Maneja el scroll infinito para cargar más carreras
   useEffect(() => {
     const handleScroll = () => {
@@ -130,7 +130,7 @@ const RaceList = () => {
             {showFilter ? (
               <>
                 <span className="text-lg">×</span>
-                Ocultar filtros 
+                Ocultar filtros
               </>
             ) : (
               <>
@@ -261,8 +261,8 @@ const RaceList = () => {
             />
           ))}
           {loading && (
-            <div className="flex justify-center items-center py-4">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+            <div className="flex justify-center items-center py-8">
+              <div className="animate-spin rounded-full h-12 w-12 border-4 border-slate-200 border-t-slate-800"></div>
             </div>
           )}
           {visibleCount >= races.length && !loading && races.length > 0 && (
