@@ -15,7 +15,6 @@ import { GiLevelEndFlag, GiPathDistance } from "react-icons/gi";
 import { FaLocationDot } from "react-icons/fa6";
 import { BiSolidCategory } from "react-icons/bi";
 import { FaExternalLinkAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -84,10 +83,26 @@ const RaceDetail = () => {
               <div className="space-y-2 text-shadow-lg">
                 <p className="text-base font-medium flex items-center gap-2">
                   <CiCalendar className="text-lg" />
-                  Fecha:{" "}
-                  {race?.release_date
-                    ? new Date(race.release_date).toLocaleDateString()
-                    : "No disponible"}
+                  Fecha y hora:{" "}
+                  {race?.release_date ? (
+                    <>
+                      <span>
+                        {new Date(race.release_date).toLocaleDateString('es-ES', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </span>
+                      <span className="ml-1">
+                        {new Date(race.release_date).toLocaleTimeString('es-ES', {
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
+                      </span>
+                    </>
+                  ) : (
+                    "No disponible"
+                  )}
                 </p>
                 <p className="text-base font-medium flex items-center gap-2">
                   <GiPathDistance className="text-lg" />
