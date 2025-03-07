@@ -15,6 +15,7 @@ import { GiLevelEndFlag, GiPathDistance } from "react-icons/gi";
 import { FaLocationDot } from "react-icons/fa6";
 import { BiSolidCategory } from "react-icons/bi";
 import { FaExternalLinkAlt } from "react-icons/fa";
+import { IoMenu, IoClose } from "react-icons/io5";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -30,6 +31,7 @@ const RaceDetail = () => {
   const { isAuthenticated } = useAuth();
   const [isRegistered, setIsRegistered] = useState(false);
   const [showMap, setShowMap] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {
     data: race,
     error,
@@ -68,84 +70,186 @@ const RaceDetail = () => {
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
         {/* Imagen de la carrera */}
         <div className="relative h-64 sm:h-96 w-full">
-          <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent z-1"></div>
           <img
             src={race?.img || defaultTrailImage}
             alt={race?.name}
-            className="w-full h-full object-cover blur-xs"
+            className="w-full h-full object-cover"
             onError={(e) => {
               e.target.src = defaultTrailImage;
             }}
           />
-          <div className="absolute top-0 left-0 w-full h-full z-20">
-            {/* Race details overlay */}
-            <div className="absolute top-4 right-4 p-4 rounded-lg text-white max-w-sm backdrop-blur-sm bg-black/50">
-              <div className="space-y-2 text-shadow-lg">
-                <p className="text-base font-medium flex items-center gap-2">
-                  <CiCalendar className="text-lg" />
-                  Fecha y hora:{" "}
-                  {race?.release_date ? (
-                    <>
-                      <span>
-                        {new Date(race.release_date).toLocaleDateString('es-ES', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        })}
-                      </span>
-                      <span className="ml-1">
-                        {new Date(race.release_date).toLocaleTimeString('es-ES', {
-                          hour: '2-digit',
-                          minute: '2-digit'
-                        })}
-                      </span>
-                    </>
-                  ) : (
-                    "No disponible"
-                  )}
-                </p>
-                <p className="text-base font-medium flex items-center gap-2">
-                  <GiPathDistance className="text-lg" />
-                  Distancia: {race?.distance_km} km
-                </p>
-                <p className="text-base font-medium flex items-center gap-2">
-                  <FaLocationDot className="text-lg" />
-                  Provincia: {race?.location}
-                </p>
-                <p className="text-base font-medium flex items-center gap-2">
-                  <GiLevelEndFlag className="text-lg" />
-                  Desnivel: {race?.unevenness}m
-                </p>
-                <p className="text-base font-medium flex items-center gap-2">
-                  <BiSolidCategory className="text-lg" />
-                  Categoría: {race?.category}
-                </p>
-                <p className="text-base font-medium flex items-center gap-2">
-                  Estado:{" "}
-                  <span
-                    className={`ml-2 px-2 py-1 rounded ${
-                      race?.status === "Open"
-                        ? "bg-green-500"
-                        : race?.status === "Closed"
-                        ? "bg-red-500"
-                        : race?.status === "Completed"
-                        ? "bg-orange-500"
-                        : "bg-gray-500"
-                    }`}
-                  >
-                    {race?.status}
-                  </span>
-                </p>
-              </div>
-            </div>
-            {/* Race name */}
-            <div className="absolute bottom-4 left-4">
-              <h1 className="text-2xl sm:text-4xl font-bold text-white px-4 text-left shadow-text">
-                {race?.name}
-              </h1>
+          
+          {/* Título y botón hamburguesa */}
+          <div className="absolute bottom-4 left-4 right-4 z-20 flex justify-between items-end">
+            <h1 className="text-xl sm:text-2xl md:text-4xl font-bold text-white px-4 text-left shadow-text break-words leading-tight bg-black/30 rounded-lg p-2">
+              {race?.name}
+            </h1>
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-2 bg-white rounded-lg hover:bg-gray-100 transition-all sm:hidden"
+            >
+              <IoMenu className="text-2xl text-gray-800" />
+            </button>
+          </div>
+
+          {/* Información en desktop */}
+          <div className="absolute top-4 right-4 p-4 rounded-lg max-w-sm hidden sm:block bg-white/95 backdrop-blur-sm shadow-lg">
+            <div className="space-y-2">
+              <p className="text-base font-medium flex items-center gap-2 text-gray-800">
+                <CiCalendar className="text-lg text-gray-600" />
+                Fecha:{" "}
+                {race?.release_date
+                  ? new Date(race.release_date).toLocaleDateString('es-ES', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })
+                  : "No disponible"}
+              </p>
+              <p className="text-base font-medium flex items-center gap-2 text-gray-800">
+                <CiCalendar className="text-lg text-gray-600" />
+                Hora:{" "}
+                {race?.release_date
+                  ? new Date(race.release_date).toLocaleTimeString('es-ES', {
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    })
+                  : "No disponible"}
+              </p>
+              <p className="text-base font-medium flex items-center gap-2 text-gray-800">
+                <GiPathDistance className="text-lg text-gray-600" />
+                Distancia: {race?.distance_km} km
+              </p>
+              <p className="text-base font-medium flex items-center gap-2 text-gray-800">
+                <FaLocationDot className="text-lg text-gray-600" />
+                Provincia: {race?.location}
+              </p>
+              <p className="text-base font-medium flex items-center gap-2 text-gray-800">
+                <GiLevelEndFlag className="text-lg text-gray-600" />
+                Desnivel: {race?.unevenness}m
+              </p>
+              <p className="text-base font-medium flex items-center gap-2 text-gray-800">
+                <BiSolidCategory className="text-lg text-gray-600" />
+                Categoría: {race?.category}
+              </p>
+              <p className="text-base font-medium flex items-center gap-2 text-gray-800">
+                Estado:{" "}
+                <span className={`px-2 py-1 rounded text-white ${
+                  race?.status === "Open"
+                    ? "bg-green-500"
+                    : race?.status === "Closed"
+                    ? "bg-red-500"
+                    : race?.status === "Completed"
+                    ? "bg-orange-500"
+                    : "bg-gray-500"
+                }`}>
+                  {race?.status}
+                </span>
+              </p>
             </div>
           </div>
         </div>
+
+        {/* Menú móvil */}
+        <div className={`
+          sm:hidden fixed inset-y-0 right-0 w-full bg-white shadow-xl z-50 
+          transform transition-transform duration-300 ease-in-out
+          ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}
+          overflow-y-auto
+        `}>
+          {/* Cabecera del menú */}
+          <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
+            <h2 className="text-lg font-semibold text-center w-full">Detalles de la carrera</h2>
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              className="absolute right-4 p-2 hover:bg-gray-100 rounded-full"
+            >
+              <IoClose className="text-xl" />
+            </button>
+          </div>
+
+          {/* Contenido del menú móvil centrado */}
+          <div className="p-4 space-y-6 flex flex-col items-center">
+            <div className="space-y-6 w-full max-w-sm">
+              <div className="flex flex-col items-center gap-2 p-4 bg-gray-50 rounded-lg">
+                <p className="flex flex-col items-center gap-1">
+                  <CiCalendar className="text-2xl text-gray-600" />
+                  <span className="text-sm text-gray-500">Fecha</span>
+                  <span className="font-medium text-center">{
+                    race?.release_date
+                      ? new Date(race.release_date).toLocaleDateString('es-ES', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })
+                      : "No disponible"
+                  }</span>
+                </p>
+                <p className="flex flex-col items-center gap-1">
+                  <CiCalendar className="text-2xl text-gray-600" />
+                  <span className="text-sm text-gray-500">Hora</span>
+                  <span className="font-medium">{
+                    race?.release_date
+                      ? new Date(race.release_date).toLocaleTimeString('es-ES', {
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })
+                      : "No disponible"
+                  }</span>
+                </p>
+              </div>
+
+              <div className="flex flex-col items-center gap-2 p-4 bg-gray-50 rounded-lg">
+                <p className="flex flex-col items-center gap-1">
+                  <GiPathDistance className="text-2xl text-gray-600" />
+                  <span className="text-sm text-gray-500">Distancia</span>
+                  <span className="font-medium">{race?.distance_km} km</span>
+                </p>
+                <p className="flex flex-col items-center gap-1">
+                  <GiLevelEndFlag className="text-2xl text-gray-600" />
+                  <span className="text-sm text-gray-500">Desnivel</span>
+                  <span className="font-medium">{race?.unevenness}m</span>
+                </p>
+              </div>
+
+              <div className="flex flex-col items-center gap-2 p-4 bg-gray-50 rounded-lg">
+                <p className="flex flex-col items-center gap-1">
+                  <FaLocationDot className="text-2xl text-gray-600" />
+                  <span className="text-sm text-gray-500">Ubicación</span>
+                  <span className="font-medium">{race?.location}</span>
+                </p>
+                <p className="flex flex-col items-center gap-1">
+                  <BiSolidCategory className="text-2xl text-gray-600" />
+                  <span className="text-sm text-gray-500">Categoría</span>
+                  <span className="font-medium">{race?.category}</span>
+                </p>
+              </div>
+
+              <div className="flex flex-col items-center gap-2 p-4 bg-gray-50 rounded-lg">
+                <span className="text-sm text-gray-500">Estado</span>
+                <span className={`px-4 py-2 rounded-full text-white font-medium ${
+                  race?.status === "Open"
+                    ? "bg-green-500"
+                    : race?.status === "Closed"
+                    ? "bg-red-500"
+                    : race?.status === "Completed"
+                    ? "bg-orange-500"
+                    : "bg-gray-500"
+                }`}>
+                  {race?.status}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Overlay para cerrar el menú al hacer clic fuera (solo móvil) */}
+        {isMenuOpen && (
+          <div
+            className="fixed inset-0 bg-black/50 z-40 sm:hidden"
+            onClick={() => setIsMenuOpen(false)}
+          />
+        )}
 
         {/* Tabla de información principal */}
         <div className="p-4 sm:p-6">
@@ -228,9 +332,7 @@ const RaceDetail = () => {
               <div className="space-y-4">
                 <p className="flex justify-between items-center py-2 border-b border-gray-100">
                   <span className="font-semibold text-gray-700">Precio:</span>
-                  <span className="text-lg text-gray-900">
-                    {race?.entry_fee}€
-                  </span>
+                  <span className="text-lg text-gray-900">{race?.entry_fee}€</span>
                 </p>
                 <p className="flex justify-between items-center py-2 border-b border-gray-100">
                   <span className="font-semibold text-gray-700">
