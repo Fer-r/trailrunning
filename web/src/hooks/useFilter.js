@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
 export const useFilter = (races) => {
-  const [sortedByLocation, setSortedByLocation] = useState(true); 
+  const [sortedByLocation, setSortedByLocation] = useState(false); // Changed to false by default
   const [dateRange, setDateRange] = useState({ start: null, end: null });
   const [selectedCategories, setSelectedCategories] = useState([]);
   const { user } = useAuth();
@@ -63,15 +63,6 @@ export const useFilter = (races) => {
     return filteredRaces;
   };
   const sortRacesByDistance = async () => {
-    if (sortedByLocation) {
-      setSortedByLocation(false);
-      return applyFilters(races);
-    }
-
-    setSortedByLocation(true);
-    
-    if (!races || races.length === 0) return [];
-    
     try {
       const position = await getCurrentPosition();
       const { latitude, longitude } = position.coords;
@@ -92,26 +83,29 @@ export const useFilter = (races) => {
         );
         return { ...race, distance, isUserRegistered };
       });
+
       const sortedRaces = [...racesWithDistance].sort((a, b) => {
-        if (!a.isUserRegistered && b.isUserRegistered) return -1;
-        if (a.isUserRegistered && !b.isUserRegistered) return 1;
+        if (!a.isUserRegistered && b.isUserRegistered) return 1;
+        if (a.isUserRegistered && !b.isUserRegistered) return -1;
         if (a.status === "Open" && b.status !== "Open") return -1;
         if (a.status !== "Open" && b.status === "Open") return 1;
         if (a.available_slots > 0 && b.available_slots <= 0) return -1;
         if (a.available_slots <= 0 && b.available_slots > 0) return 1;
         return a.distance - b.distance;
       });
+
       setSortedByLocation(true);
       return sortedRaces;
     } catch (error) {
       console.error("Error:", error);
-      setSortedByLocation(false); 
+      setSortedByLocation(false);
       return applyFilters(races);
     }
   };
   return {
     sortRacesByDistance,
     sortedByLocation,
+    setSortedByLocation,
     setDateRange,
     dateRange,
     selectedCategories,
