@@ -56,8 +56,6 @@
                               <Label text="Filtrar:" />
                               <TextField />
                               <ComboBox fx:id="comboFiltro" prefHeight="26.0" prefWidth="161.0" />
-                              <Button fx:id="btnLimpiar" mnemonicParsing="false" onAction="#limpiarFiltro" prefHeight="25.0" prefWidth="86.0" text="Limpiar" />
-                              <Button fx:id="btnFiltrar" mnemonicParsing="false" onAction="#filtrarCarreras" prefHeight="25.0" prefWidth="86.0" text="Filtrar" />
                            </children>
                         </HBox>
                      </children>

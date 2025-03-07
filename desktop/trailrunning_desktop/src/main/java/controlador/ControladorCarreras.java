@@ -79,10 +79,6 @@ public class ControladorCarreras {
     // Filtrado
     @FXML
     private ComboBox<String> comboFiltro;
-    @FXML
-    private Button btnLimpiar;
-    @FXML
-    private Button btnFiltrar;
     
     // Botón inscribirse
     @FXML
@@ -95,6 +91,7 @@ public class ControladorCarreras {
     public void initialize() {
         inicializarImagen(); // TODO: no funciona por ahora
         inicializarTableView();
+        //inicializarEdtFiltrado();
         inicializarComboBox();
         inicializarBotones();
         logicaUsuarioLogueado(); 
@@ -167,9 +164,15 @@ public class ControladorCarreras {
             "Filtrar por distancia > 20 km"
         );
         comboFiltro.setValue("Ver todas"); // Establecer valor inicial
+        comboFiltro
+                .getSelectionModel()
+                .selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+            System.out.println("El combobox ha cambiado");
+            filtrarCarreras();
+        });
     }
     
-    @FXML
     public void filtrarCarreras() {
         String filtroSeleccionado = comboFiltro.getValue();
         ObservableList<Trailrunning> carrerasFiltradas = FXCollections.observableArrayList();
@@ -219,14 +222,6 @@ public class ControladorCarreras {
         tableView.setItems(listaFiltrada);
     }
 
-    @FXML
-    public void limpiarFiltro() {
-        // Restablecer la lista a la original
-        listaFiltrada.setAll(listaDeCarreras);
-        tableView.setItems(listaFiltrada);
-        comboFiltro.getSelectionModel().clearSelection();  // Limpiar la selección del ComboBox
-    }
-
     // Mostrar los detalles del Trailrunning seleccionado
     private void mostrarDetalles(Trailrunning carrera) {
         labelDescripcion.setText(carrera.getDescription());
@@ -269,12 +264,6 @@ public class ControladorCarreras {
                     btnInscribirse.setText("Inscribirse");
             }
         });
-        
-        // Establecer el comportamiento del botón de filtrar
-        btnFiltrar.setOnAction(event -> filtrarCarreras());
-        
-        // Establecer el comportamiento del botón de limpiar
-        btnLimpiar.setOnAction(event -> limpiarFiltro());
     }
     
     void ajustarBtnInscribirse(Trailrunning carreraSeleccionada){
