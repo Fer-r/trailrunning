@@ -14,7 +14,7 @@ const UpcomingRaces = () => {
       const currentDate = new Date();
       // Filter and sort upcoming races
       const filtered = races
-        .filter(race => {
+        .filter((race) => {
           const raceDate = new Date(race.release_date);
           return raceDate >= currentDate;
         })
@@ -58,7 +58,7 @@ const UpcomingRaces = () => {
 
   const handleNavigation = (direction) => {
     setIsPaused(true);
-    if (direction === 'next') {
+    if (direction === "next") {
       nextSlide();
     } else {
       prevSlide();
@@ -68,19 +68,30 @@ const UpcomingRaces = () => {
   };
 
   return (
-    <section className="bg-slate-50/80 py-12 px-4 rounded-3xl">
-      <div className="max-w-6xl mx-auto">
+    <section className="bg-slate-50/80 max-w-7xl mx-auto py-12 px-4 rounded-3xl">
+      <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold text-slate-800 mb-8 text-center">
           Próximas Carreras
         </h1>
         <div className="relative max-w-3xl mx-auto overflow-visible flex items-center">
           <button
-            onClick={() => handleNavigation('prev')}
+            onClick={() => handleNavigation("prev")}
             className="absolute -left-16 top-1/2 -translate-y-1/2 bg-slate-800/80 text-white p-2 rounded-full hover:bg-slate-700 transition-colors cursor-pointer z-10"
             aria-label="Previous race"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
           </button>
           <div className="w-full overflow-hidden">
@@ -103,10 +114,10 @@ const UpcomingRaces = () => {
               </div>
             ) : (
               <div className="relative overflow-hidden">
-                <div 
+                <div
                   className="flex transition-transform duration-500 ease-in-out"
                   style={{
-                    transform: `translateX(-${currentIndex * 100}%)`
+                    transform: `translateX(-${currentIndex * 100}%)`,
                   }}
                 >
                   {upcomingRaces.map((race, index) => (
@@ -115,7 +126,7 @@ const UpcomingRaces = () => {
                       className="w-full flex-shrink-0"
                       style={{
                         opacity: index === currentIndex ? 1 : 0.5,
-                        transition: 'opacity 500ms ease-in-out'
+                        transition: "opacity 500ms ease-in-out",
                       }}
                     >
                       <RaceCard race={race} />
@@ -126,12 +137,23 @@ const UpcomingRaces = () => {
             )}
           </div>
           <button
-            onClick={() => handleNavigation('next')}
+            onClick={() => handleNavigation("next")}
             className="absolute -right-16 top-1/2 -translate-y-1/2 bg-slate-800/80 text-white p-2 rounded-full hover:bg-slate-700 transition-colors cursor-pointer z-10"
             aria-label="Next race"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </button>
         </div>

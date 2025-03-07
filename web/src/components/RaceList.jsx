@@ -15,15 +15,18 @@ const RaceList = () => {
   } = useFetch(getTrailRunning, []);
   const [visibleRaces, setVisibleRaces] = useState([]);
   const [visibleCount, setVisibleCount] = useState(3);
-  const [showDateFilter, setShowDateFilter] = useState(false);
+  const [showFilter, setShowFilter] = useState(false);
   const {
     sortRacesByDistance,
     sortedByLocation,
+    setSortedByLocation,
     setDateRange,
     dateRange,
     selectedCategories,
     setSelectedCategories,
     applyFilters,
+    searchTerm,
+    setSearchTerm,
   } = useFilter(races);
   const categoryOptions = [
     { value: "Trail Medio", label: "Trail Medio" },
@@ -33,17 +36,32 @@ const RaceList = () => {
     { value: "Trail Corto", label: "Trail Corto" },
     { value: "Trail Técnico", label: "Trail Técnico" },
   ];
-  // useEffect(() => {
-  //   if (races && races.length > 0) {
-  //     handleLocationSort();
-  //   }
-  // }, [races]);
+  // Actualiza las carreras visibles basado en filtros y ubicación
   useEffect(() => {
-    if (races.length > 0) {
-      setVisibleRaces(races.slice(0, visibleCount));
-    }
-  }, [races, visibleCount]);
+    if (races && races.length > 0) {
+      const updateRaces = async () => {
+        let filteredRaces;
 
+        if (sortedByLocation) {
+          filteredRaces = await sortRacesByDistance();
+        } else {
+          filteredRaces = applyFilters(races);
+        }
+
+        setVisibleRaces(filteredRaces.slice(0, visibleCount));
+      };
+
+      updateRaces();
+    }
+  }, [
+    races,
+    visibleCount,
+    sortedByLocation,
+    dateRange,
+    selectedCategories,
+    searchTerm,
+  ]); 
+  // Maneja el scroll infinito para cargar más carreras
   useEffect(() => {
     const handleScroll = () => {
       if (
@@ -55,7 +73,7 @@ const RaceList = () => {
           setTimeout(() => {
             setVisibleCount((prev) => prev + 3);
             setLoading(false);
-          }, 1000);
+          }, 500);
         }
       }
     };
@@ -63,32 +81,32 @@ const RaceList = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [loading, visibleCount, races.length, setLoading]);
-  // useEffect(() => {
-  //   if (races && races.length > 0) {
-  //     if (sortedByLocation) {
-  //       handleLocationSort();
-  //     } else {
-  //       const filteredRaces = applyFilters(races);
-  //       setVisibleRaces(filteredRaces);
-  //     }
-  //   }
-  // }, [dateRange, selectedCategories]);
+  // Alterna entre mostrar carreras por ubicación o todas las carreras
+  const handleLocationSort = async () => {
+    if (sortedByLocation) {
+      const filteredRaces = applyFilters(races);
+      setVisibleRaces(filteredRaces.slice(0, visibleCount));
+      setSortedByLocation(false);
+    } else {
+      const sortedRaces = await sortRacesByDistance();
+      setVisibleRaces(sortedRaces.slice(0, visibleCount));
+    }
+  };
+  // Actualiza las categorías seleccionadas en el filtro
   const handleCategoryChange = (selectedOptions) => {
     setSelectedCategories(
       selectedOptions ? selectedOptions.map((option) => option.value) : []
     );
   };
-  const handleLocationSort = async () => {
-    const sortedRaces = await sortRacesByDistance();
-    setVisibleRaces(sortedRaces);
-  };
+  // Limpia todos los filtros aplicados
   const handleClearFilters = () => {
     setDateRange({ start: null, end: null });
     setSelectedCategories([]);
-    // Reset date input values
+    setSearchTerm(""); // Add this line
     document.getElementById("start").value = "";
     document.getElementById("end").value = "";
   };
+  // Maneja los cambios en el filtro de fechas
   const handleDateChange = (e) => {
     const { name, value } = e.target;
     setDateRange((prev) => ({
@@ -103,15 +121,16 @@ const RaceList = () => {
         <h1 className="text-4xl font-bold text-slate-800 mb-8 text-center">
           Lista de Carreras
         </h1>
-        <div className="flex flex-wrap gap-3 mb-4">
+
+        <div className="flex items-center flex-wrap gap-3 mb-4 justify-center">
           <button
-            onClick={() => setShowDateFilter(!showDateFilter)}
+            onClick={() => setShowFilter(!showFilter)}
             className="flex cursor-pointer items-center gap-2 bg-green-600 text-white px-4 py-2.5 rounded-lg hover:bg-green-700 active:bg-green-800 transition-all duration-200 shadow-md hover:shadow-lg"
           >
-            {showDateFilter ? (
+            {showFilter ? (
               <>
                 <span className="text-lg">×</span>
-                Ocultar filtros
+                Ocultar filtros 
               </>
             ) : (
               <>
@@ -125,13 +144,27 @@ const RaceList = () => {
             className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg cursor-pointer hover:bg-blue-700 active:bg-blue-800 transition-all duration-200 shadow-md hover:shadow-lg"
           >
             <FaLocationCrosshairs className="text-lg" />
-            {sortedByLocation ? "Ver todas" : "Más Relevantes"}
+            {sortedByLocation ? "Ver todas" : "Más relevantes"}
           </button>
         </div>
         <div>
-          {showDateFilter && (
+          {showFilter && (
             <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-xl shadow-lg border border-gray-200">
               <div className="flex flex-wrap justify-center gap-8 items-center">
+                <div className="flex flex-col gap-3 w-full md:w-64">
+                  <label className="text-gray-700 font-medium flex items-center gap-2">
+                    <span className="text-purple-600">●</span>
+                    Buscar
+                  </label>
+                  <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Buscar carreras..."
+                    className="bg-white border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all duration-200 shadow-sm hover:shadow-md w-full"
+                  />
+                </div>
+                <div className="h-12 w-px bg-gradient-to-b from-transparent via-gray-300 to-transparent hidden md:block" />
                 <div className="flex flex-col gap-3 relative group cursor-pointer">
                   <label
                     htmlFor="start"
@@ -220,7 +253,11 @@ const RaceList = () => {
             <RaceCard
               key={race.id}
               race={race}
-              distance={race.distance ? `${race.distance.toFixed(1)} km` : null}
+              distance={
+                sortedByLocation && race.distance
+                  ? `a ${race.distance.toFixed(1)} km de ti`
+                  : null
+              }
             />
           ))}
           {loading && (
