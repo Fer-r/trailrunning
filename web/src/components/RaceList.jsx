@@ -15,7 +15,7 @@ const RaceList = () => {
   } = useFetch(getTrailRunning, []);
   const [visibleRaces, setVisibleRaces] = useState([]);
   const [visibleCount, setVisibleCount] = useState(3);
-  const [showDateFilter, setShowDateFilter] = useState(false);
+  const [showFilter, setShowFilter] = useState(false);
   const {
     sortRacesByDistance,
     sortedByLocation,
@@ -39,16 +39,16 @@ const RaceList = () => {
     if (races && races.length > 0) {
       const updateRaces = async () => {
         let filteredRaces;
-        
+
         if (sortedByLocation) {
           filteredRaces = await sortRacesByDistance();
         } else {
           filteredRaces = applyFilters(races);
         }
-  
+
         setVisibleRaces(filteredRaces.slice(0, visibleCount));
       };
-  
+
       updateRaces();
     }
   }, [races, visibleCount, sortedByLocation, dateRange, selectedCategories]);
@@ -68,7 +68,7 @@ const RaceList = () => {
         }
       }
     };
-  
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [loading, visibleCount, races.length, setLoading]);
@@ -113,10 +113,10 @@ const RaceList = () => {
         </h1>
         <div className="flex items-center flex-wrap gap-3 mb-4 justify-center">
           <button
-            onClick={() => setShowDateFilter(!showDateFilter)}
+            onClick={() => setShowFilter(!showFilter)}
             className="flex cursor-pointer items-center gap-2 bg-green-600 text-white px-4 py-2.5 rounded-lg hover:bg-green-700 active:bg-green-800 transition-all duration-200 shadow-md hover:shadow-lg"
           >
-            {showDateFilter ? (
+            {showFilter ? (
               <>
                 <span className="text-lg">×</span>
                 Ocultar filtros
@@ -137,7 +137,7 @@ const RaceList = () => {
           </button>
         </div>
         <div>
-          {showDateFilter && (
+          {showFilter && (
             <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-xl shadow-lg border border-gray-200">
               <div className="flex flex-wrap justify-center gap-8 items-center">
                 <div className="flex flex-col gap-3 relative group cursor-pointer">
