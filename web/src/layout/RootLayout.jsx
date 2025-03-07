@@ -143,10 +143,10 @@ const RootLayout = () => {
                 </li>
                 <li>
                   <Link
-                    to="/races"
+                    to="/login"
                     className="hover:text-white transition-colors"
                   >
-                    Carreras
+                    Login
                   </Link>
                 </li>
                 <li>
