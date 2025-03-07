@@ -79,6 +79,21 @@ const RaceDetail = () => {
             }}
           />
           
+          {/* Estado en móvil (esquina superior) */}
+          <div className="absolute top-4 right-4 sm:hidden">
+            <span className={`px-3 py-1.5 rounded-full text-white font-medium text-sm shadow-lg ${
+              race?.status === "Open"
+                ? "bg-green-500"
+                : race?.status === "Closed"
+                ? "bg-red-500"
+                : race?.status === "Completed"
+                ? "bg-orange-500"
+                : "bg-gray-500"
+            }`}>
+              {race?.status}
+            </span>
+          </div>
+
           {/* Título y botón hamburguesa */}
           <div className="absolute bottom-4 left-4 right-4 z-20 flex justify-between items-end">
             <h1 className="text-xl sm:text-2xl md:text-4xl font-bold text-white px-4 text-left shadow-text break-words leading-tight bg-black/30 rounded-lg p-2">
