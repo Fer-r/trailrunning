@@ -8,7 +8,7 @@ import {
 } from "../services/useServices";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import L from 'leaflet';
+import L from "leaflet";
 import defaultTrailImage from "../assets/default-trail.jpg";
 import { CiCalendar } from "react-icons/ci";
 import { GiLevelEndFlag, GiPathDistance } from "react-icons/gi";
@@ -73,7 +73,7 @@ const RaceDetail = () => {
           <img
             src={race?.img || defaultTrailImage}
             alt={race?.name}
-            className="w-full h-full object-cover blur-sm"
+            className="w-full h-full object-cover blur-xs"
             onError={(e) => {
               e.target.src = defaultTrailImage;
             }}
@@ -84,7 +84,8 @@ const RaceDetail = () => {
               <div className="space-y-2 text-shadow-lg">
                 <p className="text-base font-medium flex items-center gap-2">
                   <CiCalendar className="text-lg" />
-                  Fecha: {race?.release_date
+                  Fecha:{" "}
+                  {race?.release_date
                     ? new Date(race.release_date).toLocaleDateString()
                     : "No disponible"}
                 </p>
@@ -105,12 +106,13 @@ const RaceDetail = () => {
                   Categoría: {race?.category}
                 </p>
                 <p className="text-base font-medium flex items-center gap-2">
-                  Estado: <span
+                  Estado:{" "}
+                  <span
                     className={`ml-2 px-2 py-1 rounded ${
-                      race?.status === "Open" 
-                        ? "bg-green-500" 
-                        : race?.status === "Closed" 
-                        ? "bg-red-500" 
+                      race?.status === "Open"
+                        ? "bg-green-500"
+                        : race?.status === "Closed"
+                        ? "bg-red-500"
                         : race?.status === "Completed"
                         ? "bg-orange-500"
                         : "bg-gray-500"
@@ -147,32 +149,39 @@ const RaceDetail = () => {
 
               {/* Fila de Ubicación */}
               <div>
-                <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-gray-800">Ubicación</h2>
+                <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-gray-800">
+                  Ubicación
+                </h2>
                 <div className="space-y-6">
                   <div className="flex flex-col sm:flex-row gap-4 justify-start items-start">
-                    <button 
-                      className="bg-[#8EB486] text-white px-6 py-3 rounded-lg hover:bg-[#7a9c72] active:bg-[#6b8d63] transition-all duration-200 cursor-pointer flex items-center gap-2 w-full sm:w-auto justify-center" 
+                    <button
+                      className="bg-[#8EB486] text-white px-6 py-3 rounded-lg hover:bg-[#7a9c72] active:bg-[#6b8d63] transition-all duration-200 cursor-pointer flex items-center gap-2 w-full sm:w-auto justify-center"
                       onClick={() => setShowMap(!showMap)}
                     >
-                      {showMap ? 'Ocultar mapa' : 'Mostrar mapa'}
+                      {showMap ? "Ocultar mapa" : "Mostrar mapa"}
                     </button>
-                    
+
                     {showMap && (
-                      <button 
-                        className="bg-[#4285F4] text-white px-6 py-3 rounded-lg hover:bg-[#3367D6] active:bg-[#2A56C6] transition-all duration-200 cursor-pointer flex items-center gap-2 w-full sm:w-auto justify-center" 
-                        onClick={() => window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank')}
+                      <button
+                        className="bg-[#4285F4] text-white px-6 py-3 rounded-lg hover:bg-[#3367D6] active:bg-[#2A56C6] transition-all duration-200 cursor-pointer flex items-center gap-2 w-full sm:w-auto justify-center"
+                        onClick={() =>
+                          window.open(
+                            `https://www.google.com/maps?q=${lat},${lng}`,
+                            "_blank"
+                          )
+                        }
                       >
                         Abrir en Google Maps
                         <FaExternalLinkAlt />
                       </button>
                     )}
                   </div>
-                  
+
                   {showMap && (
                     <div className="h-[400px] rounded-lg overflow-hidden border border-gray-200 shadow-inner">
-                      <MapContainer 
-                        center={[lat, lng]} 
-                        zoom={13} 
+                      <MapContainer
+                        center={[lat, lng]}
+                        zoom={13}
                         style={{ height: "100%", width: "100%" }}
                         scrollWheelZoom={false}
                       >
@@ -183,7 +192,8 @@ const RaceDetail = () => {
                         <Marker position={[lat, lng]}>
                           <Popup>
                             <div className="text-center">
-                              <strong>{race?.name}</strong><br />
+                              <strong>{race?.name}</strong>
+                              <br />
                               {race?.location}
                             </div>
                           </Popup>
@@ -203,11 +213,17 @@ const RaceDetail = () => {
               <div className="space-y-4">
                 <p className="flex justify-between items-center py-2 border-b border-gray-100">
                   <span className="font-semibold text-gray-700">Precio:</span>
-                  <span className="text-lg text-gray-900">{race?.entry_fee}€</span>
+                  <span className="text-lg text-gray-900">
+                    {race?.entry_fee}€
+                  </span>
                 </p>
                 <p className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <span className="font-semibold text-gray-700">Plazas disponibles:</span>
-                  <span className="text-lg text-gray-900">{race?.available_slots}</span>
+                  <span className="font-semibold text-gray-700">
+                    Plazas disponibles:
+                  </span>
+                  <span className="text-lg text-gray-900">
+                    {race?.available_slots}
+                  </span>
                 </p>
 
                 {isAuthenticated &&
@@ -221,11 +237,22 @@ const RaceDetail = () => {
                   </button>
                 ) : (
                   <div className="mt-6 text-red-600 p-4 bg-red-50 rounded-lg text-center">
-                    {!isAuthenticated
-                      ? <span>Debes <Link to="/login" className="underline decoration-red-600">iniciar sesión</Link> para inscribirte</span>
-                      : race?.available_slots <= 0
-                      ? "No hay plazas disponibles"
-                      : "Las inscripciones están cerradas"}
+                    {!isAuthenticated ? (
+                      <span>
+                        Debes{" "}
+                        <Link
+                          to="/login"
+                          className="underline decoration-red-600"
+                        >
+                          iniciar sesión
+                        </Link>{" "}
+                        para inscribirte
+                      </span>
+                    ) : race?.available_slots <= 0 ? (
+                      "No hay plazas disponibles"
+                    ) : (
+                      "Las inscripciones están cerradas"
+                    )}
                   </div>
                 )}
               </div>
