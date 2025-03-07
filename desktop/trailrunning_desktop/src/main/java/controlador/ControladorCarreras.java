@@ -1,5 +1,7 @@
 package controlador;
 
+import funciones.Funciones;
+import funciones.Session;
 import java.io.File;
 import java.io.IOException;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -12,7 +14,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import modelo.Trailrunning;
@@ -238,7 +239,14 @@ public class ControladorCarreras {
 
     @FXML
     public void cambiarAVentanaLogin() {
-        cambiarEscena("/vista/LogIn.fxml");
+        if(!Session.hayUsuario())
+            Funciones.mostrarVentanaYCerrarEsta("LogIn", "Iniciar sesión", tableView);
+        else{
+            Funciones.mostrarVentanaYCerrarEsta("PerfilUsuario", "Mis carreras", tableView);
+            //Funciones.mostrarVentana("PerfilUsuario", "Mis carreras");
+        }
+            
+        //cambiarEscena("/vista/LogIn.fxml");
     }
 
     private void cambiarEscena(String rutaFXML) {

@@ -25,7 +25,8 @@ public class Session {
     }
     
     public static boolean hayUsuario(){
-        return session != null;
+        if(session == null) return false;
+        return session.usuario != null;
     }
 
     public User getUsuario() {

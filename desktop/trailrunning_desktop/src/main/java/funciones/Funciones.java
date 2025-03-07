@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class Funciones {
     
-    public static <T> void mostrarVentana(String nombreVista, String titulo, boolean modal){
+    public static void mostrarVentana(String nombreVista, String titulo, boolean modal){
         Stage stage = new Stage();
         try{
             FXMLLoader loader = new FXMLLoader(Funciones.class.getResource("../vista/" + nombreVista + ".fxml"));
@@ -26,12 +26,19 @@ public class Funciones {
             stage.show();
         }catch(Exception e){
             System.out.println("ERROR AL SACAR VISTA");
-            System.out.println("Mensaje del error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
     
     public static void mostrarVentana(String nombreVista, String titulo){
         mostrarVentana(nombreVista, titulo, false);
+    }
+    
+    public static void mostrarVentanaYCerrarEsta(String nombreVista, String titulo, Node node){
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
+        
+        mostrarVentana(nombreVista, titulo);
     }
     
     public static void mostrarAlertaError(String mensajeHeader, String mensajeContent){
