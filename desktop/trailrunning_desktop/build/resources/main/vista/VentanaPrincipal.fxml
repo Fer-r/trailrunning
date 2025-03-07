@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.0" prefWidth="933.0" spacing="20.0" style="-fx-background-color: #F8E4BE; -fx-border-radius: 55;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorCarreras">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="933.0" spacing="20.0" style="-fx-background-color: #F8E4BE; -fx-border-radius: 55;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorCarreras">
    <children>
       <HBox prefHeight="55.0" prefWidth="918.0" style="-fx-background-color: #8EB486;">
          <children>
@@ -40,7 +40,7 @@
             </Button>
          </children>
       </HBox>
-      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="852.0">
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="852.0">
          <children>
             <VBox prefHeight="500.0" prefWidth="852.0">
                <children>
