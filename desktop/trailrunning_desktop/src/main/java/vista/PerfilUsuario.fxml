@@ -20,7 +20,7 @@
                <children>
                   <ImageView fitHeight="55.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/logo.png" />
+                        <Image url="@img/logo.png" />
                      </image>
                      <VBox.margin>
                         <Insets left="5.0" />
@@ -35,7 +35,7 @@
             </Label>
             <Button fx:id="btnPaginaPrincipal" alignment="BOTTOM_CENTER" mnemonicParsing="false" prefHeight="42.0" prefWidth="146.0" style="-fx-label-padding: 8px; -fx-border-color: white; -fx-border-radius: 36px; -fx-background-color: #8EB486;" text="Página principal" textFill="WHITE">
                <font>
-                  <Font name="SansSerif Regular" size="13.0" />
+                  <Font name="SansSerif Bold" size="13.0" />
                </font>
                <HBox.margin>
                   <Insets right="6.0" top="6.0" />
@@ -43,7 +43,7 @@
             </Button>
             <Button fx:id="btnCerrarSesion" alignment="BOTTOM_CENTER" mnemonicParsing="false" prefHeight="42.0" prefWidth="146.0" style="-fx-label-padding: 8px; -fx-border-color: white; -fx-border-radius: 36px; -fx-background-color: #8EB486;" text="Cerrar sesión" textFill="WHITE">
                <font>
-                  <Font name="SansSerif Regular" size="13.0" />
+                  <Font name="SansSerif Bold" size="13.0" />
                </font>
                <HBox.margin>
                   <Insets right="6.0" top="6.0" />
@@ -227,22 +227,11 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <Button fx:id="btnDesinscribirse" layoutX="639.0" layoutY="405.0" mnemonicParsing="false" style="-fx-border-color: white; -fx-background-color: orange; -fx-background-radius: 44;" text="Desinscribirse" />
+                  <Button fx:id="btnDesinscribirse" layoutX="639.0" layoutY="405.0" mnemonicParsing="false" style="-fx-background-color: orange; -fx-background-radius: 5;" text="Desinscribirse" />
                </children>
             </AnchorPane>
          </children>
       </VBox>
-      <HBox prefHeight="65.0" prefWidth="742.0" style="-fx-background-color: #8EB486;">
-         <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="926.0" text="© 2025 Trail Running Hlanz. Todos los derechos reservados." textFill="WHITE">
-               <font>
-                  <Font name="SansSerif Regular" size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets top="20.0" />
-               </HBox.margin>
-            </Label>
-         </children>
-      </HBox>
+      <HBox prefHeight="65.0" prefWidth="742.0" style="-fx-background-color: #8EB486;" />
    </children>
 </VBox>
