@@ -2,12 +2,14 @@ package controlador;
 
 import funciones.Funciones;
 import funciones.Session;
+import java.awt.Desktop;
+import java.net.URI;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import modelo.API.TrailrunningRepository;
@@ -27,7 +29,7 @@ public class ControladorLogin implements Initializable {
     private Button btnLogin;
 
     @FXML
-    private Label lblRegistrate;
+    private Hyperlink linkRegistrate;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -41,7 +43,13 @@ public class ControladorLogin implements Initializable {
         });*/
         
         btnLogin.setOnAction(event -> iniciarSesion());
-        // hola buenasqq
+        linkRegistrate.setOnMouseClicked(event -> {
+            try{
+                Desktop.getDesktop().browse(new URI("http://skavenger.byethost8.com/homerswebpage/?i=1"));
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        });
     }
     
     public void iniciarSesion(){
