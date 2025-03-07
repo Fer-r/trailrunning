@@ -15,7 +15,6 @@ import modelo.Trailrunning;
 
 public class ControladorCarreras {
     
-    
     // *** UI ***
     // Tabla
     @FXML
@@ -78,6 +77,9 @@ public class ControladorCarreras {
 
     // Filtrado
     @FXML
+    private TextField edtFiltrado;
+    
+    @FXML
     private ComboBox<String> comboFiltro;
     
     // Botón inscribirse
@@ -91,7 +93,7 @@ public class ControladorCarreras {
     public void initialize() {
         inicializarImagen(); // TODO: no funciona por ahora
         inicializarTableView();
-        //inicializarEdtFiltrado();
+        inicializarEdtFiltrado();
         inicializarComboBox();
         inicializarBotones();
         logicaUsuarioLogueado(); 
@@ -152,6 +154,26 @@ public class ControladorCarreras {
     }
     
     // Filtrado
+    void inicializarEdtFiltrado(){
+        edtFiltrado.textProperty().addListener((observable, oldValue, newValue) -> {
+            comboFiltro.setValue("Ver todas");
+            
+            if(newValue.isBlank()){
+                tableView.setItems(listaDeCarreras);
+                return;
+            };
+            
+            ObservableList<Trailrunning> carrerasFiltradas = FXCollections.observableArrayList();
+            for(Trailrunning carrera : listaDeCarreras){
+                if(carrera.getName().toLowerCase().contains(newValue.toLowerCase()))
+                    carrerasFiltradas.add(carrera);
+            }
+            listaFiltrada.setAll(carrerasFiltradas);
+            tableView.setItems(listaFiltrada);
+        });
+        
+    }
+    
     void inicializarComboBox(){
         // Configurar las opciones del ComboBox
         comboFiltro.getItems().addAll(
