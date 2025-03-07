@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useFetch } from "../hooks/useFetch";
+import LoadingSpinner from "../components/LoadingSpinner";
 import {
   getParticipants,
   getTrailRunningDetails,
@@ -49,11 +50,7 @@ const RaceDetail = () => {
     setIsRegistered(!isRegistered);
   };
   if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-[60vh]">
-        <p className="text-lg text-slate-600">Cargando...</p>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
   if (error) {
     return (

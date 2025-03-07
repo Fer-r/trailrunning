@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { FiCalendar } from "react-icons/fi";
-import defaultTrailImage from "../assets/default-trail.jpg"; // Import default image
+import defaultTrailImage from "../assets/default-trail.jpg";
 
 const RaceCard = ({ race, distance }) => {
-  // Function to handle image loading errors
   const handleImageError = (e) => {
     e.target.src = defaultTrailImage;
   };
@@ -24,7 +23,7 @@ const RaceCard = ({ race, distance }) => {
               loading="lazy"
               onError={handleImageError}
             />
-            <div className={`absolute bottom-2 right-2 px-3 py-1 rounded-lg text-white text-sm font-medium ${race?.status === "open" ? "bg-green-500" : race?.status === "closed" ? "bg-red-500" : race?.status === "completed" ? "bg-orange-500" : "bg-gray-500"}`}>
+            <div className={`absolute bottom-2 right-2 px-3 py-1 rounded-lg text-sm font-medium border ${race?.status === "open" ? "border-green-500 text-green-500 bg-transparent" : race?.status === "closed" ? "border-red-500 text-red-500 bg-transparent" : race?.status === "completed" ? "border-orange-500 text-orange-500 bg-transparent" : "border-gray-500 text-gray-500 bg-transparent"}`}>
               {race?.status}
             </div>
           </div>

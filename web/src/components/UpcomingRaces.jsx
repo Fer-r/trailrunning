@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { getTrailRunning } from "./../services/useServices";
 import RaceCard from "./RaceCard";
+import LoadingSpinner from "./LoadingSpinner";
 
 const UpcomingRaces = () => {
   const { data: races, loading, error } = useFetch(getTrailRunning, []);
@@ -96,9 +97,7 @@ const UpcomingRaces = () => {
           </button>
           <div className="w-full overflow-hidden">
             {loading ? (
-              <div className="flex justify-center items-center py-8">
-                <div className="animate-spin rounded-full h-12 w-12 border-4 border-slate-200 border-t-slate-800"></div>
-              </div>
+              <LoadingSpinner />
             ) : error ? (
               <div className="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg">
                 <p>Error: {error}</p>
