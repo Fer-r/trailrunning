@@ -45,7 +45,7 @@ const RootLayout = () => {
               {isAuth ? (
                 <button
                   onClick={handleLogout}
-                  className="bg-[#8EB486] text-white px-6 py-2 rounded-full border-2 border-red-500 hover:bg-[#7a9c72] transition-all duration-300 font-medium cursor-pointer select-none"
+                  className="bg-[#8EB486] text-red-500 px-6 py-2 rounded-full border-2 border-red-500 hover:bg-[#7a9c72] transition-all duration-300 font-medium cursor-pointer select-none"
                 >
                   Cerrar Sesión
                 </button>

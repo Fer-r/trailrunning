@@ -1,4 +1,4 @@
-const BASE_URL = `http://${import.meta.env.VITE_URL_API}`;
+const BASE_URL = import.meta.env.VITE_URL_API;
 
 const fetchFromAPI = async (endpoint) => {
   try {
@@ -64,11 +64,11 @@ const deleteFromAPI = async (endpoint) => {
 
 //TRAILRUNNING
 export const getTrailRunning = async (page) => {
-  return await fetchFromAPI("/trailrunning", { page });
+  return await fetchFromAPI("/api/trailrunning", { page });
 };
 
 export const getTrailRunningDetails = async (id) => {
-  return await fetchFromAPI(`/trailrunning/${Number(id)}`);
+  return await fetchFromAPI(`/api/trailrunning/${Number(id)}`);
 };
 export const getParticipants = async (race_id) => {
   try {
