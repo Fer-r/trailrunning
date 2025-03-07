@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
 export const useFilter = (races) => {
-  const [sortedByLocation, setSortedByLocation] = useState(false); // Changed to false by default
+  const [sortedByLocation, setSortedByLocation] = useState(false);
   const [dateRange, setDateRange] = useState({ start: null, end: null });
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const { user } = useAuth();
 
   const getCurrentPosition = () => {
@@ -44,8 +45,20 @@ export const useFilter = (races) => {
 
     return races.filter((race) => categories.includes(race.category));
   };
+  const filterRacesBySearch = (races, term) => {
+    if (!term) return races;
+    const searchLower = term.toLowerCase();
+    return races.filter((race) =>
+      race.name.toLowerCase().includes(searchLower)
+    );
+  };
+
   const applyFilters = (racesToFilter) => {
     let filteredRaces = [...racesToFilter];
+
+    if (searchTerm) {
+      filteredRaces = filterRacesBySearch(filteredRaces, searchTerm);
+    }
 
     if (dateRange.start && dateRange.end) {
       filteredRaces = filterRacesByDate(
@@ -111,5 +124,7 @@ export const useFilter = (races) => {
     selectedCategories,
     setSelectedCategories,
     applyFilters,
+    searchTerm,
+    setSearchTerm,
   };
 };

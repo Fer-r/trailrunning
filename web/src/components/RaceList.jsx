@@ -25,6 +25,8 @@ const RaceList = () => {
     selectedCategories,
     setSelectedCategories,
     applyFilters,
+    searchTerm,
+    setSearchTerm,
   } = useFilter(races);
   const categoryOptions = [
     { value: "Trail Medio", label: "Trail Medio" },
@@ -51,7 +53,14 @@ const RaceList = () => {
 
       updateRaces();
     }
-  }, [races, visibleCount, sortedByLocation, dateRange, selectedCategories]);
+  }, [
+    races,
+    visibleCount,
+    sortedByLocation,
+    dateRange,
+    selectedCategories,
+    searchTerm,
+  ]); 
   // Maneja el scroll infinito para cargar más carreras
   useEffect(() => {
     const handleScroll = () => {
@@ -93,6 +102,7 @@ const RaceList = () => {
   const handleClearFilters = () => {
     setDateRange({ start: null, end: null });
     setSelectedCategories([]);
+    setSearchTerm(""); // Add this line
     document.getElementById("start").value = "";
     document.getElementById("end").value = "";
   };
@@ -111,6 +121,7 @@ const RaceList = () => {
         <h1 className="text-4xl font-bold text-slate-800 mb-8 text-center">
           Lista de Carreras
         </h1>
+
         <div className="flex items-center flex-wrap gap-3 mb-4 justify-center">
           <button
             onClick={() => setShowFilter(!showFilter)}
@@ -119,7 +130,7 @@ const RaceList = () => {
             {showFilter ? (
               <>
                 <span className="text-lg">×</span>
-                Ocultar filtros
+                Ocultar filtros 
               </>
             ) : (
               <>
@@ -140,6 +151,20 @@ const RaceList = () => {
           {showFilter && (
             <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-xl shadow-lg border border-gray-200">
               <div className="flex flex-wrap justify-center gap-8 items-center">
+                <div className="flex flex-col gap-3 w-full md:w-64">
+                  <label className="text-gray-700 font-medium flex items-center gap-2">
+                    <span className="text-purple-600">●</span>
+                    Buscar
+                  </label>
+                  <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Buscar carreras..."
+                    className="bg-white border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all duration-200 shadow-sm hover:shadow-md w-full"
+                  />
+                </div>
+                <div className="h-12 w-px bg-gradient-to-b from-transparent via-gray-300 to-transparent hidden md:block" />
                 <div className="flex flex-col gap-3 relative group cursor-pointer">
                   <label
                     htmlFor="start"
