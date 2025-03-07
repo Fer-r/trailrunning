@@ -3,19 +3,13 @@ package controlador;
 import funciones.Funciones;
 import funciones.Session;
 import java.io.File;
-import java.io.IOException;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import modelo.API.TrailrunningRepository;
 import modelo.Trailrunning;
 
@@ -164,6 +158,7 @@ public class ControladorCarreras {
     void inicializarComboBox(){
         // Configurar las opciones del ComboBox
         comboFiltro.getItems().addAll(
+            "Ver todas",
             "Filtrar por estado: Abierta",
             "Filtrar por precio < 50",
             "Filtrar por plazas > 100",
@@ -171,7 +166,7 @@ public class ControladorCarreras {
             "Filtrar por categoría: Maratón",
             "Filtrar por distancia > 20 km"
         );
-        comboFiltro.setValue(""); // Establecer valor inicial
+        comboFiltro.setValue("Ver todas"); // Establecer valor inicial
     }
     
     @FXML
@@ -183,6 +178,9 @@ public class ControladorCarreras {
         if (filtroSeleccionado != null) {
             for (Trailrunning carrera : listaDeCarreras) {
                 switch (filtroSeleccionado) {
+                    case "Ver todas":
+                        carrerasFiltradas.add(carrera);
+                        break;
                     case "Filtrar por estado: Abierta":
                         if (carrera.getStatus().equalsIgnoreCase("Abierta")) {
                             carrerasFiltradas.add(carrera);
