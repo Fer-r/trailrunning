@@ -107,11 +107,11 @@ const RaceDetail = () => {
           <div className="absolute top-4 right-4 sm:hidden">
             <span
               className={`px-3 py-1.5 rounded-full text-white font-medium text-sm shadow-lg ${
-                race?.status === "Open"
+                race?.status === "open"
                   ? "bg-green-500"
-                  : race?.status === "Closed"
+                  : race?.status === "closed"
                   ? "bg-red-500"
-                  : race?.status === "Completed"
+                  : race?.status === "completed"
                   ? "bg-orange-500"
                   : "bg-gray-500"
               }`}
@@ -177,11 +177,11 @@ const RaceDetail = () => {
                 Estado:{" "}
                 <span
                   className={`px-2 py-1 rounded text-white ${
-                    race?.status === "Open"
+                    race?.status === "open"
                       ? "bg-green-500"
-                      : race?.status === "Closed"
+                      : race?.status === "closed"
                       ? "bg-red-500"
-                      : race?.status === "Completed"
+                      : race?.status === "completed"
                       ? "bg-orange-500"
                       : "bg-gray-500"
                   }`}
@@ -284,11 +284,11 @@ const RaceDetail = () => {
                 <span className="text-sm text-gray-500">Estado</span>
                 <span
                   className={`px-4 py-2 rounded-full text-white font-medium ${
-                    race?.status === "Open"
+                    race?.status === "open"
                       ? "bg-green-500"
-                      : race?.status === "Closed"
+                      : race?.status === "closed"
                       ? "bg-red-500"
-                      : race?.status === "Completed"
+                      : race?.status === "completed"
                       ? "bg-orange-500"
                       : "bg-gray-500"
                   }`}

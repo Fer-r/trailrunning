@@ -21,7 +21,7 @@ const postToAPI = async (endpoint, data) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, // Add the JWT token
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     });
@@ -42,8 +42,8 @@ const postToAPI = async (endpoint, data) => {
 export const joinRace = async (raceId, userId) => {
   try {
     return await postToAPI(`/api/trailrunning_participant/new`, {
-      user: userId,
       trailRunning: raceId,
+      user: userId,
     });
   } catch (error) {
     console.error("Join race error:", error);
@@ -163,4 +163,32 @@ export const updateParticipant = async (id, data) => {
 
 export const deleteParticipant = async (id) => {
   return await deleteFromAPI(`/api/trailrunning_participant/${id}`);
+};
+
+export const updateUser = async (userId, data) => {
+  try {
+    const token = localStorage.getItem("token");
+    console.log(data);
+    const response = await fetch(`${BASE_URL}/api/user/${userId}/edit`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(
+        errorData.message || `Error updating user: ${response.status}`
+      );
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Update user error:", error);
+    throw new Error(
+      "No se pudo actualizar el perfil. Por favor, inténtalo de nuevo."
+    );
+  }
 };

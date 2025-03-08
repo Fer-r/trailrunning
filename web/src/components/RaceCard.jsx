@@ -25,11 +25,11 @@ const RaceCard = ({ race, distance }) => {
             />
             <div
               className={`absolute bottom-2 right-2 px-3 py-1 rounded-lg text-white text-sm font-medium ${
-                race?.status === "Open"
+                race?.status === "open"
                   ? "bg-green-500"
-                  : race?.status === "Closed"
+                  : race?.status === "closed"
                   ? "bg-red-500"
-                  : race?.status === "Completed"
+                  : race?.status === "completed"
                   ? "bg-orange-500"
                   : "bg-gray-500"
               }`}
