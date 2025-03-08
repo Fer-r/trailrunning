@@ -3,10 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useFetch } from "../hooks/useFetch";
 import LoadingSpinner from "../components/LoadingSpinner";
-import {
-  getParticipants,
-  getTrailRunningDetails,
-} from "../services/useServices";
+import { getTrailRunningDetails, unjoinRace } from "../services/useServices";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -34,23 +31,28 @@ const RaceDetail = () => {
   const [joinMessage, setJoinMessage] = useState("");
   const [showMap, setShowMap] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [participants, setParticipants] = useState([]);
+  const [joined, setJoined] = useState(null);
   const {
     data: race,
     error,
     loading,
   } = useFetch(() => getTrailRunningDetails(id), [id]);
-  const {
-    data: participants,
-    error: participantsError,
-    loading: loadingParticipants,
-  } = useFetch(() => getParticipants(id), [id]);
+  useEffect(() => {
+    setParticipants(race?.trailRunningParticipants);
+    setJoined(
+      race?.trailRunningParticipants?.find(
+        (participant) => participant.user?.id === user?.id
+      ) || null
+    );
+  }, [race, user]);
   const coordinates = race?.coordinates
     ?.split(",")
     .map((coord) => parseFloat(coord)) || [0, 0];
   const [lat, lng] = coordinates;
 
-  const handleJoinRace = async () => {
-    if (!isAuthenticated || !user || !race) {
+  const handleJoinRaceButton = async () => {
+    if (!isAuthenticated() || !user || !race) {
       return;
     }
 
@@ -58,8 +60,13 @@ const RaceDetail = () => {
     setJoinMessage("");
 
     try {
-      await joinRace(race.id, user.id);
-      setJoinMessage("¡Te has inscrito correctamente a la carrera!");
+      if (joined) {
+        await unjoinRace(joined.id);
+        setJoinMessage("¡Te has desinscrito correctamente a la carrera!");
+      }else{
+        await joinRace(race.id, user.id);
+        setJoinMessage("¡Te has inscrito correctamente a la carrera!");
+      }
       // Refresh participants list
       window.location.reload();
     } catch (error) {
@@ -95,18 +102,20 @@ const RaceDetail = () => {
               e.target.src = defaultTrailImage;
             }}
           />
-          
+
           {/* Estado en móvil (esquina superior) */}
           <div className="absolute top-4 right-4 sm:hidden">
-            <span className={`px-3 py-1.5 rounded-full text-white font-medium text-sm shadow-lg ${
-              race?.status === "Open"
-                ? "bg-green-500"
-                : race?.status === "Closed"
-                ? "bg-red-500"
-                : race?.status === "Completed"
-                ? "bg-orange-500"
-                : "bg-gray-500"
-            }`}>
+            <span
+              className={`px-3 py-1.5 rounded-full text-white font-medium text-sm shadow-lg ${
+                race?.status === "Open"
+                  ? "bg-green-500"
+                  : race?.status === "Closed"
+                  ? "bg-red-500"
+                  : race?.status === "Completed"
+                  ? "bg-orange-500"
+                  : "bg-gray-500"
+              }`}
+            >
               {race?.status}
             </span>
           </div>
@@ -131,10 +140,10 @@ const RaceDetail = () => {
                 <CiCalendar className="text-lg text-gray-600" />
                 Fecha:{" "}
                 {race?.release_date
-                  ? new Date(race.release_date).toLocaleDateString('es-ES', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
+                  ? new Date(race.release_date).toLocaleDateString("es-ES", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
                     })
                   : "No disponible"}
               </p>
@@ -142,9 +151,9 @@ const RaceDetail = () => {
                 <CiCalendar className="text-lg text-gray-600" />
                 Hora:{" "}
                 {race?.release_date
-                  ? new Date(race.release_date).toLocaleTimeString('es-ES', {
-                      hour: '2-digit',
-                      minute: '2-digit'
+                  ? new Date(race.release_date).toLocaleTimeString("es-ES", {
+                      hour: "2-digit",
+                      minute: "2-digit",
                     })
                   : "No disponible"}
               </p>
@@ -166,15 +175,17 @@ const RaceDetail = () => {
               </p>
               <p className="text-base font-medium flex items-center gap-2 text-gray-800">
                 Estado:{" "}
-                <span className={`px-2 py-1 rounded text-white ${
-                  race?.status === "Open"
-                    ? "bg-green-500"
-                    : race?.status === "Closed"
-                    ? "bg-red-500"
-                    : race?.status === "Completed"
-                    ? "bg-orange-500"
-                    : "bg-gray-500"
-                }`}>
+                <span
+                  className={`px-2 py-1 rounded text-white ${
+                    race?.status === "Open"
+                      ? "bg-green-500"
+                      : race?.status === "Closed"
+                      ? "bg-red-500"
+                      : race?.status === "Completed"
+                      ? "bg-orange-500"
+                      : "bg-gray-500"
+                  }`}
+                >
                   {race?.status}
                 </span>
               </p>
@@ -183,17 +194,21 @@ const RaceDetail = () => {
         </div>
 
         {/* Menú móvil */}
-        <div className={`
+        <div
+          className={`
           sm:hidden fixed inset-y-0 right-0 w-full bg-[#F8E4BE] shadow-xl z-50 
           transform transition-transform duration-300 ease-in-out
-          ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}
+          ${isMenuOpen ? "translate-x-0" : "translate-x-full"}
           overflow-y-auto
           flex flex-col
           min-h-screen
-        `}>
+        `}
+        >
           {/* Cabecera del menú */}
           <div className="sticky top-0 bg-[#8EB486] p-4 border-b flex justify-between items-center">
-            <h2 className="text-lg font-semibold text-center w-full">Detalles de la carrera</h2>
+            <h2 className="text-lg font-semibold text-center w-full">
+              Detalles de la carrera
+            </h2>
             <button
               onClick={() => setIsMenuOpen(false)}
               className="absolute right-4 p-2 hover:bg-gray-100 rounded-full"
@@ -209,27 +224,33 @@ const RaceDetail = () => {
                 <p className="flex flex-col items-center gap-1">
                   <CiCalendar className="text-2xl text-gray-600" />
                   <span className="text-sm text-gray-500">Fecha</span>
-                  <span className="font-medium text-center">{
-                    race?.release_date
-                      ? new Date(race.release_date).toLocaleDateString('es-ES', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        })
-                      : "No disponible"
-                  }</span>
+                  <span className="font-medium text-center">
+                    {race?.release_date
+                      ? new Date(race.release_date).toLocaleDateString(
+                          "es-ES",
+                          {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          }
+                        )
+                      : "No disponible"}
+                  </span>
                 </p>
                 <p className="flex flex-col items-center gap-1">
                   <CiCalendar className="text-2xl text-gray-600" />
                   <span className="text-sm text-gray-500">Hora</span>
-                  <span className="font-medium">{
-                    race?.release_date
-                      ? new Date(race.release_date).toLocaleTimeString('es-ES', {
-                          hour: '2-digit',
-                          minute: '2-digit'
-                        })
-                      : "No disponible"
-                  }</span>
+                  <span className="font-medium">
+                    {race?.release_date
+                      ? new Date(race.release_date).toLocaleTimeString(
+                          "es-ES",
+                          {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          }
+                        )
+                      : "No disponible"}
+                  </span>
                 </p>
               </div>
 
@@ -261,15 +282,17 @@ const RaceDetail = () => {
 
               <div className="flex flex-col items-center gap-2 p-4 bg-gray-50 rounded-lg">
                 <span className="text-sm text-gray-500">Estado</span>
-                <span className={`px-4 py-2 rounded-full text-white font-medium ${
-                  race?.status === "Open"
-                    ? "bg-green-500"
-                    : race?.status === "Closed"
-                    ? "bg-red-500"
-                    : race?.status === "Completed"
-                    ? "bg-orange-500"
-                    : "bg-gray-500"
-                }`}>
+                <span
+                  className={`px-4 py-2 rounded-full text-white font-medium ${
+                    race?.status === "Open"
+                      ? "bg-green-500"
+                      : race?.status === "Closed"
+                      ? "bg-red-500"
+                      : race?.status === "Completed"
+                      ? "bg-orange-500"
+                      : "bg-gray-500"
+                  }`}
+                >
                   {race?.status}
                 </span>
               </div>
@@ -296,8 +319,6 @@ const RaceDetail = () => {
             onClick={() => setIsMenuOpen(false)}
           />
         )}
-
-        
 
         {/* Tabla de información principal */}
         <div className="p-4 sm:p-6">
@@ -380,7 +401,9 @@ const RaceDetail = () => {
               <div className="space-y-4">
                 <p className="flex justify-between items-center py-2 border-b border-gray-100">
                   <span className="font-semibold text-gray-700">Precio:</span>
-                  <span className="text-lg text-gray-900">{race?.entry_fee}€</span>
+                  <span className="text-lg text-gray-900">
+                    {race?.entry_fee}€
+                  </span>
                 </p>
                 <p className="flex justify-between items-center py-2 border-b border-gray-100">
                   <span className="font-semibold text-gray-700">
@@ -391,7 +414,7 @@ const RaceDetail = () => {
                   </span>
                 </p>
 
-                {!isAuthenticated ? (
+                {!isAuthenticated() ? (
                   <div className="mt-6 text-red-600 p-4 bg-red-50 rounded-lg text-center">
                     Debes{" "}
                     <Link to="/login" className="underline decoration-red-600">
@@ -402,17 +425,21 @@ const RaceDetail = () => {
                 ) : (
                   <div className="mt-6">
                     <button
-                      onClick={handleJoinRace}
-                      disabled={isJoining ||loading || race?.status !== "open"}
+                      onClick={handleJoinRaceButton}
+                      disabled={isJoining || loading || race?.status !== "open"}
                       className={`w-full px-6 py-3 rounded-lg text-white font-semibold transition-all duration-200 
                         ${
                           isJoining || race?.status !== "open"
                             ? "bg-gray-400 cursor-not-allowed"
+                            : joined
+                            ? "bg-red-500 hover:bg-red-600"
                             : "bg-green-500 hover:bg-green-600"
                         }`}
                     >
                       {isJoining
-                        ? "Inscribiéndote..."
+                        ? "Procesando..."
+                        : joined
+                        ? "Cancelar registro"
                         : race?.status !== "open"
                         ? "Inscripciones cerradas"
                         : "Unirse a la carrera"}
@@ -439,41 +466,41 @@ const RaceDetail = () => {
             <h2 className="text-xl sm:text-2xl font-semibold mb-6">
               Participantes
             </h2>
-            {loadingParticipants ? (
+            {loading ? (
               <div className="text-center py-4">
                 <p className="text-gray-600">Cargando participantes...</p>
               </div>
-            ) : participantsError ? (
+            ) : error ? (
               <div className="text-center py-4">
-                <p className="text-red-600">Error: {participantsError}</p>
+                <p className="text-red-600">Error: {error}</p>
               </div>
             ) : participants?.length > 0 ? (
               <div className="space-y-3">
-                {participants.map((participant) => (
-                  <div
-                    key={participant.id}
-                    className="flex items-center justify-between bg-gray-50 p-4 rounded-lg border border-gray-100"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 bg-sky-100 rounded-full flex items-center justify-center">
-                        <span className="text-sky-600 font-semibold">
-                          {participant.name?.[0]?.toUpperCase()}
+                {participants.map(
+                  (participant) =>
+                    !participant.banned && (
+                      <div
+                        key={participant.id}
+                        className="flex items-center justify-between bg-gray-50 p-4 rounded-lg border border-gray-100"
+                      >
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 bg-sky-100 rounded-full flex items-center justify-center">
+                            <span className="text-sky-600 font-semibold">
+                              {participant.user.name?.[0]?.toUpperCase()}
+                            </span>
+                          </div>
+                          <div>
+                            <h3 className="font-medium text-gray-900">
+                              {participant.user.name}
+                            </h3>
+                          </div>
+                        </div>
+                        <span className="text-sm text-gray-500">
+                          #{participant.dorsal || "N/A"}
                         </span>
                       </div>
-                      <div>
-                        <h3 className="font-medium text-gray-900">
-                          {participant.name}
-                        </h3>
-                        <p className="text-sm text-gray-500">
-                          {participant.category}
-                        </p>
-                      </div>
-                    </div>
-                    <span className="text-sm text-gray-500">
-                      #{participant.dorsal || "N/A"}
-                    </span>
-                  </div>
-                ))}
+                    )
+                )}
               </div>
             ) : (
               <div className="text-center py-6">

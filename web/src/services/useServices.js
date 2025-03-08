@@ -1,3 +1,5 @@
+import { useAuth } from "../context/AuthContext";
+
 const BASE_URL = import.meta.env.VITE_URL_API;
 
 const fetchFromAPI = async (endpoint) => {
@@ -13,8 +15,8 @@ const fetchFromAPI = async (endpoint) => {
 };
 
 const postToAPI = async (endpoint, data) => {
+  const token = localStorage.getItem("token");
   try {
-    const token = localStorage.getItem("token");
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       method: "POST",
       headers: {
@@ -50,6 +52,18 @@ export const joinRace = async (raceId, userId) => {
     );
   }
 };
+export const unjoinRace = async (participantId) => {
+  try {
+    return await deleteFromAPI(
+      `/api/trailrunning_participant/${participantId}`
+    );
+  } catch (error) {
+    console.error("Unjoin race error:", error);
+    throw new Error(
+      "No se pudo desinscribir de la carrera. Por favor, inténtalo de nuevo."
+    );
+  }
+};
 const putToAPI = async (endpoint, data) => {
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
@@ -69,9 +83,14 @@ const putToAPI = async (endpoint, data) => {
 };
 
 const deleteFromAPI = async (endpoint) => {
+  const token = localStorage.getItem("token");
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
     if (!response.ok) {
       throw new Error(`Error deleting data: ${response.status}`);
@@ -90,35 +109,35 @@ export const getTrailRunning = async (page) => {
 export const getTrailRunningDetails = async (id) => {
   return await fetchFromAPI(`/api/trailrunning/${Number(id)}`);
 };
-export const getParticipants = async (race_id) => {
-  try {
-    const participants = await fetchFromAPI(`/api/trailrunning_participant`);
-    const users = await fetchFromAPI("/api/user");
+// export const getParticipants = async (race_id) => {
+//   try {
+//     const participants = await fetchFromAPI(`/api/trailrunning_participant`);
+//     const users = await fetchFromAPI("/api/user");
 
-    if (!participants || !users) {
-      throw new Error(
-        "No se pudo obtener los datos de participantes o usuarios"
-      );
-    }
+//     if (!participants || !users) {
+//       throw new Error(
+//         "No se pudo obtener los datos de participantes o usuarios"
+//       );
+//     }
 
-    return participants.map((participant) => {
-      const user = users.find((u) => u.id === participant.user_id) || {};
-      return {
-        ...participant,
-        name: user.name || "Usuario desconocido",
-        email: user.email || "No disponible",
-        banned: user.banned || participant.banned,
-      };
-    });
-  } catch (error) {
-    console.error("Error al obtener participantes:", error);
-    throw new Error(`Error fetching participants: ${error.message}`);
-  }
-};
+//     return participants.map((participant) => {
+//       const user = users.find((u) => u.id === participant.user_id) || {};
+//       return {
+//         ...participant,
+//         name: user.name || "Usuario desconocido",
+//         email: user.email || "No disponible",
+//         banned: user.banned || participant.banned,
+//       };
+//     });
+//   } catch (error) {
+//     console.error("Error al obtener participantes:", error);
+//     throw new Error(`Error fetching participants: ${error.message}`);
+//   }
+// };
 
-export const updateTrailRunning = async (id, data) => {
-  return await putToAPI(`/api/trailrunning/${id}`, data);
-};
+// export const updateTrailRunning = async (id, data) => {
+//   return await putToAPI(`/api/trailrunning/${id}`, data);
+// };
 
 // export const createTrailRunning = async (data) =>{
 //     return await postToAPI(`/api/trailrunning/`, data);

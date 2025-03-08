@@ -38,7 +38,7 @@ const RootLayout = () => {
             </div>
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-4">
-              {isAuthenticated && (
+              {isAuthenticated() && (
                 <Link
                   to="/profile"
                   className="text-white font-bold text-lg hover:scale-110 px-3 py-2 transition-all duration-300 transform inline-block"
@@ -49,7 +49,7 @@ const RootLayout = () => {
             </div>
 
             <div className="hidden md:block">
-              {isAuthenticated ? (
+              {isAuthenticated() ? (
                 <button
                   onClick={handleLogout}
                   className="bg-[#8EB486] text-red-500 px-6 py-2 rounded-full border-2 border-red-500 hover:bg-[#7a9c72] transition-all duration-300 font-medium cursor-pointer select-none"
@@ -90,7 +90,7 @@ const RootLayout = () => {
               >
                 Home
               </Link>
-              {isAuthenticated && (
+              {isAuthenticated() && (
                 <Link
                   to="/profile"
                   className="block px-3 py-2 text-gray-800 hover:text-sky-600"
@@ -101,7 +101,7 @@ const RootLayout = () => {
               )}
 
               <div className="pt-2">
-                {isAuthenticated ? (
+                {isAuthenticated() ? (
                   <button
                     onClick={() => {
                       handleLogout();
