@@ -4,12 +4,10 @@ import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 
 const RootLayout = () => {
-  const { logOut } = useAuth();
+  const { logOut, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const isAuth = localStorage.getItem("token") !== null;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   const isHomePage = location.pathname === "/";
 
   const handleLogout = () => {
@@ -28,21 +26,30 @@ const RootLayout = () => {
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center ">
               <Link to="/" className="flex items-center gap-2">
-                <img src="/logo.png" alt="Trail Running Logo" className="h-20 w-auto" />
-                <span className="text-xl font-bold italic font-serif">Trail Running</span>
+                <img
+                  src="/logo.png"
+                  alt="Trail Running Logo"
+                  className="h-20 w-auto"
+                />
+                <span className="text-xl font-bold italic font-serif">
+                  Trail Running
+                </span>
               </Link>
             </div>
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-4">
-            {isAuth && (
-                <Link to="/profile" className="text-white font-bold text-lg hover:scale-110 px-3 py-2 transition-all duration-300 transform inline-block">
+              {isAuthenticated && (
+                <Link
+                  to="/profile"
+                  className="text-white font-bold text-lg hover:scale-110 px-3 py-2 transition-all duration-300 transform inline-block"
+                >
                   Profile
                 </Link>
               )}
             </div>
 
             <div className="hidden md:block">
-              {isAuth ? (
+              {isAuthenticated ? (
                 <button
                   onClick={handleLogout}
                   className="bg-[#8EB486] text-red-500 px-6 py-2 rounded-full border-2 border-red-500 hover:bg-[#7a9c72] transition-all duration-300 font-medium cursor-pointer select-none"
@@ -76,25 +83,25 @@ const RootLayout = () => {
           <div className="md:hidden">
             {/* Update mobile menu as well */}
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
-            <Link
+              <Link
                 to="/"
                 className="block px-3 py-2 text-gray-800 hover:text-sky-600"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Home
               </Link>
-              {isAuth && (
-                <Link 
-                  to="/profile" 
+              {isAuthenticated && (
+                <Link
+                  to="/profile"
                   className="block px-3 py-2 text-gray-800 hover:text-sky-600"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Profile
                 </Link>
               )}
-              
+
               <div className="pt-2">
-                {isAuth ? (
+                {isAuthenticated ? (
                   <button
                     onClick={() => {
                       handleLogout();

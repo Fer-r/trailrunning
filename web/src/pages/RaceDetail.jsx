@@ -403,7 +403,7 @@ const RaceDetail = () => {
                   <div className="mt-6">
                     <button
                       onClick={handleJoinRace}
-                      disabled={isJoining || race?.status !== "open"}
+                      disabled={isJoining ||loading || race?.status !== "open"}
                       className={`w-full px-6 py-3 rounded-lg text-white font-semibold transition-all duration-200 
                         ${
                           isJoining || race?.status !== "open"
