@@ -40,8 +40,8 @@ const postToAPI = async (endpoint, data) => {
 export const joinRace = async (raceId, userId) => {
   try {
     return await postToAPI(`/api/trailrunning_participant/new`, {
-      trail_running_id: raceId,
-      user_id: userId,
+      user: userId,
+      trailRunning: raceId,
     });
   } catch (error) {
     console.error("Join race error:", error);

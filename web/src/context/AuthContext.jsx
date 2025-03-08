@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async ({ email, password }) => {
     try {
+      setLoading(true);
       const response = await fetch(`${API_URL}/api2/auth/login_check`, {
         method: "POST",
         headers: {

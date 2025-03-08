@@ -42,8 +42,7 @@ copy .env.example .env
 2. Update the variables in your new `.env` file with your actual values:
 
 ```env
-VITE_URL_API=your_api_url/ # Must end with trailing slash
-VITE_GMAPS_API_KEY=your_google_maps_api_key
+VITE_URL_API=your_api_url # Must NOT end with trailing slash
 ```
 
 > **Important**: The `.env` file contains sensitive information and is included in `.gitignore`. Never commit this file to version control.

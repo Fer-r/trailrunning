@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { FiMail, FiLock } from "react-icons/fi";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const LoginPage = () => {
   const apiUrl = import.meta.env.VITE_URL_API;
@@ -10,7 +11,7 @@ const LoginPage = () => {
     password: "",
   });
 
-  const { login } = useAuth();
+  const { login, loading } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -31,6 +32,10 @@ const LoginPage = () => {
       console.log("Error al iniciar sesión", error);
     }
   };
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -101,7 +106,7 @@ const LoginPage = () => {
             </div>
           </div>
 
-          {/* Remember me & Forgot password */}
+          {/* Remember me & Forgot password
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input
@@ -118,7 +123,7 @@ const LoginPage = () => {
               </label>
             </div>
 
-          </div>
+          </div> */}
           {/* Submit Button */}
           <div>
             <button
