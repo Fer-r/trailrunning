@@ -11,7 +11,7 @@ import EditProfile from "../pages/EditProfile";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/trailrunning",
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
