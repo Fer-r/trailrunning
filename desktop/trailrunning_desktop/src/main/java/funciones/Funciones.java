@@ -21,6 +21,7 @@ public class Funciones {
             stage.setScene(scene);
             stage.setTitle("Carreras");
             stage.setTitle(titulo);
+            stage.setResizable(false);
             
             if(modal) stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
