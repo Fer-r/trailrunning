@@ -1,5 +1,9 @@
 package funciones;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -72,6 +76,32 @@ public class Funciones {
     public static void cerrarStageDelNodo(Node node){
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
+    }
+    
+    public static String[] leerDatosGuardadosUsuario(){
+        try{
+            String contenido = Files
+                    .readString(Path.of(Funciones.class.getResource("usuarioGuardado.txt").toURI()));
+            
+            String[] resultado = contenido.split(";");
+            if(resultado.length != 2) return null;
+            return resultado;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public static void actualizarDatosGuardadosUsuario(String usuario, String password){
+        try{
+            String texto = usuario + ";" + password;
+            File file = new File(Funciones.class.getResource("usuarioGuardado.txt").toURI());
+            FileWriter writer = new FileWriter(file, false);
+            writer.write(texto);
+            writer.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
     
 }

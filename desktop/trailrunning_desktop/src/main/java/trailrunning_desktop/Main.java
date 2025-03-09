@@ -17,6 +17,7 @@ public class Main extends Application {
         // VentanaPrincipal
         // PerfilUsuario
         // RegistrarUsuario
+        Funciones.leerDatosGuardadosUsuario();
         Funciones.mostrarVentana("VentanaPrincipal");
         
     }
