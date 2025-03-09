@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -34,6 +35,8 @@ public class Funciones {
             stage.setScene(scene);
             stage.setTitle(getTitulo(nombreVista));
             stage.setResizable(false);
+            Image icono = new Image(Funciones.class.getResource("../vista/img/shoes.png").toExternalForm());
+            stage.getIcons().add(icono);
             
             if(modal) stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
