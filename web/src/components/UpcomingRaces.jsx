@@ -1,30 +1,35 @@
 import { useEffect, useState, useCallback } from "react";
-import { useFetch } from "../hooks/useFetch";
-import { getTrailRunning } from "./../services/useServices";
 import RaceCard from "./RaceCard";
-import LoadingSpinner from "./LoadingSpinner";
 
-const UpcomingRaces = () => {
-  const { data: races, loading, error } = useFetch(getTrailRunning, []);
+const UpcomingRaces = ({ races = [] }) => {
   const [upcomingRaces, setUpcomingRaces] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     if (races.length > 0) {
-      const currentDate = new Date();
+      // Get current date and time for comparison
+      const currentDateTime = new Date();
+      
       // Filter and sort upcoming races
       const filtered = races
         .filter((race) => {
-          const raceDate = new Date(race.date);
-          return raceDate >= currentDate;
+          // Make sure we're using the correct date field
+          if (!race.date) {
+            return false;
+          }
+          
+          // Parse the date string to a Date object
+          const raceDateTime = new Date(race.date);
+          
+          // Compare full datetime
+          return raceDateTime >= currentDateTime;
         })
         .sort((a, b) => {
           const dateA = new Date(a.date);
           const dateB = new Date(b.date);
           return dateA - dateB;
         });
-
       setUpcomingRaces(filtered);
     }
   }, [races]);
@@ -96,13 +101,7 @@ const UpcomingRaces = () => {
             </svg>
           </button>
           <div className="w-full overflow-hidden">
-            {loading ? (
-              <LoadingSpinner />
-            ) : error ? (
-              <div className="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg">
-                <p>Error: {error}</p>
-              </div>
-            ) : upcomingRaces.length === 0 ? (
+            {upcomingRaces.length === 0 ? (
               <div className="text-center py-12">
                 <p className="text-xl text-slate-600">
                   No hay carreras próximas disponibles

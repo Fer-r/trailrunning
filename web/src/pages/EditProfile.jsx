@@ -57,7 +57,7 @@ const EditProfile = () => {
       return;
     }
 
-    console.log('Updated profile:', formData);
+    // console.log('Updated profile:', formData);
     navigate('/profile');
   };
 

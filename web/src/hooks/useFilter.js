@@ -35,7 +35,7 @@ export const useFilter = (races) => {
     if (!startDate || !endDate) return races;
 
     return races.filter((race) => {
-      const raceDate = new Date(race.release_date);
+      const raceDate = new Date(race?.date);
       return raceDate >= startDate && raceDate <= endDate;
     });
   };

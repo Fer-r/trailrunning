@@ -139,8 +139,8 @@ const RaceDetail = () => {
               <p className="text-base font-medium flex items-center gap-2 text-gray-800">
                 <CiCalendar className="text-lg text-gray-600" />
                 Fecha:{" "}
-                {race?.release_date
-                  ? new Date(race.release_date).toLocaleDateString("es-ES", {
+                {race?.date
+                  ? new Date(race.date).toLocaleDateString("es-ES", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
@@ -150,8 +150,8 @@ const RaceDetail = () => {
               <p className="text-base font-medium flex items-center gap-2 text-gray-800">
                 <CiCalendar className="text-lg text-gray-600" />
                 Hora:{" "}
-                {race?.release_date
-                  ? new Date(race.release_date).toLocaleTimeString("es-ES", {
+                {race?.date
+                  ? new Date(race.date).toLocaleTimeString("es-ES", {
                       hour: "2-digit",
                       minute: "2-digit",
                     })
@@ -225,8 +225,8 @@ const RaceDetail = () => {
                   <CiCalendar className="text-2xl text-gray-600" />
                   <span className="text-sm text-gray-500">Fecha</span>
                   <span className="font-medium text-center">
-                    {race?.release_date
-                      ? new Date(race.release_date).toLocaleDateString(
+                    {race?.date
+                      ? new Date(race.date).toLocaleDateString(
                           "es-ES",
                           {
                             year: "numeric",
@@ -241,8 +241,8 @@ const RaceDetail = () => {
                   <CiCalendar className="text-2xl text-gray-600" />
                   <span className="text-sm text-gray-500">Hora</span>
                   <span className="font-medium">
-                    {race?.release_date
-                      ? new Date(race.release_date).toLocaleTimeString(
+                    {race?.date
+                      ? new Date(race.date).toLocaleTimeString(
                           "es-ES",
                           {
                             hour: "2-digit",
