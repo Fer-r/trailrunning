@@ -17,7 +17,7 @@ public class Main extends Application {
         // VentanaPrincipal
         // PerfilUsuario
         // RegistrarUsuario
-        Funciones.mostrarVentana("VentanaPrincipal", "Trailrunning");
+        Funciones.mostrarVentana("VentanaPrincipal");
         
     }
 

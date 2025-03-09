@@ -1,5 +1,6 @@
 package funciones;
 
+import java.util.HashMap;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -11,7 +12,19 @@ import javafx.stage.Stage;
 
 public class Funciones {
     
-    public static void mostrarVentana(String nombreVista, String titulo, boolean modal){
+    static HashMap<String, String> titulos;
+    
+    private static String getTitulo(String nombreVista){
+        if(titulos == null){
+            titulos = new HashMap<>();
+            titulos.put("LogIn", "Iniciar sesión");
+            titulos.put("PerfilUsuario", "Mis carreras");
+            titulos.put("VentanaPrincipal", "Trailrunning");
+        }
+        return titulos.get(nombreVista);
+    }
+    
+    public static void mostrarVentana(String nombreVista, boolean modal){
         Stage stage = new Stage();
         try{
             FXMLLoader loader = new FXMLLoader(Funciones.class.getResource("../vista/" + nombreVista + ".fxml"));
@@ -19,8 +32,7 @@ public class Funciones {
             
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("Carreras");
-            stage.setTitle(titulo);
+            stage.setTitle(getTitulo(nombreVista));
             stage.setResizable(false);
             
             if(modal) stage.initModality(Modality.APPLICATION_MODAL);
@@ -31,15 +43,15 @@ public class Funciones {
         }
     }
     
-    public static void mostrarVentana(String nombreVista, String titulo){
-        mostrarVentana(nombreVista, titulo, false);
+    public static void mostrarVentana(String nombreVista){
+        mostrarVentana(nombreVista, false);
     }
     
-    public static void mostrarVentanaYCerrarEsta(String nombreVista, String titulo, Node node){
+    public static void mostrarVentanaYCerrarEsta(String nombreVista, Node node){
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
         
-        mostrarVentana(nombreVista, titulo);
+        mostrarVentana(nombreVista);
     }
     
     public static void mostrarAlertaError(String mensajeHeader, String mensajeContent){

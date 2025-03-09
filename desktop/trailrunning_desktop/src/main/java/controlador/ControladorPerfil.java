@@ -89,11 +89,11 @@ public class ControladorPerfil implements Initializable {
     
     private void inicializarEventosBotones(){
         btnPaginaPrincipal.setOnAction(event -> {
-            Funciones.mostrarVentanaYCerrarEsta("VentanaPrincipal", "Trailrunning", btnPaginaPrincipal);
+            Funciones.mostrarVentanaYCerrarEsta("VentanaPrincipal", btnPaginaPrincipal);
         });
         btnCerrarSesion.setOnAction(event -> {
             Session.logOut();
-            Funciones.mostrarVentanaYCerrarEsta("VentanaPrincipal", "Trailrunning", btnPaginaPrincipal);
+            Funciones.mostrarVentanaYCerrarEsta("VentanaPrincipal", btnPaginaPrincipal);
         });
     }
     

@@ -72,7 +72,7 @@ public class ControladorLogin implements Initializable {
     
     public void irAPerfil(){
         Funciones.cerrarStageDelNodo(btnLogin);
-        Funciones.mostrarVentana("PerfilUsuario", "Mis carreras", true);
+        Funciones.mostrarVentana("PerfilUsuario", true);
     }
     
 }

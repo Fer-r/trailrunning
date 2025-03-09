@@ -333,9 +333,9 @@ public class ControladorCarreras {
     @FXML
     public void cambiarAVentanaLogin() {
         if(!Session.hayUsuario())
-            Funciones.mostrarVentanaYCerrarEsta("LogIn", "Iniciar sesión", tableView);
+            Funciones.mostrarVentanaYCerrarEsta("LogIn", tableView);
         else{
-            Funciones.mostrarVentanaYCerrarEsta("PerfilUsuario", "Mis carreras", tableView);
+            Funciones.mostrarVentanaYCerrarEsta("PerfilUsuario", tableView);
         }
     }
     
