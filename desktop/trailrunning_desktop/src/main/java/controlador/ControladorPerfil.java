@@ -50,10 +50,19 @@ public class ControladorPerfil implements Initializable {
     
     // Labels
     @FXML
+    private Label lblNombre;
+    
+    @FXML
     private Label lblDorsal;
 
     @FXML
     private Label lblFechaInscripcion;
+    
+    @FXML
+    private Label lblDesnivel;
+
+    @FXML
+    private Label lblDistancia;
     
     // *** Métodos ***
     @Override
@@ -113,9 +122,20 @@ public class ControladorPerfil implements Initializable {
     void mostrarDatosParticipacion(Trailrunning carrera){
         User user = Session.getInstance().getUsuario();
         Participant participante = TrailrunningRepository.leerParticipante(user, carrera);
+        lblNombre.setText(carrera.getName());
         lblDorsal.setText(participante.getDorsal() + "");
         lblFechaInscripcion.setText(participante.getTime().toString());
+        lblDistancia.setText(carrera.getDistance_km() + " km");
+        lblDesnivel.setText(carrera.getUnevenness() + "m");
         // Aquí se podrían poner más datos de la carrera
+    }
+    
+    void mostrarDatosPorDefecto(){
+        lblNombre.setText("Mi carrera");
+        lblDorsal.setText("-");
+        lblFechaInscripcion.setText("-");
+        lblDistancia.setText("-");
+        lblDesnivel.setText("-");
     }
     
     void activarBtnDesinscribirse(Trailrunning carrera){
@@ -127,6 +147,7 @@ public class ControladorPerfil implements Initializable {
             );
             btnDesinscribirse.setDisable(true);
             actualizarTableView();
+            mostrarDatosPorDefecto();
         });
     }
     

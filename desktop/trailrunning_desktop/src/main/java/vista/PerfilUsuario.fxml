@@ -73,7 +73,7 @@
                   <ImageView fitHeight="99.0" fitWidth="101.0" layoutX="617.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
                   <VBox layoutX="508.0" layoutY="70.0" prefHeight="267.0" prefWidth="352.0" spacing="10.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="352.0" text="Datos participación">
+                        <Label fx:id="lblNombre" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="352.0" text="Mi carrera">
                            <font>
                               <Font name="SansSerif Bold" size="16.0" />
                            </font>
@@ -91,7 +91,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblDorsal" alignment="CENTER" text="lblDorsal">
+                              <Label fx:id="lblDorsal" alignment="CENTER" text="-">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
@@ -107,7 +107,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblFechaInscripcion" text="lblFechaInscripcion">
+                              <Label fx:id="lblFechaInscripcion" text="-">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
@@ -115,7 +115,7 @@
                         </HBox>
                         <HBox spacing="10.0">
                            <children>
-                              <Label text="Posición:">
+                              <Label text="Distancia:">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
@@ -123,7 +123,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label text="lblDorsal">
+                              <Label fx:id="lblDistancia" text="-">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
@@ -131,7 +131,7 @@
                         </HBox>
                         <HBox spacing="10.0">
                            <children>
-                              <Label text="Tiempo">
+                              <Label text="Desnivel:">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
@@ -139,87 +139,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label text="lblDorsal">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font></Label>
-                           </children>
-                        </HBox>
-                        <HBox spacing="10.0">
-                           <children>
-                              <Label text="Km">
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label text="lblDorsal">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font></Label>
-                           </children>
-                        </HBox>
-                        <HBox spacing="10.0">
-                           <children>
-                              <Label text="Clima">
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label text="lblDorsal">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font></Label>
-                           </children>
-                        </HBox>
-                        <HBox spacing="10.0">
-                           <children>
-                              <Label text="Medio">
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label text="lblDorsal">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font></Label>
-                           </children>
-                        </HBox>
-                        <HBox spacing="10.0">
-                           <children>
-                              <Label text="Kcal">
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label text="lblDorsal">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font></Label>
-                           </children>
-                        </HBox>
-                        <HBox spacing="10.0">
-                           <children>
-                              <Label text="Otros">
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label text="lblDorsal">
+                              <Label fx:id="lblDesnivel" text="-">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>

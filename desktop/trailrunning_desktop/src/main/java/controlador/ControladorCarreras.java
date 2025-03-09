@@ -180,12 +180,12 @@ public class ControladorCarreras {
         // Configurar las opciones del ComboBox
         comboFiltro.getItems().addAll(
             "Ver todas",
-            "Filtrar por estado: Abierta",
-            "Filtrar por precio < 50",
-            "Filtrar por plazas > 100",
-            "Filtrar por estado: Cerrada",
-            "Filtrar por categoría: Maratón",
-            "Filtrar por distancia > 20 km"
+            "Abierta",
+            "Cerrada",
+            "Precio < 50",
+            "Plazas > 100",
+            "Maratón",
+            "Distancia > 20km"
         );
         comboFiltro.setValue("Ver todas"); // Establecer valor inicial
         comboFiltro
@@ -208,32 +208,32 @@ public class ControladorCarreras {
                     case "Ver todas":
                         carrerasFiltradas.add(carrera);
                         break;
-                    case "Filtrar por estado: Abierta":
-                        if (carrera.getStatus().equalsIgnoreCase("Abierta")) {
+                    case "Abierta":
+                        if (carrera.getStatus().equalsIgnoreCase("OPEN")) {
                             carrerasFiltradas.add(carrera);
                         }
                         break;
-                    case "Filtrar por precio < 50":
+                    case "Precio < 50":
                         if (carrera.getEntry_fee() < 50) {
                             carrerasFiltradas.add(carrera);
                         }
                         break;
-                    case "Filtrar por plazas > 100":
+                    case "Plazas > 100":
                         if (carrera.getAvailable_slots() > 100) {
                             carrerasFiltradas.add(carrera);
                         }
                         break;
-                    case "Filtrar por estado: Cerrada":
-                        if (carrera.getStatus().equalsIgnoreCase("Cerrada")) {
+                    case "Cerrada":
+                        if (carrera.getStatus().equalsIgnoreCase("CLOSED")) {
                             carrerasFiltradas.add(carrera);
                         }
                         break;
-                    case "Filtrar por categoría: Maratón":
-                        if (carrera.getCategory().equalsIgnoreCase("Maratón")) {
+                    case "Maratón":
+                        if (carrera.getCategory().equalsIgnoreCase("Marathon")) {
                             carrerasFiltradas.add(carrera);
                         }
                         break;
-                    case "Filtrar por distancia > 20 km":
+                    case "Distancia > 20km":
                         if (carrera.getDistance_km() > 20) {
                             carrerasFiltradas.add(carrera);
                         }
@@ -258,7 +258,7 @@ public class ControladorCarreras {
         //labelCoordenadas.setText(carrera.getCoordinates());
         labelTiempo.setText(carrera.getEntry_fee() + "");
         lblFecha.setText(carrera.getDate().toString());
-        lblPrecio.setText(carrera.getEntry_fee() + "");
+        lblPrecio.setText(carrera.getEntry_fee() + "€");
         lblPlazas.setText(carrera.getAvailable_slots() + "");
         // labelImagen.setText(carrera.getImage());
 
