@@ -80,7 +80,7 @@
                         </TableView>
                         <VBox alignment="CENTER" prefHeight="405.0" prefWidth="305.0" spacing="25.0">
                            <children>
-                              <ImageView fx:id="imagenCarrera" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="imagenCarrera" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" />
                               <HBox prefHeight="230.0" prefWidth="286.0" spacing="20.0">
                                  <children>
                                     <VBox prefHeight="230.0" prefWidth="330.0" spacing="15.0">

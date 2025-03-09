@@ -9,7 +9,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 import modelo.API.TrailrunningRepository;
 import modelo.Trailrunning;
 
@@ -91,7 +93,7 @@ public class ControladorCarreras {
 
     @FXML
     public void initialize() {
-        inicializarImagen(); // TODO: no funciona por ahora
+        inicializarImagenPorDefecto();
         inicializarTableView();
         inicializarEdtFiltrado();
         inicializarComboBox();
@@ -99,11 +101,11 @@ public class ControladorCarreras {
         logicaUsuarioLogueado(); 
     }
     
-    // Imagen de arriba
-    void inicializarImagen(){ // TODO: not working
-        //findsFile("images/circle-user.png");
-        //Image image = new Image(getClass().getClassLoader().getResource("/images/circle-user.png").toExternalForm());
-        //this.imagenLogin.setImage(image);
+    public void inicializarImagenPorDefecto(){
+        Image image = new Image(getClass().getResource("../vista/img/logo.png").toExternalForm());
+        imagenCarrera.setImage(image);
+        Circle clip = new Circle(50, 50, 50);
+        imagenCarrera.setClip(clip);
     }
     
     void findsFile(String s){
@@ -246,6 +248,11 @@ public class ControladorCarreras {
 
     // Mostrar los detalles del Trailrunning seleccionado
     private void mostrarDetalles(Trailrunning carrera) {
+        
+        // cargar la imagen
+        Image image = new Image(getClass().getResource("../vista/img/" + carrera.getImage()).toExternalForm());
+        imagenCarrera.setImage(image);
+        
         labelDescripcion.setText(carrera.getDescription());
         labelDistancia.setText(String.valueOf(carrera.getDistance_km()) + " km");
         //labelCoordenadas.setText(carrera.getCoordinates());

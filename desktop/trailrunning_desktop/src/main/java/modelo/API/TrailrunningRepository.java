@@ -40,34 +40,75 @@ public class TrailrunningRepository {
         */
         users = new ArrayList<>();
         users.addAll(List.of(
-                new User(1, "Alice", "alice@example.com", "password123", new String[]{"USER"}, false),
+            new User(1, "Alice", "alice@example.com", "password123", new String[]{"USER"}, false),
             new User(2, "Bob", "bob@example.com", "securepass", new String[]{"USER", "ADMIN"}, false),
             new User(3, "Charlie", "charlie@example.com", "mypassword", new String[]{"USER"}, true),
             new User(4, "David", "david@example.com", "pass123", new String[]{"MODERATOR"}, false),
-            new User(5, "Eve", "eve@example.com", "adminpass", new String[]{"ADMIN"}, true)
+            new User(5, "Eve", "eve@example.com", "adminpass", new String[]{"ADMIN"}, true),
+            new User(6, "Frank", "frank@example.com", "frankpass", new String[]{"USER"}, false),
+            new User(7, "Grace", "grace@example.com", "grace123", new String[]{"USER", "MODERATOR"}, false),
+            new User(8, "Heidi", "heidi@example.com", "heidipass", new String[]{"USER"}, true),
+            new User(9, "Ivan", "ivan@example.com", "ivanpass", new String[]{"USER", "ADMIN"}, false),
+            new User(10, "Judy", "judy@example.com", "judypass", new String[]{"MODERATOR"}, true)
         ));
         
         trailrunning = new ArrayList<>();
         trailrunning.addAll(List.of(
-                new Trailrunning(1, "Mountain Challenge", "A tough trail through the mountains.", 
-                    LocalDate.of(2025, 5, 10), 42.5, "Andorra", "42.5078,1.5211", 2500, 50.0, 200, "OPEN", "Ultra", "mountain.jpg"),
+            new Trailrunning(1, "Mountain Challenge", "A tough trail through the mountains.", 
+                LocalDate.of(2025, 5, 10), 42.5, "Andorra", "42.5078,1.5211", 2500, 50.0, 200, "OPEN", "Ultra", "carrera1.jpg"),
 
-                new Trailrunning(2, "Forest Run", "Scenic run through dense forests.", 
-                    LocalDate.of(2025, 6, 15), 25.0, "Germany", "48.1351,11.5820", 1200, 30.0, 150, "OPEN", "Marathon", "forest.jpg"),
+            new Trailrunning(2, "Forest Run", "Scenic run through dense forests.", 
+                LocalDate.of(2025, 6, 15), 25.0, "Germany", "48.1351,11.5820", 1200, 30.0, 150, "OPEN", "Marathon", "carrera2.jpg"),
 
-                new Trailrunning(3, "Desert Dash", "Extreme heat and dunes await.", 
-                    LocalDate.of(2025, 7, 20), 60.0, "Morocco", "31.6295,-7.9811", 500, 80.0, 100, "CLOSED", "Ultra", "desert.jpg")
+            new Trailrunning(3, "Desert Dash", "Extreme heat and dunes await.", 
+                LocalDate.of(2025, 7, 20), 60.0, "Morocco", "31.6295,-7.9811", 500, 80.0, 100, "CLOSED", "Ultra", "carrera3.jpg"),
+
+            new Trailrunning(4, "Coastal Challenge", "Run along breathtaking coastlines.",
+                LocalDate.of(2025, 8, 12), 35.0, "Portugal", "38.7223,-9.1393", 800, 45.0, 180, "OPEN", "Marathon", "carrera1.jpg"),
+
+            new Trailrunning(5, "Volcano Trail", "Adventure around active volcanoes.",
+                LocalDate.of(2025, 9, 5), 50.0, "Italy", "37.7510,14.9934", 1500, 60.0, 130, "OPEN", "Ultra", "carrera2.jpg"),
+
+            new Trailrunning(6, "Northern Lights Run", "A night race under the auroras.",
+                LocalDate.of(2025, 10, 18), 20.0, "Norway", "69.6492,18.9553", 600, 35.0, 90, "OPEN", "Half-Marathon", "carrera3.jpg"),
+
+            new Trailrunning(7, "Jungle Trek", "Dense jungle trails with river crossings.",
+                LocalDate.of(2025, 11, 22), 28.0, "Brazil", "-3.4653,-62.2159", 700, 40.0, 110, "OPEN", "Marathon", "carrera1.jpg"),
+
+            new Trailrunning(8, "Canyon Quest", "Technical descents and steep climbs in the canyons.",
+                LocalDate.of(2026, 1, 14), 45.0, "USA", "36.1069,-112.1129", 2000, 55.0, 170, "CLOSED", "Ultra", "carrera2.jpg"),
+
+            new Trailrunning(9, "Island Ultra", "Tropical island loop with ocean views.",
+                LocalDate.of(2026, 3, 9), 55.0, "Philippines", "13.4100,123.3700", 900, 70.0, 150, "OPEN", "Ultra", "carrera3.jpg"),
+
+            new Trailrunning(10, "Glacier Run", "Icy paths and frigid winds await.",
+                LocalDate.of(2026, 4, 25), 30.0, "Iceland", "64.9631,-19.0208", 1000, 50.0, 140, "OPEN", "Marathon", "carrera1.jpg")
         ));
         
         participants = new ArrayList<>();
         participants.addAll(List.of(
-                new Participant(1, 1, 1, LocalDate.of(2025, 5, 10), 101, false),
-                new Participant(2, 2, 1, LocalDate.of(2025, 5, 10), 102, false),
-                new Participant(3, 3, 2, LocalDate.of(2025, 6, 15), 201, true),
-                new Participant(4, 4, 3, LocalDate.of(2025, 7, 20), 301, false),
-                new Participant(5, 5, 2, LocalDate.of(2025, 6, 15), 202, false),
-                new Participant(6, 1, 2, LocalDate.of(2025, 1, 10), 420, false)
+            new Participant(1, 1, 1, LocalDate.of(2025, 5, 10), 101, false),   // Alice - Mountain Challenge
+            new Participant(2, 2, 1, LocalDate.of(2025, 5, 10), 102, false),   // Bob - Mountain Challenge
+            new Participant(3, 3, 2, LocalDate.of(2025, 6, 15), 201, true),    // Charlie - Forest Run
+            new Participant(4, 4, 3, LocalDate.of(2025, 7, 20), 301, false),   // David - Desert Dash
+            new Participant(5, 5, 2, LocalDate.of(2025, 6, 15), 202, false),   // Eve - Forest Run
+            new Participant(6, 6, 4, LocalDate.of(2025, 8, 12), 401, false),   // Frank - Coastal Challenge
+            new Participant(7, 7, 4, LocalDate.of(2025, 8, 12), 402, false),   // Grace - Coastal Challenge
+            new Participant(8, 8, 5, LocalDate.of(2025, 9, 5), 501, true),     // Heidi - Volcano Trail
+            new Participant(9, 9, 5, LocalDate.of(2025, 9, 5), 502, false),    // Ivan - Volcano Trail
+            new Participant(10, 10, 6, LocalDate.of(2025, 10, 18), 601, true), // Judy - Northern Lights Run
+            new Participant(11, 1, 7, LocalDate.of(2025, 11, 22), 701, false), // Alice - Jungle Trek
+            new Participant(12, 2, 8, LocalDate.of(2026, 1, 14), 801, true),   // Bob - Canyon Quest
+            new Participant(13, 3, 9, LocalDate.of(2026, 3, 9), 901, false),   // Charlie - Island Ultra
+            new Participant(14, 4, 10, LocalDate.of(2026, 4, 25), 1001, false),// David - Glacier Run
+            new Participant(15, 5, 10, LocalDate.of(2026, 4, 25), 1002, false),// Eve - Glacier Run
+            new Participant(16, 6, 9, LocalDate.of(2026, 3, 9), 902, false),   // Frank - Island Ultra
+            new Participant(17, 7, 8, LocalDate.of(2026, 1, 14), 802, false),  // Grace - Canyon Quest
+            new Participant(18, 8, 7, LocalDate.of(2025, 11, 22), 702, false), // Heidi - Jungle Trek
+            new Participant(19, 9, 6, LocalDate.of(2025, 10, 18), 602, true),  // Ivan - Northern Lights Run
+            new Participant(20, 10, 5, LocalDate.of(2025, 9, 5), 503, false)   // Judy - Volcano Trail
         ));
+
         
         System.out.println("Datos inicializados correctamente");
     }
