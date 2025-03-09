@@ -43,7 +43,7 @@ const RootLayout = () => {
                   to="/profile"
                   className="text-white font-bold text-lg hover:scale-110 px-3 py-2 transition-all duration-300 transform inline-block"
                 >
-                  Profile
+                  Tu Perfil
                 </Link>
               )}
             </div>
@@ -52,7 +52,7 @@ const RootLayout = () => {
               {isAuthenticated() ? (
                 <button
                   onClick={handleLogout}
-                  className="bg-[#8EB486] text-red-500 px-6 py-2 rounded-full border-2 border-red-500 hover:bg-[#7a9c72] transition-all duration-300 font-medium cursor-pointer select-none"
+                  className="bg-red-500 text-white px-6 py-2 rounded-full border-2 border-red-500 hover:bg-red-700 transition-all duration-300 font-medium cursor-pointer select-none"
                 >
                   Cerrar Sesión
                 </button>
