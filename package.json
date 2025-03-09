@@ -1,14 +1,16 @@
 {
-  "name": "04-rutas-protegidas",
+  "name": "trailrunning",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://Fer-r.github.io/trailrunning",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "api": "json-server --watch ./src/db.json --port 4000"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.0",
@@ -30,6 +32,7 @@
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
+    "gh-pages": "^6.3.0",
     "globals": "^15.14.0",
     "json-server": "^1.0.0-beta.3",
     "vite": "^6.0.5"
