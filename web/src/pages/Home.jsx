@@ -3,12 +3,17 @@ import { useAuth } from "../context/AuthContext";
 import RaceList from "../components/RaceList";
 import UpcomingRaces from "../components/UpcomingRaces";
 import { useEffect, useState } from "react";
+import { useFetch } from "../hooks/useFetch";
+import { getTrailRunning } from "../services/useServices";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Home = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const { data: races, loading, error } = useFetch(getTrailRunning, []);
+  
   const backgroundImages = [
     "/fondo1.png",
     "/fondo2.png",
@@ -60,14 +65,34 @@ const Home = () => {
       {/* Upcoming Races Section */}
       <section className="bg-[#F8E4BE] py-12">
         <div className="container mx-auto px-4">
-          <UpcomingRaces />
+          {loading ? (
+            <div className="flex justify-center items-center py-8">
+              <LoadingSpinner />
+            </div>
+          ) : error ? (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+              <p>Error: {error}</p>
+            </div>
+          ) : (
+            <UpcomingRaces races={races} />
+          )}
         </div>
       </section>
 
       {/* All Races Section */}
       <section className="bg-[#F8E4BE] py-12">
         <div className="container mx-auto px-4">
-          <RaceList />
+          {loading ? (
+            <div className="flex justify-center items-center py-8">
+              <LoadingSpinner />
+            </div>
+          ) : error ? (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+              <p>Error: {error}</p>
+            </div>
+          ) : (
+            <RaceList races={races} />
+          )}
         </div>
       </section>
     </>

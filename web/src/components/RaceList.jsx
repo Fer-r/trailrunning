@@ -6,16 +6,12 @@ import RaceCard from "./RaceCard";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 import Select from "react-select";
 import LoadingSpinner from "./LoadingSpinner";
-const RaceList = () => {
-  const {
-    data: races,
-    loading,
-    error,
-    setLoading,
-  } = useFetch(getTrailRunning, []);
+const RaceList = ({ races = [] }) => {
   const [visibleRaces, setVisibleRaces] = useState([]);
   const [visibleCount, setVisibleCount] = useState(3);
   const [showFilter, setShowFilter] = useState(false);
+  const [loading, setLoading] = useState(false);
+  
   const {
     sortRacesByDistance,
     sortedByLocation,
@@ -28,6 +24,7 @@ const RaceList = () => {
     searchTerm,
     setSearchTerm,
   } = useFilter(races);
+  
   const categoryOptions = [
     { value: "Trail Medio", label: "Trail Medio" },
     { value: "Ultra Trail", label: "Ultra Trail" },
@@ -36,6 +33,7 @@ const RaceList = () => {
     { value: "Trail Corto", label: "Trail Corto" },
     { value: "Trail Técnico", label: "Trail Técnico" },
   ];
+  
   // Actualiza las carreras visibles basado en filtros y ubicación
   useEffect(() => {
     if (races && races.length > 0) {
@@ -61,6 +59,7 @@ const RaceList = () => {
     selectedCategories,
     searchTerm,
   ]);
+  
   // Maneja el scroll infinito para cargar más carreras
   useEffect(() => {
     const handleScroll = () => {
@@ -80,7 +79,8 @@ const RaceList = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [loading, visibleCount, races.length, setLoading]);
+  }, [loading, visibleCount, races.length]);
+  
   // Alterna entre mostrar carreras por ubicación o todas las carreras
   const handleLocationSort = async () => {
     if (sortedByLocation) {
@@ -92,20 +92,23 @@ const RaceList = () => {
       setVisibleRaces(sortedRaces.slice(0, visibleCount));
     }
   };
+  
   // Actualiza las categorías seleccionadas en el filtro
   const handleCategoryChange = (selectedOptions) => {
     setSelectedCategories(
       selectedOptions ? selectedOptions.map((option) => option.value) : []
     );
   };
+  
   // Limpia todos los filtros aplicados
   const handleClearFilters = () => {
     setDateRange({ start: null, end: null });
     setSelectedCategories([]);
-    setSearchTerm(""); // Add this line
+    setSearchTerm("");
     document.getElementById("start").value = "";
     document.getElementById("end").value = "";
   };
+  
   // Maneja los cambios en el filtro de fechas
   const handleDateChange = (e) => {
     const { name, value } = e.target;
@@ -271,11 +274,6 @@ const RaceList = () => {
             </div>
           )}
         </div>
-        {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-            <p>Error: {error}</p>
-          </div>
-        )}
         {races && races.length === 0 && !loading && (
           <div className="text-center py-8">
             <p className="text-xl text-slate-600">

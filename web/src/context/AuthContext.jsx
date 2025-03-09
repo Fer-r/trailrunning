@@ -41,11 +41,23 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ email, password }),
       });
 
-      if (!response.ok) {
-        throw new Error("Usuario o contraseña incorrectos");
+      // Try to parse the response as JSON, but handle potential errors
+      let data;
+      try {
+        data = await response.json();
+      } catch (e) {
+        // If JSON parsing fails, set a default error message
+        data = { message: "Error de conexión con el servidor" };
       }
+      
+      if (!response.ok) {
+        // Extract the error message from the response if available
+        const errorMessage = data?.message || "Usuario o contraseña incorrectos";
+        setError(errorMessage);
+        throw new Error(errorMessage);
+      }
+      
       // Si estoy aquí es porque el usuario se ha logueado correctamente
-      const data = await response.json();
       setUser(data.user);
       setToken(data.token);
       localStorage.setItem("token", data.token);

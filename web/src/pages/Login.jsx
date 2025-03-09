@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { FiMail, FiLock } from "react-icons/fi";
+import { FiMail, FiLock, FiAlertCircle } from "react-icons/fi";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 const LoginPage = () => {
@@ -11,7 +11,7 @@ const LoginPage = () => {
     password: "",
   });
 
-  const { login, loading } = useAuth();
+  const { login, loading, error } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -49,6 +49,16 @@ const LoginPage = () => {
             Inicia sesión para acceder a tu cuenta
           </p>
         </div>
+
+        {/* Error Message */}
+        {error && (
+          <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded">
+            <div className="flex items-center">
+              <FiAlertCircle className="text-red-500 mr-3" />
+              <p className="text-red-700">{error}</p>
+            </div>
+          </div>
+        )}
 
         {/* Form */}
         <form className="mt-10 space-y-8" onSubmit={handleSubmit}>
