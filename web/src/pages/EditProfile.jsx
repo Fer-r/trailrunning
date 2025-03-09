@@ -6,23 +6,21 @@ import { updateUser } from "../services/useServices";
 
 const EditProfile = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useAuth(); // Add setUser from context
+  const { user, setUser } = useAuth();
 
   const [formData, setFormData] = useState({
     name: "",
     oldpassword: "",
     newpassword: "",
     confirmPassword: "",
-    image: "",
   });
-  const [isLoading, setState] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (user) {
       setFormData((prevState) => ({
         ...prevState,
         name: user.name || "",
-        image: user.image || "",
       }));
     }
   }, [user]);
@@ -43,34 +41,39 @@ const EditProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setState(true);
+    setIsLoading(true);
 
-    if (!formData.oldpassword) {
+    if (!formData.oldpassword && formData.newpassword) {
       setPasswordError("Debes introducir tu contraseña actual");
-      setState(false);
+      setIsLoading(false);
       return;
     }
 
-    if (formData.newpassword !== formData.confirmPassword) {
+    if (
+      formData.oldpassword &&
+      formData.newpassword !== formData.confirmPassword
+    ) {
       setPasswordError("Las contraseñas no coinciden");
-      setState(false);
+      setIsLoading(false);
       return;
     }
 
     try {
       const updateData = {
         name: formData.name,
-        oldpassword: formData.oldpassword,
-        newpassword: formData.newpassword,
       };
 
-      const updatedUser = await updateUser(user.id, updateData);
-      setUser(updatedUser);
-      setState(false); // Reset loading state before navigation
+      if (formData.oldpassword) {
+        updateData.oldpassword = formData.oldpassword;
+        updateData.newpassword = formData.newpassword;
+      }
+
+      await updateUser(user.id, updateData, setUser);
+      setIsLoading(false);
       navigate("/profile");
     } catch (error) {
       setPasswordError(error.message);
-      setState(false);
+      setIsLoading(false);
     }
   };
 
@@ -78,17 +81,6 @@ const EditProfile = () => {
     <div className="min-w-4xl bg-gray-100 py-8 px-4 sm:px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-t-2xl shadow-lg p-12 mb-1 relative">
-          <div className="absolute top-20 right-30">
-            <div className="relative group">
-              <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-gray-200">
-                <img
-                  src={formData.image}
-                  alt="Profile"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
           <h2 className="text-4xl font-bold text-gray-900 mb-2 ml-15">
             Editar Perfil
           </h2>

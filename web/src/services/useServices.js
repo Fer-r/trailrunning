@@ -32,7 +32,7 @@ const postToAPI = async (endpoint, data) => {
       );
     }
     return await response.json();
-  } catch (error) {
+  } catch (error) { 
     console.error("API Error:", error);
     throw error;
   }
@@ -165,10 +165,9 @@ export const deleteParticipant = async (id) => {
   return await deleteFromAPI(`/api/trailrunning_participant/${id}`);
 };
 
-export const updateUser = async (userId, data) => {
+export const updateUser = async (userId, data, setUser) => {
   try {
     const token = localStorage.getItem("token");
-    console.log(data);
     const response = await fetch(`${BASE_URL}/api/user/${userId}/edit`, {
       method: "PUT",
       headers: {
@@ -184,7 +183,12 @@ export const updateUser = async (userId, data) => {
         errorData.message || `Error updating user: ${response.status}`
       );
     }
-    return await response.json();
+    const updatedUser = await response.json();
+    
+    // Update the user context with the provided setUser function
+    setUser(updatedUser);
+    
+    return updatedUser;
   } catch (error) {
     console.error("Update user error:", error);
     throw new Error(
