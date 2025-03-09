@@ -197,31 +197,16 @@ export const deleteParticipant = async (id) => {
   return await deleteFromAPI(`/api/trailrunning_participant/${id}`);
 };
 
-export const updateUser = async (userId, data, setUser) => {
+export const updateUser = async (userId, data) => {
   try {
     const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
-
-    // Validate data before sending to API
-    if (data.name && data.name.trim() === "") {
-      throw new Error("El nombre no puede estar vacío");
-    }
-
-    // Only include fields that can be updated
-    const updateData = {};
-    if (data.name && data.name.trim() === "") updateData.name = data.name;
-    if (data.newpassword) {
-      updateData.newpassword = data.newpassword;
-      updateData.oldpassword = data.oldpassword;
-    }
-
     const response = await fetch(`${BASE_URL}/api/user/${userId}/edit`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(updateData),
+      body: JSON.stringify(data),
     });
 
     if (!response.ok) {
@@ -231,17 +216,7 @@ export const updateUser = async (userId, data, setUser) => {
       );
     }
 
-    // Since API only returns true/false, update the local user object
-    const updatedUser = {
-      ...user,
-      name: updateData.name || user.name,
-    };
-
-    // Update the user context with the provided setUser function
-    setUser(updatedUser);
-    localStorage.setItem("user", JSON.stringify(updatedUser));
-
-    return updatedUser;
+    return await response.json();;
   } catch (error) {
     console.error("Update user error:", error);
     throw new Error(

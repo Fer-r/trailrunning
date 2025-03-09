@@ -68,7 +68,15 @@ const EditProfile = () => {
         updateData.newpassword = formData.newpassword;
       }
 
-      await updateUser(user.id, updateData, setUser);
+      const success = await updateUser(user.id, updateData); 
+
+      if (success) {
+        // Create a new updated user object
+        const updatedUserData = { ...user, name: formData.name };
+  
+        setUser(updatedUserData);
+        localStorage.setItem("user", JSON.stringify(updatedUserData));
+      }
       setIsLoading(false);
       navigate("/profile");
     } catch (error) {
