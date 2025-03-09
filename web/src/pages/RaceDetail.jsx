@@ -26,7 +26,7 @@ L.Icon.Default.mergeOptions({
 import { joinRace } from "../services/useServices";
 const RaceDetail = () => {
   const { id } = useParams();
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, setUser } = useAuth();
   const [isJoining, setIsJoining] = useState(false);
   const [joinMessage, setJoinMessage] = useState("");
   const [showMap, setShowMap] = useState(false);
@@ -61,17 +61,23 @@ const RaceDetail = () => {
 
     try {
       if (joined) {
-        await unjoinRace(joined.id);
+        await unjoinRace(joined.id, user, setUser);
         setJoinMessage("¡Te has desinscrito correctamente a la carrera!");
-      }else{
-        await joinRace(race.id, user.id);
+      } else {
+        await joinRace(race.id, user, setUser);
         setJoinMessage("¡Te has inscrito correctamente a la carrera!");
       }
       // Refresh participants list
       window.location.reload();
     } catch (error) {
       console.error("Error joining race:", error);
-      setJoinMessage("Error al inscribirse. Por favor, inténtalo de nuevo.");
+      if (joined) {
+        setJoinMessage(
+          "Error al desinscribirse. Por favor, inténtalo de nuevo."
+        );
+      } else {
+        setJoinMessage("Error al inscribirse. Por favor, inténtalo de nuevo.");
+      }
     } finally {
       setIsJoining(false);
     }
@@ -226,14 +232,11 @@ const RaceDetail = () => {
                   <span className="text-sm text-gray-500">Fecha</span>
                   <span className="font-medium text-center">
                     {race?.date
-                      ? new Date(race.date).toLocaleDateString(
-                          "es-ES",
-                          {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          }
-                        )
+                      ? new Date(race.date).toLocaleDateString("es-ES", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })
                       : "No disponible"}
                   </span>
                 </p>
@@ -242,13 +245,10 @@ const RaceDetail = () => {
                   <span className="text-sm text-gray-500">Hora</span>
                   <span className="font-medium">
                     {race?.date
-                      ? new Date(race.date).toLocaleTimeString(
-                          "es-ES",
-                          {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          }
-                        )
+                      ? new Date(race.date).toLocaleTimeString("es-ES", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })
                       : "No disponible"}
                   </span>
                 </p>

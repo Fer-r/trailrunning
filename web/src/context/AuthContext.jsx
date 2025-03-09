@@ -49,14 +49,15 @@ export const AuthProvider = ({ children }) => {
         // If JSON parsing fails, set a default error message
         data = { message: "Error de conexión con el servidor" };
       }
-      
+
       if (!response.ok) {
         // Extract the error message from the response if available
-        const errorMessage = data?.message || "Usuario o contraseña incorrectos";
+        const errorMessage =
+          data?.message || "Usuario o contraseña incorrectos";
         setError(errorMessage);
         throw new Error(errorMessage);
       }
-      
+
       // Si estoy aquí es porque el usuario se ha logueado correctamente
       setUser(data.user);
       setToken(data.token);
@@ -79,13 +80,20 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user");
   };
 
-  return (
-    <AuthContext.Provider
-      value={{ user, token, isAuthenticated, login, logOut, error, loading }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+
+  // Update the value object to include the new function
+  const value = {
+    user,
+    token,
+    isAuthenticated,
+    login,
+    logOut,
+    error,
+    loading,
+    setUser
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {

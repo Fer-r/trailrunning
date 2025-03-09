@@ -40,7 +40,10 @@ const Profile = () => {
           <div className="absolute -bottom-16 left-6">
             <div className="w-32 h-32 rounded-full border-4 border-white overflow-hidden bg-white shadow-xl">
               <img
-                src={user?.image || "https://via.placeholder.com/128"}
+                src={
+                  user?.image ||
+                  (user.gender ? "/photo-male.jpg" : "/photo-female.jpg")
+                }
                 alt="Profile"
                 className="w-full h-full object-cover"
                 onError={(e) => {

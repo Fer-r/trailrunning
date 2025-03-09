@@ -32,19 +32,40 @@ const postToAPI = async (endpoint, data) => {
       );
     }
     return await response.json();
-  } catch (error) { 
+  } catch (error) {
     console.error("API Error:", error);
     throw error;
   }
 };
 
 // Update joinRace function to handle the response better
-export const joinRace = async (raceId, userId) => {
+export const joinRace = async (raceId, user, setUser) => {
   try {
-    return await postToAPI(`/api/trailrunning_participant/new`, {
+    const data = await postToAPI(`/api/trailrunning_participant/new`, {
       trailRunning: raceId,
-      user: userId,
+      user: user.id,
     });
+
+    // Create a new participant object with the correct structure
+    const newParticipant = {
+      id: data.id,
+      trailRunning: data.trailRunning, // Use the API response directly
+      time: data.time,
+      dorsal: data.dorsal,
+      banned: data.banned,
+    };
+    const updatedUser = {
+      ...user,
+      trailRunningParticipants: [
+        ...user.trailRunningParticipants,
+        newParticipant,
+      ],
+    };
+    // Update user state with the new participant
+    setUser(updatedUser); // Fixed typo: was "setUser(updateUser)"
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+
+    return data;
   } catch (error) {
     console.error("Join race error:", error);
     throw new Error(
@@ -52,11 +73,22 @@ export const joinRace = async (raceId, userId) => {
     );
   }
 };
-export const unjoinRace = async (participantId) => {
+export const unjoinRace = async (participantId, user, setUser) => {
   try {
-    return await deleteFromAPI(
+    const data = await deleteFromAPI(
       `/api/trailrunning_participant/${participantId}`
     );
+    // console.log("Api response:", data);
+    const updatedUser = {
+      ...user,
+      trailRunningParticipants: user.trailRunningParticipants.filter(
+        (participant) => participant.id !== participantId
+      ),
+    };
+    // Update user state with the new participant
+    setUser(updatedUser);
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+    return data;
   } catch (error) {
     console.error("Unjoin race error:", error);
     throw new Error(
@@ -168,13 +200,28 @@ export const deleteParticipant = async (id) => {
 export const updateUser = async (userId, data, setUser) => {
   try {
     const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    // Validate data before sending to API
+    if (data.name && data.name.trim() === "") {
+      throw new Error("El nombre no puede estar vacío");
+    }
+
+    // Only include fields that can be updated
+    const updateData = {};
+    if (data.name && data.name.trim() === "") updateData.name = data.name;
+    if (data.newpassword) {
+      updateData.newpassword = data.newpassword;
+      updateData.oldpassword = data.oldpassword;
+    }
+
     const response = await fetch(`${BASE_URL}/api/user/${userId}/edit`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(updateData),
     });
 
     if (!response.ok) {
@@ -183,11 +230,17 @@ export const updateUser = async (userId, data, setUser) => {
         errorData.message || `Error updating user: ${response.status}`
       );
     }
-    const updatedUser = await response.json();
-    
+
+    // Since API only returns true/false, update the local user object
+    const updatedUser = {
+      ...user,
+      name: updateData.name || user.name,
+    };
+
     // Update the user context with the provided setUser function
     setUser(updatedUser);
-    
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+
     return updatedUser;
   } catch (error) {
     console.error("Update user error:", error);
