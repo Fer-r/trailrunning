@@ -40,7 +40,7 @@ jobs:
         with:
           files: |
             desktop/trailrunning_desktop/build/libs/*.jar
-          name: Desktop App Release ${{ github.event.inputs.version || github.sha }}
+          name: Desktop App Release ${{ github.event.inputs.version || github.run_number }}
           tag_name: desktop-v${{ github.event.inputs.version || github.run_number }}
           draft: false
           prerelease: false

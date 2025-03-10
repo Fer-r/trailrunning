@@ -50,7 +50,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: ${{steps.sign_app.outputs.signedReleaseFile}}
-          name: Android App Release ${{ github.event.inputs.version || github.sha }}
+          name: Android App Release ${{ github.event.inputs.version || github.run_number }}
           tag_name: android-v${{ github.event.inputs.version || github.run_number }}
           draft: false
           prerelease: false
