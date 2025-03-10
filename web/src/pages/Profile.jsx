@@ -62,7 +62,8 @@ const Profile = () => {
               <p className="text-gray-600 mt-1">{user?.email}</p>
               <div className="mt-4 space-y-2">
                 <p className="text-gray-700">
-                  <span className="font-medium">Género:</span> {user?.gender}
+                  <span className="font-medium">Género:</span>{' '}
+                  {user?.gender === 'M' ? 'Hombre' : user?.gender === 'F' ? 'Mujer' : user?.gender}
                 </p>
                 <p className="text-gray-700">
                   <span className="font-medium">Edad:</span> {user?.age} años
