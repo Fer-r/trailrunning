@@ -1,0 +1,46 @@
+name: Deploy Web Changes
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'web/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Git user
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+      
+      - name: Create web-deploy branch if it doesn't exist
+        run: |
+          git fetch origin
+          if ! git ls-remote --heads origin web-deploy | grep web-deploy; then
+            git checkout -b web-deploy
+            git push -u origin web-deploy
+          else
+            git checkout web-deploy
+            git pull origin web-deploy
+          fi
+      
+      - name: Sync main branch changes to web-deploy
+        run: |
+          git checkout web-deploy
+          git checkout main -- web/
+          git add web/
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-sync web changes from main commit ${GITHUB_SHA}"
+            git push origin web-deploy
+          fi

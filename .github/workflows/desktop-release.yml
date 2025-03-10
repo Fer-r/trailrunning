@@ -1,10 +1,10 @@
-name: Desktop App Release
+name: JavaFX Desktop App Release
 
 on:
   push:
     branches: [ main ]
     paths:
-      - 'desktop/**'
+      - 'desktop/trailrunning_desktop/**'
 
 jobs:
   build:
@@ -18,18 +18,22 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: maven
+          cache: gradle
           
-      - name: Build with Maven
+      - name: Grant execute permission for gradlew
+        run: chmod +x desktop/trailrunning_desktop/gradlew
+        
+      - name: Build with Gradle
         run: |
           cd desktop/trailrunning_desktop
-          mvn clean package
+          ./gradlew build
           
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          files: desktop/trailrunning_desktop/target/*.jar
+          files: |
+            desktop/trailrunning_desktop/build/libs/*.jar
           name: Desktop App Release ${{ github.sha }}
           tag_name: desktop-v${{ github.run_number }}
           draft: false
