@@ -65,10 +65,10 @@ const Profile = () => {
                   <span className="font-medium">Género:</span> {user?.gender}
                 </p>
                 <p className="text-gray-700">
-                  <span className="font-medium">Edad:</span>{" "}
-                  {user?.birthDate
+                  <span className="font-medium">Edad:</span> {user?.age} años
+                  {/* {user?.birthDate
                     ? `${calculateAge(user.birthDate)} años`
-                    : "No especificado"}
+                    : "No especificado"} */}
                 </p>
               </div>
             </div>
