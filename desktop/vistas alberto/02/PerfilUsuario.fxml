@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="609.0" prefWidth="931.0" spacing="20.0" style="-fx-background-color: #F8E4BE; -fx-border-radius: 55;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorLogin">
+   <children>
+      <HBox prefHeight="55.0" prefWidth="918.0" style="-fx-background-color: #8EB486;">
+         <children>
+            <VBox prefHeight="55.0" prefWidth="72.0">
+               <children>
+                  <ImageView fitHeight="55.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/logo.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+               </children>
+            </VBox>
+            <Label prefHeight="55.0" prefWidth="556.0" text="Trail Running">
+               <font>
+                  <Font name="Georgia Bold Italic" size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnPaginaPrincipal" alignment="BOTTOM_CENTER" mnemonicParsing="false" prefHeight="42.0" prefWidth="146.0" style="-fx-label-padding: 8px; -fx-border-color: white; -fx-border-radius: 36px; -fx-background-color: #8EB486;" text="Página principal" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Regular" size="13.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="6.0" top="6.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnCerrarSesion" alignment="BOTTOM_CENTER" mnemonicParsing="false" prefHeight="42.0" prefWidth="146.0" style="-fx-label-padding: 8px; -fx-border-color: white; -fx-border-radius: 36px; -fx-background-color: #8EB486;" text="Cerrar sesión" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Regular" size="13.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="6.0" top="6.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="456.0" prefWidth="852.0">
+         <children>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="860.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="1.0" prefHeight="42.0" prefWidth="470.0" text="Mis carreras">
+                     <font>
+                        <Font name="SansSerif Italic" size="24.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="tableView" layoutX="15.0" layoutY="47.0" prefHeight="371.0" prefWidth="475.0">
+                    <columns>
+                      <TableColumn fx:id="colNombre" prefWidth="141.0" text="Nombre" />
+                      <TableColumn fx:id="colCategoria" prefWidth="129.0" text="Categoría" />
+                        <TableColumn fx:id="colLugar" prefWidth="93.0" text="Lugar" />
+                        <TableColumn fx:id="colFecha" prefWidth="111.0" text="Fecha" />
+                    </columns>
+                  </TableView>
+                  <HBox layoutX="627.0" layoutY="7.0" spacing="20.0" />
+                  <VBox layoutX="498.0" layoutY="47.0" spacing="20.0" />
+                  <ImageView fitHeight="99.0" fitWidth="101.0" layoutX="617.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+                  <VBox layoutX="492.0" layoutY="108.0" prefHeight="267.0" prefWidth="352.0" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="352.0" text="Datos participación">
+                           <font>
+                              <Font name="SansSerif Regular" size="16.0" />
+                           </font>
+                        </Label>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Label alignment="CENTER" text="Dorsal:">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label fx:id="lblDorsal" alignment="CENTER" text="lblDorsal" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Label text="Fecha de inscripción:">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label fx:id="lblFechaInscripcion" text="lblFechaInscripcion" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Label text="Posicion">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label text="lblDorsal" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Label text="Tiempo">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label text="lblDorsal" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Label text="Km">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label text="lblDorsal" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Label text="Clima">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label text="lblDorsal" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Label text="Medio">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label text="lblDorsal" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Label text="Kcal">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label text="lblDorsal" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Label text="Otros">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label text="lblDorsal" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Button fx:id="btnDesinscribirse" layoutX="622.0" layoutY="391.0" mnemonicParsing="false" style="-fx-border-color: white; -fx-background-color: orange; -fx-background-radius: 44;" text="Desinscribirse" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+      <HBox prefHeight="65.0" prefWidth="742.0" style="-fx-background-color: #8EB486;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="926.0" text="© 2025 Trail Running Hlanz. Todos los derechos reservados." textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Regular" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+</VBox>

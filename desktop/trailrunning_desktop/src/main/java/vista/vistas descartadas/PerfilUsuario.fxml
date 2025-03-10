@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="466.0" prefWidth="774.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorPerfil">
+   <children>
+      <Label layoutX="76.0" layoutY="54.0" text="Mis carreras">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tableView" layoutX="76.0" layoutY="131.0" prefHeight="248.0" prefWidth="386.0">
+        <columns>
+          <TableColumn fx:id="colNombre" prefWidth="116.0" text="Nombre" />
+          <TableColumn fx:id="colCategoria" prefWidth="81.0" text="Categoría" />
+            <TableColumn fx:id="colLugar" prefWidth="89.0" text="Lugar" />
+            <TableColumn fx:id="colFecha" prefWidth="99.0" text="Fecha" />
+        </columns>
+      </TableView>
+      <HBox layoutX="527.0" layoutY="42.0" spacing="20.0">
+         <children>
+            <Button fx:id="btnPaginaPrincipal" mnemonicParsing="false" text="Página principal" />
+            <Button fx:id="btnCerrarSesion" mnemonicParsing="false" text="Cerrar sesión" textFill="RED" />
+         </children>
+      </HBox>
+      <VBox layoutX="497.0" layoutY="159.0" spacing="20.0">
+         <children>
+            <VBox spacing="10.0">
+               <children>
+                  <Label text="Datos participación">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Label>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Label text="Dorsal:" />
+                        <Label fx:id="lblDorsal" text="lblDorsal" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Label text="Fecha de inscripción:" />
+                        <Label fx:id="lblFechaInscripcion" text="lblFechaInscripcion" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox spacing="10.0">
+               <children>
+                  <Label text="Operaciones">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Label>
+                  <Label text="Operación 1" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <Button fx:id="btnDesinscribirse" layoutX="551.0" layoutY="361.0" mnemonicParsing="false" text="Desinscribirse" />
+   </children>
+</AnchorPane>

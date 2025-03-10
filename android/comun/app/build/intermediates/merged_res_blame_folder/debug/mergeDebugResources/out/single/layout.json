@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "damdaw.mobile.application.app-mergeDebugResources-31:/layout/fragment_inicio.xml",
+        "source": "damdaw.mobile.application.app-main-34:/layout/fragment_inicio.xml"
+    },
+    {
+        "merged": "damdaw.mobile.application.app-mergeDebugResources-31:/layout/activity_main.xml",
+        "source": "damdaw.mobile.application.app-main-34:/layout/activity_main.xml"
+    }
+]

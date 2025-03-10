@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="933.0" spacing="20.0" style="-fx-background-color: #F8E4BE; -fx-border-radius: 55;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorCarreras">
+   <children>
+      <HBox prefHeight="55.0" prefWidth="918.0" style="-fx-background-color: #8EB486;">
+         <children>
+            <VBox prefHeight="55.0" prefWidth="72.0">
+               <children>
+                  <ImageView fitHeight="55.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin>
+                     <image>
+                        <Image url="@img/logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <Label prefHeight="78.0" prefWidth="690.0" text="Trail Running">
+               <font>
+                  <Font name="Georgia Bold Italic" size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnIniciarSesion" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#cambiarAVentanaLogin" prefHeight="42.0" prefWidth="146.0" style="-fx-label-padding: 8px; -fx-border-color: white; -fx-border-radius: 36px; -fx-background-color: #8EB486;" text="Iniciar sesión" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Bold" size="13.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="6.0" right="6.0" top="6.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="852.0">
+         <children>
+            <VBox prefHeight="500.0" prefWidth="852.0">
+               <children>
+                  <VBox prefHeight="34.0" prefWidth="852.0" spacing="10.0">
+                     <children>
+                        <Label text="Carreras">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                           <children>
+                              <Label text="Filtrar:" />
+                              <TextField fx:id="edtFiltrado" />
+                              <ComboBox fx:id="comboFiltro" prefHeight="26.0" prefWidth="161.0" style="-fx-background-color: orange; -fx-background-radius: 5;" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="15.0" left="45.0" right="45.0" top="15.0" />
+                     </padding>
+                  </VBox>
+                  <HBox prefHeight="387.0" prefWidth="852.0" spacing="45.0">
+                     <children>
+                        <TableView fx:id="tableView" prefHeight="300.0" prefWidth="400.0">
+                           <columns>
+                              <TableColumn fx:id="columnaID" prefWidth="26.0" text="ID" />
+                              <TableColumn fx:id="columnaNombre" prefWidth="113.0" text="Nombre" />
+                              <TableColumn fx:id="columnaCategoria" prefWidth="124.0" text="Categoria" />
+                              <TableColumn fx:id="columnaUbicacion" prefWidth="85.0" text="Lugar" />
+                              <TableColumn fx:id="columnaEstado" maxWidth="500.0" prefWidth="110.0" text="Estado" />
+                           </columns>
+                        </TableView>
+                        <VBox alignment="CENTER" prefHeight="405.0" prefWidth="305.0" spacing="25.0">
+                           <children>
+                              <ImageView fx:id="imagenCarrera" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" />
+                              <HBox prefHeight="230.0" prefWidth="286.0" spacing="20.0">
+                                 <children>
+                                    <VBox prefHeight="230.0" prefWidth="330.0" spacing="15.0">
+                                       <children>
+                                          <Label text="Descripción:">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label text="Distancia:">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label text="Tiempo:">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="10.0" layoutY="45.0" text="Fecha:">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="10.0" layoutY="150.0" text="Precio:">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="10.0" layoutY="185.0" text="Plazas disponibles:">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="230.0" prefWidth="363.0" spacing="15.0">
+                                       <children>
+                                          <Label fx:id="labelDescripcion" text="-">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="labelDistancia" text="-">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="labelTiempo" text="-">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblFecha" layoutX="10.0" layoutY="115.0" text="-">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblPrecio" layoutX="10.0" layoutY="150.0" text="-">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblPlazas" layoutX="10.0" layoutY="185.0" text="-">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Button fx:id="btnInscribirse" mnemonicParsing="false" style="-fx-background-color: orange; -fx-background-radius: 5;" text="Inscribirse" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="15.0" left="45.0" right="45.0" top="15.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <HBox minHeight="50.0" prefHeight="28.0" prefWidth="933.0" style="-fx-background-color: #8EB486;" />
+   </children>
+</VBox>

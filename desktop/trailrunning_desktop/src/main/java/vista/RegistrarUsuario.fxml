@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="427.0" spacing="20.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorRegistrarUsuario">
+   <children>
+      <Label text="Nuevo usuario">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <VBox maxWidth="250.0" spacing="20.0">
+         <children>
+            <Label text="Nombre de usuario:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="edtUsuario" />
+            <Label text="Introduzca su correo electrónico:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="edtEmail" />
+            <Label text="Introduzca la contraseña:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="edtPassword1" />
+            <Label text="Repita la contraseña:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="edtPassword2" />
+         </children>
+      </VBox>
+      <Button fx:id="btnCrearUsuario" mnemonicParsing="false" text="Crear usuario" />
+      <Button fx:id="btnVolver" mnemonicParsing="false" text="Volver" />
+   </children>
+</VBox>
