@@ -11,6 +11,9 @@ on:
         description: 'Commit message'
         required: false
         default: 'Manual web deployment'
+        
+permissions:
+  contents: write
 
 jobs:
   deploy:
