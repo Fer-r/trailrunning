@@ -8,22 +8,6 @@ const Profile = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const calculateAge = (birthDate) => {
-    const birth = new Date(birthDate);
-    const today = new Date();
-    let age = today.getFullYear() - birth.getFullYear();
-    const monthDiff = today.getMonth() - birth.getMonth();
-
-    if (
-      monthDiff < 0 ||
-      (monthDiff === 0 && today.getDate() < birth.getDate())
-    ) {
-      age--;
-    }
-
-    return age;
-  };
-
   useEffect(() => {
     if (user) {
       setLoading(false);
@@ -62,13 +46,12 @@ const Profile = () => {
               <p className="text-gray-600 mt-1">{user?.email}</p>
               <div className="mt-4 space-y-2">
                 <p className="text-gray-700">
-                  <span className="font-medium">Género:</span> {user?.gender}
+                  <span className="font-medium">Género:</span>{" "}
+                  {user?.gender === "M" ? "Hombre" : "Mujer"}
                 </p>
                 <p className="text-gray-700">
                   <span className="font-medium">Edad:</span>{" "}
-                  {user?.birthDate
-                    ? `${calculateAge(user.birthDate)} años`
-                    : "No especificado"}
+                  {user?.age ? `${user.age} años` : "No especificado"}
                 </p>
               </div>
             </div>
