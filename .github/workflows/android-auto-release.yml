@@ -5,6 +5,12 @@ on:
     branches: [ main ]
     paths:
       - 'android/**'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number'
+        required: false
+        default: ''
 
 jobs:
   build:
@@ -44,8 +50,8 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: ${{steps.sign_app.outputs.signedReleaseFile}}
-          name: Android App Release ${{ github.sha }}
-          tag_name: android-v${{ github.run_number }}
+          name: Android App Release ${{ github.event.inputs.version || github.sha }}
+          tag_name: android-v${{ github.event.inputs.version || github.run_number }}
           draft: false
           prerelease: false
           generate_release_notes: true

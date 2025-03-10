@@ -5,6 +5,12 @@ on:
     branches: [ main ]
     paths:
       - 'web/**'
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'Commit message'
+        required: false
+        default: 'Manual web deployment'
 
 jobs:
   deploy:
@@ -41,6 +47,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Auto-sync web changes from main commit ${GITHUB_SHA}"
+            git commit -m "${{ github.event.inputs.message || format('Auto-sync web changes from main commit {0}', github.sha) }}"
             git push origin web-deploy
           fi

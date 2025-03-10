@@ -5,6 +5,12 @@ on:
     branches: [ main ]
     paths:
       - 'desktop/trailrunning_desktop/**'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number'
+        required: false
+        default: ''
 
 jobs:
   build:
@@ -34,8 +40,8 @@ jobs:
         with:
           files: |
             desktop/trailrunning_desktop/build/libs/*.jar
-          name: Desktop App Release ${{ github.sha }}
-          tag_name: desktop-v${{ github.run_number }}
+          name: Desktop App Release ${{ github.event.inputs.version || github.sha }}
+          tag_name: desktop-v${{ github.event.inputs.version || github.run_number }}
           draft: false
           prerelease: false
           generate_release_notes: true
